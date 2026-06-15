@@ -1,6 +1,5 @@
 import UIKit
 import React
-import React_RCTAppDelegate
 import ReactAppDependencyProvider
 internal import ExpoModulesCore
 internal import Expo
