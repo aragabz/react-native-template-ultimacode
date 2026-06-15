@@ -2,29 +2,40 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
-import ExpoModulesCore
+internal import ExpoModulesCore
+internal import Expo
 
 @main
 class AppDelegate: ExpoAppDelegate {
+  var window: UIWindow?
+  var reactNativeFactory: ExpoReactNativeFactory?
+
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    self.moduleName = "ReactNativeTemplate"
-    self.dependencyProvider = RCTAppDependencyProvider()
+    let delegate = ReactNativeDelegate()
+    let factory = ExpoReactNativeFactory(delegate: delegate)
+    self.reactNativeFactory = factory
+    delegate.dependencyProvider = RCTAppDependencyProvider()
+
+    self.window = UIWindow(frame: UIScreen.main.bounds)
+    factory.startReactNative(
+      withModuleName: "ReactNativeTemplate",
+      in: self.window,
+      launchOptions: launchOptions
+    )
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
+}
 
-  override func sourceURL(for bridge: RCTBridge) -> URL? {
-    self.bundleURL()
-  }
-
+class ReactNativeDelegate: ExpoReactNativeFactoryDelegate {
   override func bundleURL() -> URL? {
 #if DEBUG
-    RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
+    return RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
 #else
-    Bundle.main.url(forResource: "main", withExtension: "jsbundle")
+    return Bundle.main.url(forResource: "main", withExtension: "jsbundle")
 #endif
   }
 }
