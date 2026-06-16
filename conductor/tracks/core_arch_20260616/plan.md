@@ -5,12 +5,12 @@
 - [x] Task: Configure basic project structure for architecture (src/navigation, src/store, src/api)
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Initial Setup' (Protocol in workflow.md)
 
-## Phase 2: Navigation Implementation
+## Phase 2: Navigation Implementation [checkpoint: fd427d7]
 - [x] Task: Write Tests: Navigation Container and Root Stack [cd841a6]
 - [x] Task: Implement Feature: Basic Stack Navigation [b6cba8a]
 - [x] Task: Write Tests: Tab Navigation [011046f]
 - [x] Task: Implement Feature: Bottom Tab Navigation example [011046f]
-- [~] Task: Conductor - User Manual Verification 'Phase 2: Navigation Implementation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Navigation Implementation' (Protocol in workflow.md) [fd427d7]
 
 ## Phase 3: State Management with Zustand
 - [ ] Task: Write Tests: Initial Zustand Store (e.g., Theme/Settings)
