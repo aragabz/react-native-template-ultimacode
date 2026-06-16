@@ -13,7 +13,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Navigation Implementation' (Protocol in workflow.md) [fd427d7]
 
 ## Phase 3: State Management with Zustand
-- [ ] Task: Write Tests: Initial Zustand Store (e.g., Theme/Settings)
+- [~] Task: Write Tests: Initial Zustand Store (e.g., Theme/Settings)
 - [ ] Task: Implement Feature: Global Store with Zustand
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: State Management' (Protocol in workflow.md)
 
