@@ -8,9 +8,9 @@
 ## Phase 2: Navigation Implementation
 - [x] Task: Write Tests: Navigation Container and Root Stack [cd841a6]
 - [x] Task: Implement Feature: Basic Stack Navigation [b6cba8a]
-- [~] Task: Write Tests: Tab Navigation
-- [ ] Task: Implement Feature: Bottom Tab Navigation example
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Navigation Implementation' (Protocol in workflow.md)
+- [x] Task: Write Tests: Tab Navigation [011046f]
+- [x] Task: Implement Feature: Bottom Tab Navigation example [011046f]
+- [~] Task: Conductor - User Manual Verification 'Phase 2: Navigation Implementation' (Protocol in workflow.md)
 
 ## Phase 3: State Management with Zustand
 - [ ] Task: Write Tests: Initial Zustand Store (e.g., Theme/Settings)
