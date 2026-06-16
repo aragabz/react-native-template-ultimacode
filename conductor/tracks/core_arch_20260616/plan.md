@@ -14,8 +14,8 @@
 
 ## Phase 3: State Management with Zustand
 - [x] Task: Write Tests: Initial Zustand Store (e.g., Theme/Settings) [3b594ee]
-- [~] Task: Implement Feature: Global Store with Zustand
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: State Management' (Protocol in workflow.md)
+- [x] Task: Implement Feature: Global Store with Zustand [a26e021]
+- [~] Task: Conductor - User Manual Verification 'Phase 3: State Management' (Protocol in workflow.md)
 
 ## Phase 4: Data Fetching with TanStack Query
 - [ ] Task: Write Tests: Query Client Configuration and API Hooks
