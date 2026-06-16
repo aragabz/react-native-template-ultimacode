@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react-native';
+import { render, screen, fireEvent } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootNavigator } from '../RootNavigator';
 
-// Mock the native modules needed by React Navigation
+// Mock the native modules
 jest.mock('react-native-screens', () => {
   const React = require('react');
   return {
@@ -51,14 +51,25 @@ jest.mock('react-native-safe-area-context', () => {
   };
 });
 
-describe('RootNavigator', () => {
-  it('renders the initial screen (Home)', async () => {
+describe('TabNavigator', () => {
+  it('renders Home and Settings tabs', async () => {
     await render(
       <NavigationContainer>
         <RootNavigator />
       </NavigationContainer>
     );
 
+    // Initial screen should be Home (via TabNavigator)
     expect(await screen.findByText('Home Screen')).toBeTruthy();
+    
+    // Check if Settings tab is available
+    const settingsTab = screen.getByText('Settings');
+    expect(settingsTab).toBeTruthy();
+    
+    // Switch to Settings tab
+    fireEvent.press(settingsTab);
+    
+    // Should show Settings Screen
+    expect(await screen.findByText('Settings Screen')).toBeTruthy();
   });
 });
