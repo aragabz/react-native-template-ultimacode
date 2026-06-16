@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Implement Core Architecture: Navigation and State Management**
+- [~] **Track: Implement Core Architecture: Navigation and State Management**
   *Link: [./tracks/core_arch_20260616/](./tracks/core_arch_20260616/)*
