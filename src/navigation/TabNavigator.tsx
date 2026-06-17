@@ -6,6 +6,12 @@ import { DemoScreen } from '../screens/DemoScreen';
 
 const Tab = createBottomTabNavigator();
 
+/**
+ * Bottom tab navigator for the application's main content.
+ * Provides access to Home, Demo, and Settings screens.
+ * 
+ * @return {React.JSX.Element} The rendered bottom tab bar.
+ */
 export const TabNavigator = () => {
   return (
     <Tab.Navigator>

@@ -7,6 +7,10 @@ type CounterState = {
   reset: () => void;
 };
 
+/**
+ * Global store for managing a simple counter state.
+ * Demonstrates basic Zustand state management.
+ */
 export const useCounterStore = create<CounterState>((set) => ({
   count: 0,
   increment: () => set((state) => ({ count: state.count + 1 })),

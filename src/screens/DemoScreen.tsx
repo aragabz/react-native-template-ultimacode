@@ -9,14 +9,15 @@ import {
 } from 'react-native';
 import { useCounterStore } from '../store/useCounterStore';
 import { useThemeStore } from '../store/useThemeStore';
-import { usePosts } from '../api/hooks/usePosts';
+import { usePosts, Post } from '../api/hooks/usePosts';
 
 export const DemoScreen = () => {
   const { count, increment, decrement } = useCounterStore();
-  const { isDarkMode, toggleTheme } = useThemeStore();
+  const { theme, toggleTheme } = useThemeStore();
+  const isDarkMode = theme === 'dark';
   const { data: posts, isLoading, isError, refetch } = usePosts();
 
-  const renderPost = ({ item }: { item: any }) => (
+  const renderPost = ({ item }: { item: Post }) => (
     <View style={styles.postItem}>
       <Text style={[styles.postTitle, isDarkMode && styles.darkText]}>
         {item.title}
