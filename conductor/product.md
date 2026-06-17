@@ -14,7 +14,7 @@ To provide a robust, "batteries-included" React Native template that enables bot
 A comprehensive starting point that integrates industry-standard libraries and native capabilities out of the box, allowing developers to focus on building unique business logic rather than boilerplate configuration.
 
 ## Key Features & Capabilities
-- **Modern State Management & Navigation:** Pre-configured with top-tier libraries (e.g., React Navigation, TanStack Query) for a seamless development experience.
+- **Modern State Management & Navigation:** Pre-configured with React Navigation, Zustand, and TanStack Query for a robust and scalable development foundation.
 - **Integrated Native Capabilities:** Built-in support for essential mobile features like biometrics, push notifications, and deep linking.
 - **"Batteries Included" Approach:** Includes essential modules for authentication, networking, and local storage.
 

@@ -19,3 +19,6 @@
 ## Libraries
 - **react-native-safe-area-context (5.8.0):** For handling safe area insets across different devices.
 - **expo-modules-autolinking:** For automatic linking of Expo and other native modules.
+- **React Navigation (7.3.3):** For seamless app navigation (Stack and Tab).
+- **Zustand (5.0.14):** For lightweight and scalable global state management.
+- **TanStack Query (5.101.0):** For efficient data fetching, caching, and synchronization.
