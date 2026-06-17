@@ -27,7 +27,7 @@ describe('usePosts', () => {
       json: jest.fn().mockResolvedValue(mockPosts),
     });
 
-    const { result } = renderHook(() => usePosts(), { wrapper });
+    const { result } = await renderHook(() => usePosts(), { wrapper });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data).toEqual(mockPosts);
@@ -38,7 +38,7 @@ describe('usePosts', () => {
       ok: false,
     });
 
-    const { result } = renderHook(() => usePosts(), { wrapper });
+    const { result } = await renderHook(() => usePosts(), { wrapper });
 
     await waitFor(() => expect(result.current.isError).toBe(true));
   });
