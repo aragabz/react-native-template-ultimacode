@@ -22,7 +22,7 @@
 - [x] Task: Implement Feature: TanStack Query Setup and Sample API Hook [d7e7472]
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Data Fetching' (Protocol in workflow.md) [f57469e]
 
-## Phase 5: Integration and Sample Components
+## Phase 5: Integration and Sample Components [checkpoint: c822c11]
 - [x] Task: Write Tests: Integration of Nav, Store, and Query in a sample screen [4aeb7e9]
 - [x] Task: Implement Feature: Demo Screen showcasing core architecture [8fd486f]
-- [~] Task: Conductor - User Manual Verification 'Phase 5: Integration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 5: Integration' (Protocol in workflow.md) [c822c11]
