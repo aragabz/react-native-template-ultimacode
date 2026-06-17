@@ -18,8 +18,8 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: State Management' (Protocol in workflow.md) [022de06]
 
 ## Phase 4: Data Fetching with TanStack Query
-- [ ] Task: Write Tests: Query Client Configuration and API Hooks
-- [ ] Task: Implement Feature: TanStack Query Setup and Sample API Hook
+- [x] Task: Write Tests: Query Client Configuration and API Hooks [e3a12f0]
+- [~] Task: Implement Feature: TanStack Query Setup and Sample API Hook
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Data Fetching' (Protocol in workflow.md)
 
 ## Phase 5: Integration and Sample Components
