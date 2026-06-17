@@ -30,15 +30,15 @@ describe('DemoScreen', () => {
       json: jest.fn().mockResolvedValue([{ id: 1, title: 'Test Post' }]),
     });
 
-    render(<DemoScreen />, { wrapper });
+    const { getByText } = await render(<DemoScreen />, { wrapper });
 
     // Check for Counter (Zustand)
-    expect(screen.getByText(/Counter:/i)).toBeTruthy();
+    expect(getByText(/Counter:/i)).toBeTruthy();
 
     // Check for Theme (Zustand)
-    expect(screen.getByText(/Theme:/i)).toBeTruthy();
+    expect(getByText(/Theme:/i)).toBeTruthy();
 
     // Check for Posts (TanStack Query)
-    await waitFor(() => expect(screen.getByText('Test Post')).toBeTruthy());
+    await waitFor(() => expect(getByText('Test Post')).toBeTruthy());
   });
 });
