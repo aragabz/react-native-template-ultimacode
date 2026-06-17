@@ -19,8 +19,8 @@
 
 ## Phase 4: Data Fetching with TanStack Query
 - [x] Task: Write Tests: Query Client Configuration and API Hooks [e3a12f0]
-- [~] Task: Implement Feature: TanStack Query Setup and Sample API Hook
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Data Fetching' (Protocol in workflow.md)
+- [x] Task: Implement Feature: TanStack Query Setup and Sample API Hook [d7e7472]
+- [~] Task: Conductor - User Manual Verification 'Phase 4: Data Fetching' (Protocol in workflow.md)
 
 ## Phase 5: Integration and Sample Components
 - [ ] Task: Write Tests: Integration of Nav, Store, and Query in a sample screen
