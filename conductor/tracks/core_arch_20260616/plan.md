@@ -24,5 +24,5 @@
 
 ## Phase 5: Integration and Sample Components
 - [x] Task: Write Tests: Integration of Nav, Store, and Query in a sample screen [4aeb7e9]
-- [~] Task: Implement Feature: Demo Screen showcasing core architecture
-- [ ] Task: Conductor - User Manual Verification 'Phase 5: Integration' (Protocol in workflow.md)
+- [x] Task: Implement Feature: Demo Screen showcasing core architecture [8fd486f]
+- [~] Task: Conductor - User Manual Verification 'Phase 5: Integration' (Protocol in workflow.md)
