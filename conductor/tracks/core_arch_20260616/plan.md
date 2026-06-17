@@ -17,10 +17,10 @@
 - [x] Task: Implement Feature: Global Store with Zustand [a26e021]
 - [x] Task: Conductor - User Manual Verification 'Phase 3: State Management' (Protocol in workflow.md) [022de06]
 
-## Phase 4: Data Fetching with TanStack Query
+## Phase 4: Data Fetching with TanStack Query [checkpoint: f57469e]
 - [x] Task: Write Tests: Query Client Configuration and API Hooks [e3a12f0]
 - [x] Task: Implement Feature: TanStack Query Setup and Sample API Hook [d7e7472]
-- [~] Task: Conductor - User Manual Verification 'Phase 4: Data Fetching' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Data Fetching' (Protocol in workflow.md) [f57469e]
 
 ## Phase 5: Integration and Sample Components
 - [ ] Task: Write Tests: Integration of Nav, Store, and Query in a sample screen
