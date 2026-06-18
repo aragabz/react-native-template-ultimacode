@@ -1,3 +1,22 @@
 module.exports = {
   presets: ['babel-preset-expo'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        root: ['./'],
+        alias: {
+          '@api': './src/services',
+          '@components': './src/components',
+          '@screens': './src/screens',
+          '@store': './src/store',
+          '@services': './src/services',
+          '@hooks': './src/hooks',
+          '@utils': './src/utils',
+          '@navigation': './src/navigation',
+          '@theme': './src/theme',
+        },
+      },
+    ],
+  ],
 };

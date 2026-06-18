@@ -6,65 +6,77 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  useColorScheme,
 } from 'react-native';
-import { useCounterStore } from '../store/useCounterStore';
-import { useThemeStore } from '../store/useThemeStore';
-import { usePosts, Post } from '../api/hooks/usePosts';
+import { useCounterStore } from '@store/useCounterStore';
+import { useThemeStore } from '@store/useThemeStore';
+import { usePosts, Post } from '@api/hooks/usePosts';
+import { colors, spacing, typography } from '@theme';
 
 export const DemoScreen = () => {
   const { count, increment, decrement } = useCounterStore();
-  const { theme, toggleTheme } = useThemeStore();
-  const isDarkMode = theme === 'dark';
+  const { mode, setMode } = useThemeStore();
+  const systemColorScheme = useColorScheme();
+
+  const currentMode = mode === 'system' ? systemColorScheme : mode;
+  const isDarkMode = currentMode === 'dark';
+  const themeColors = isDarkMode ? colors.dark : colors.light;
+
   const { data: posts, isLoading, isError, refetch } = usePosts();
 
+  const toggleTheme = () => {
+    const nextMode = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
+    setMode(nextMode);
+  };
+
   const renderPost = ({ item }: { item: Post }) => (
-    <View style={styles.postItem}>
-      <Text style={[styles.postTitle, isDarkMode && styles.darkText]}>
+    <View style={[styles.postItem, { borderBottomColor: themeColors.border }]}>
+      <Text style={[styles.postTitle, { color: themeColors.text }]}>
         {item.title}
       </Text>
     </View>
   );
 
   return (
-    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
-      <Text style={[styles.title, isDarkMode && styles.darkText]}>
+    <View style={[styles.container, { backgroundColor: themeColors.background }]}>
+      <Text style={[styles.title, { color: themeColors.text }]}>
         Core Architecture Demo
       </Text>
 
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, isDarkMode && styles.darkText]}>
+      <View style={[styles.section, { backgroundColor: isDarkMode ? '#1c1c1e' : '#f0f0f0' }]}>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
           Zustand State Management
         </Text>
-        <Text style={[styles.text, isDarkMode && styles.darkText]}>
+        <Text style={[styles.text, { color: themeColors.text }]}>
           Counter: {count}
         </Text>
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.button} onPress={decrement}>
+          <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary }]} onPress={decrement}>
             <Text style={styles.buttonText}>-</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={increment}>
+          <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary }]} onPress={increment}>
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
         </View>
 
-        <Text style={[styles.text, isDarkMode && styles.darkText, { marginTop: 10 }]}>
-          Theme: {isDarkMode ? 'Dark' : 'Light'}
+        <Text style={[styles.text, { color: themeColors.text, marginTop: spacing.md }]}>
+          Theme Mode: {mode.toUpperCase()}
         </Text>
-        <TouchableOpacity style={styles.button} onPress={toggleTheme}>
-          <Text style={styles.buttonText}>Toggle Theme</Text>
+        <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary, marginTop: spacing.sm }]} onPress={toggleTheme}>
+          <Text style={styles.buttonText}>Toggle Mode</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={[styles.section, { flex: 1 }]}>
-        <Text style={[styles.sectionTitle, isDarkMode && styles.darkText]}>
+      <View style={[styles.section, { flex: 1, backgroundColor: isDarkMode ? '#1c1c1e' : '#f0f0f0' }]}>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
           TanStack Query (API)
         </Text>
         {isLoading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color={themeColors.primary} />
         ) : isError ? (
           <View>
-            <Text style={styles.errorText}>Error fetching posts</Text>
-            <TouchableOpacity style={styles.button} onPress={() => refetch()}>
+            <Text style={{ color: themeColors.error, marginBottom: spacing.sm }}>Error fetching posts</Text>
+            <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary }]} onPress={() => refetch()}>
               <Text style={styles.buttonText}>Retry</Text>
             </TouchableOpacity>
           </View>
@@ -84,24 +96,18 @@ export const DemoScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  darkContainer: {
-    backgroundColor: '#121212',
+    padding: spacing.md,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontSize: typography.fontSize.xxl,
+    fontWeight: typography.fontWeight.bold,
+    marginBottom: spacing.lg,
     textAlign: 'center',
-    color: '#000',
   },
   section: {
-    marginBottom: 30,
-    padding: 15,
+    marginBottom: spacing.lg,
+    padding: spacing.md,
     borderRadius: 10,
-    backgroundColor: '#f0f0f0',
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -109,49 +115,37 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 10,
-    color: '#333',
+    fontSize: typography.fontSize.lg,
+    fontWeight: typography.fontWeight.semibold,
+    marginBottom: spacing.sm,
   },
   text: {
-    fontSize: 16,
-    color: '#444',
-  },
-  darkText: {
-    color: '#eee',
+    fontSize: typography.fontSize.md,
   },
   buttonRow: {
     flexDirection: 'row',
-    gap: 10,
-    marginTop: 10,
+    gap: spacing.sm,
+    marginTop: spacing.sm,
   },
   button: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 5,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: typography.fontWeight.semibold,
   },
   postItem: {
-    paddingVertical: 10,
+    paddingVertical: spacing.sm,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
   },
   postTitle: {
-    fontSize: 14,
-    color: '#555',
+    fontSize: typography.fontSize.sm,
   },
   listContent: {
-    paddingBottom: 10,
-  },
-  errorText: {
-    color: 'red',
-    marginBottom: 10,
+    paddingBottom: spacing.sm,
   },
 });

@@ -1,17 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from '../screens/HomeScreen';
-import { SettingsScreen } from '../screens/SettingsScreen';
-import { DemoScreen } from '../screens/DemoScreen';
+import { HomeScreen } from '@screens/HomeScreen';
+import { DemoScreen } from '@screens/DemoScreen';
+import { SettingsScreen } from '@screens/SettingsScreen';
+import type { TabParamList } from '@navigation/types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabParamList>();
 
-/**
- * Bottom tab navigator for the application's main content.
- * Provides access to Home, Demo, and Settings screens.
- * 
- * @return {React.JSX.Element} The rendered bottom tab bar.
- */
 export const TabNavigator = () => {
   return (
     <Tab.Navigator>

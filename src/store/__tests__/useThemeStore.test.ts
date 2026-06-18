@@ -2,24 +2,27 @@ import { renderHook, act } from '@testing-library/react-native';
 import { useThemeStore } from '../useThemeStore';
 
 describe('useThemeStore', () => {
-  it('should have initial light theme', async () => {
+  it('should have initial system mode', async () => {
     const { result } = await renderHook(() => useThemeStore());
-    expect(result.current.theme).toBe('light');
+    expect(result.current.mode).toBe('system');
   });
 
-  it('should toggle theme', async () => {
+  it('should set theme mode', async () => {
     const { result } = await renderHook(() => useThemeStore());
     
-    await act(async () => {
-      result.current.toggleTheme();
+    act(() => {
+      result.current.setMode('dark');
     });
+    expect(result.current.mode).toBe('dark');
     
-    expect(result.current.theme).toBe('dark');
-    
-    await act(async () => {
-      result.current.toggleTheme();
+    act(() => {
+      result.current.setMode('light');
     });
-    
-    expect(result.current.theme).toBe('light');
+    expect(result.current.mode).toBe('light');
+
+    act(() => {
+      result.current.setMode('system');
+    });
+    expect(result.current.mode).toBe('system');
   });
 });
