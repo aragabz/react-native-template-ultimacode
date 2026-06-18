@@ -22,7 +22,7 @@ export const DemoScreen = () => {
   const isDarkMode = currentMode === 'dark';
   const themeColors = isDarkMode ? colors.dark : colors.light;
 
-  const { data: posts, isLoading, isError, refetch } = usePosts();
+  const { data: posts, isLoading, isError, error, refetch } = usePosts();
 
   const toggleTheme = () => {
     const nextMode = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
@@ -75,7 +75,9 @@ export const DemoScreen = () => {
           <ActivityIndicator size="large" color={themeColors.primary} />
         ) : isError ? (
           <View>
-            <Text style={{ color: themeColors.error, marginBottom: spacing.sm }}>Error fetching posts</Text>
+            <Text style={{ color: themeColors.error, marginBottom: spacing.sm }}>
+              {error?.message ?? 'Error fetching posts'}
+            </Text>
             <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary }]} onPress={() => refetch()}>
               <Text style={styles.buttonText}>Retry</Text>
             </TouchableOpacity>

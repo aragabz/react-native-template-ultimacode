@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { persist, createJSONStorage, devtools } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
@@ -9,19 +9,20 @@ type ThemeState = {
   setMode: (mode: ThemeMode) => void;
 };
 
-/**
- * Global store for managing the application's visual theme preference.
- * Supports light, dark, and system modes with persistence.
- */
 export const useThemeStore = create<ThemeState>()(
-  persist(
-    (set) => ({
-      mode: 'system',
-      setMode: (mode) => set({ mode }),
-    }),
-    {
-      name: 'theme-storage',
-      storage: createJSONStorage(() => AsyncStorage),
-    }
+  devtools(
+    persist(
+      (set) => ({
+        mode: 'system',
+        setMode: (mode) => set({ mode }),
+      }),
+      {
+        name: 'theme-storage',
+        storage: createJSONStorage(() => AsyncStorage),
+      }
+    ),
+    { enabled: __DEV__, name: 'theme-store' }
   )
 );
+
+export const selectMode = (state: ThemeState) => state.mode;

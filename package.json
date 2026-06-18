@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "start": "NODE_ENV=development react-native start",
     "test": "jest",
+    "test:watch": "jest --watch",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -27,9 +28,13 @@
     "@react-navigation/native": "^7.3.3",
     "@react-navigation/native-stack": "^7.17.5",
     "@tanstack/react-query": "^5.101.0",
+    "axios": "^1.18.0",
     "expo": "~56.0.0",
     "expo-constants": "^56.0.18",
     "expo-modules-autolinking": "^56.0.16",
+    "expo-secure-store": "^56.0.4",
+    "expo-splash-screen": "^56.0.10",
+    "expo-status-bar": "^56.0.4",
     "react": "19.2.3",
     "react-native": "0.85.3",
     "react-native-gesture-handler": "^3.0.2",
