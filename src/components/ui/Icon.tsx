@@ -5,6 +5,14 @@ import {
   Ionicons,
   FontAwesome,
   Feather,
+  AntDesign,
+  Entypo,
+  EvilIcons,
+  Fontisto,
+  Foundation,
+  Octicons,
+  SimpleLineIcons,
+  Zocial,
 } from '@expo/vector-icons';
 import { iconSizes } from '@theme/iconSizes';
 
@@ -21,6 +29,14 @@ const families: Record<string, AnyIcon> = {
   Ionicons: Ionicons as AnyIcon,
   FontAwesome: FontAwesome as AnyIcon,
   Feather: Feather as AnyIcon,
+  AntDesign: AntDesign as AnyIcon,
+  Entypo: Entypo as AnyIcon,
+  EvilIcons: EvilIcons as AnyIcon,
+  Fontisto: Fontisto as AnyIcon,
+  Foundation: Foundation as AnyIcon,
+  Octicons: Octicons as AnyIcon,
+  SimpleLineIcons: SimpleLineIcons as AnyIcon,
+  Zocial: Zocial as AnyIcon,
 };
 
 type IconFamily = keyof typeof families;
