@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from '@screens/HomeScreen';
 import { DemoScreen } from '@screens/DemoScreen';
@@ -18,9 +19,12 @@ const TAB_ICONS: Record<keyof TabParamList, { family: React.ComponentProps<typeo
 };
 
 export const TabNavigator = () => {
+  const { t } = useTranslation();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        tabBarLabel: t(`navigation.${route.name.toLowerCase()}`),
         tabBarIcon: ({ focused, color, size }) => {
           const config = TAB_ICONS[route.name];
           return (

@@ -1,0 +1,117 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ في جلب البيانات",
+    "retry": "إعادة المحاولة",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "send": "إرسال",
+    "save": "حفظ"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "demo": "تجريبي",
+    "showcase": "عرض",
+    "settings": "الإعدادات"
+  },
+  "home": {
+    "title": "الشاشة الرئيسية",
+    "goToDetails": "انتقل إلى التفاصيل"
+  },
+  "settings": {
+    "goToDetails": "انتقل إلى التفاصيل",
+    "logOut": "تسجيل الخروج",
+    "language": "اللغة",
+    "appLanguage": "لغة التطبيق",
+    "english": "الإنجليزية",
+    "arabic": "العربية"
+  },
+  "auth": {
+    "login": {
+      "title": "مرحباً بعودتك",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "logIn": "تسجيل الدخول",
+      "signUpLink": "ليس لديك حساب؟ سجل الآن",
+      "forgotPassword": "نسيت كلمة المرور؟"
+    },
+    "signUp": {
+      "title": "إنشاء حساب",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "signUp": "إنشاء حساب",
+      "loginLink": "لديك حساب بالفعل؟ تسجيل الدخول"
+    },
+    "forgotPassword": {
+      "title": "إعادة تعيين كلمة المرور",
+      "email": "البريد الإلكتروني",
+      "sendResetLink": "إرسال رابط إعادة التعيين",
+      "backToLogin": "العودة إلى تسجيل الدخول",
+      "sentMessage": "إذا كان هناك حساب مرتبط بـ {{email}}، ستتلقى رابط إعادة تعيين قريباً."
+    }
+  },
+  "showcase": {
+    "title": "عرض المكونات",
+    "buttonSection": "زر",
+    "textFieldSection": "حقل نصي",
+    "loadingSection": "مؤشر التحميل",
+    "emptyStateSection": "حالة فارغة",
+    "modalSection": "نافذة منبثقة",
+    "toastSection": "إشعار",
+    "iconsSection": "أيقونات",
+    "primary": "أساسي",
+    "secondary": "ثانوي",
+    "outline": "مخطط",
+    "ghost": "شفاف",
+    "loading": "جاري التحميل",
+    "disabled": "معطل",
+    "defaultLabel": "افتراضي",
+    "withErrorLabel": "مع خطأ",
+    "secureLabel": "آمن",
+    "multilineLabel": "متعدد الأسطر",
+    "typeSomething": "اكتب شيئاً...",
+    "requiredError": "هذا الحقل مطلوب",
+    "longText": "نص طويل...",
+    "loadingMessage": "جاري التحميل...",
+    "noItemsTitle": "لم يتم العثور على عناصر",
+    "noItemsMessage": "حاول تعديل عوامل التصفية أو إضافة عنصر جديد.",
+    "addItem": "إضافة عنصر",
+    "openModal": "فتح النافذة",
+    "modalTitle": "نافذة مثال",
+    "modalContent": "هذه نافذة منبثقة فيها بعض المحتوى. اضغط خارجها أو على X للإغلاق.",
+    "close": "إغلاق",
+    "showSuccess": "إظهار نجاح",
+    "showError": "إظهار خطأ",
+    "showInfo": "إظهار معلومات",
+    "successMessage": "تمت العملية بنجاح!",
+    "errorMessage": "حدث خطأ ما.",
+    "infoMessage": "إليك بعض المعلومات.",
+    "primaryPressed": "تم الضغط على الأساسي",
+    "secondaryPressed": "تم الضغط على الثانوي",
+    "outlinePressed": "تم الضغط على المخطط",
+    "ghostPressed": "تم الضغط على الشفاف",
+    "addItemPressed": "تم الضغط على إضافة عنصر"
+  },
+  "demo": {
+    "title": "عرض البنية الأساسية",
+    "zustandSection": "إدارة الحالة (Zustand)",
+    "counter": "العداد: {{count}}",
+    "themeMode": "وضع السمة: {{mode}}",
+    "toggleMode": "تبديل الوضع",
+    "tanstackSection": "استعلام TanStack (API)",
+    "errorFetching": "خطأ في جلب المقالات",
+    "retry": "إعادة المحاولة"
+  },
+  "details": {
+    "title": "شاشة التفاصيل",
+    "id": "المعرف: {{id}}",
+    "titleLabel": "العنوان: {{title}}",
+    "goBack": "العودة"
+  },
+  "toast": {
+    "success": "نجاح",
+    "error": "خطأ",
+    "info": "معلومات"
+  }
+}

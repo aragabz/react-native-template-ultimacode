@@ -8,12 +8,14 @@ import {
   ActivityIndicator,
   useColorScheme,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useCounterStore } from '@store/useCounterStore';
 import { useThemeStore } from '@store/useThemeStore';
 import { usePosts, Post } from '@api/hooks/usePosts';
 import { colors, spacing, typography } from '@theme';
 
 export const DemoScreen = () => {
+  const { t } = useTranslation();
   const { count, increment, decrement } = useCounterStore();
   const { mode, setMode } = useThemeStore();
   const systemColorScheme = useColorScheme();
@@ -40,15 +42,15 @@ export const DemoScreen = () => {
   return (
     <View style={[styles.container, { backgroundColor: themeColors.background }]}>
       <Text style={[styles.title, { color: themeColors.text }]}>
-        Core Architecture Demo
+        {t('demo.title')}
       </Text>
 
       <View style={[styles.section, { backgroundColor: isDarkMode ? '#1c1c1e' : '#f0f0f0' }]}>
         <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
-          Zustand State Management
+          {t('demo.zustandSection')}
         </Text>
         <Text style={[styles.text, { color: themeColors.text }]}>
-          Counter: {count}
+          {t('demo.counter', { count })}
         </Text>
         <View style={styles.buttonRow}>
           <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary }]} onPress={decrement}>
@@ -60,26 +62,26 @@ export const DemoScreen = () => {
         </View>
 
         <Text style={[styles.text, { color: themeColors.text, marginTop: spacing.md }]}>
-          Theme Mode: {mode.toUpperCase()}
+          {t('demo.themeMode', { mode: mode.toUpperCase() })}
         </Text>
         <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary, marginTop: spacing.sm }]} onPress={toggleTheme}>
-          <Text style={styles.buttonText}>Toggle Mode</Text>
+          <Text style={styles.buttonText}>{t('demo.toggleMode')}</Text>
         </TouchableOpacity>
       </View>
 
       <View style={[styles.section, { flex: 1, backgroundColor: isDarkMode ? '#1c1c1e' : '#f0f0f0' }]}>
         <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
-          TanStack Query (API)
+          {t('demo.tanstackSection')}
         </Text>
         {isLoading ? (
           <ActivityIndicator size="large" color={themeColors.primary} />
         ) : isError ? (
           <View>
             <Text style={{ color: themeColors.error, marginBottom: spacing.sm }}>
-              {error?.message ?? 'Error fetching posts'}
+              {error?.message ?? t('demo.errorFetching')}
             </Text>
             <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary }]} onPress={() => refetch()}>
-              <Text style={styles.buttonText}>Retry</Text>
+              <Text style={styles.buttonText}>{t('demo.retry')}</Text>
             </TouchableOpacity>
           </View>
         ) : (

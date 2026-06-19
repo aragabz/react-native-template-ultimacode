@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -9,6 +10,7 @@ import type { AuthStackParamList } from '@navigation/types';
 import { colors, spacing, typography } from '@theme';
 
 export const LoginScreen = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
   const login = useAuthStore((state) => state.login);
   const insets = useSafeAreaInsets();
@@ -23,10 +25,10 @@ export const LoginScreen = () => {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome Back</Text>
+        <Text style={styles.title}>{t('auth.login.title')}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder={t('auth.login.email')}
           placeholderTextColor={colors.light.textSecondary}
           value={email}
           onChangeText={setEmail}
@@ -35,20 +37,20 @@ export const LoginScreen = () => {
         />
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder={t('auth.login.password')}
           placeholderTextColor={colors.light.textSecondary}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Log In</Text>
+          <Text style={styles.buttonText}>{t('auth.login.logIn')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={styles.link}>Don't have an account? Sign Up</Text>
+          <Text style={styles.link}>{t('auth.login.signUpLink')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={styles.link}>Forgot Password?</Text>
+          <Text style={styles.link}>{t('auth.login.forgotPassword')}</Text>
         </TouchableOpacity>
       </View>
     </View>

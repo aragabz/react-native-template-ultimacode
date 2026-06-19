@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, spacing, typography } from '@theme';
 
 export const ForgotPasswordScreen = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const [email, setEmail] = useState('');
@@ -13,21 +15,21 @@ export const ForgotPasswordScreen = () => {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.content}>
-        <Text style={styles.title}>Reset Password</Text>
+        <Text style={styles.title}>{t('auth.forgotPassword.title')}</Text>
         {sent ? (
           <>
             <Text style={styles.text}>
-              If an account exists for {email}, you'll receive a reset link shortly.
+              {t('auth.forgotPassword.sentMessage', { email })}
             </Text>
             <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-              <Text style={styles.buttonText}>Back to Login</Text>
+              <Text style={styles.buttonText}>{t('auth.forgotPassword.backToLogin')}</Text>
             </TouchableOpacity>
           </>
         ) : (
           <>
             <TextInput
               style={styles.input}
-              placeholder="Email"
+              placeholder={t('auth.forgotPassword.email')}
               placeholderTextColor={colors.light.textSecondary}
               value={email}
               onChangeText={setEmail}
@@ -35,10 +37,10 @@ export const ForgotPasswordScreen = () => {
               keyboardType="email-address"
             />
             <TouchableOpacity style={styles.button} onPress={() => setSent(true)}>
-              <Text style={styles.buttonText}>Send Reset Link</Text>
+              <Text style={styles.buttonText}>{t('auth.forgotPassword.sendResetLink')}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={styles.link}>Back to Login</Text>
+              <Text style={styles.link}>{t('auth.forgotPassword.backToLogin')}</Text>
             </TouchableOpacity>
           </>
         )}

@@ -1,69 +1,71 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Button, TextField, Card, LoadingSpinner, EmptyState, Modal, Icon, useToastStore } from '@components/ui';
 import { colors, spacing, typography } from '@theme';
 
 export const ShowcaseScreen = () => {
+  const { t } = useTranslation();
   const [textValue, setTextValue] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const showToast = useToastStore((s) => s.show);
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.title}>UI Component Showcase</Text>
+      <Text style={styles.title}>{t('showcase.title')}</Text>
 
       <Card>
-        <Text style={styles.sectionTitle}>Button</Text>
-        <Button title="Primary" onPress={() => showToast('Primary pressed')} />
-        <Button title="Secondary" variant="secondary" onPress={() => showToast('Secondary pressed')} style={{ marginTop: spacing.sm }} />
-        <Button title="Outline" variant="outline" onPress={() => showToast('Outline pressed')} style={{ marginTop: spacing.sm }} />
-        <Button title="Ghost" variant="ghost" onPress={() => showToast('Ghost pressed')} style={{ marginTop: spacing.sm }} />
-        <Button title="Loading" loading onPress={() => {}} style={{ marginTop: spacing.sm }} />
-        <Button title="Disabled" disabled onPress={() => {}} style={{ marginTop: spacing.sm }} />
+        <Text style={styles.sectionTitle}>{t('showcase.buttonSection')}</Text>
+        <Button title={t('showcase.primary')} onPress={() => showToast(t('showcase.primaryPressed'))} />
+        <Button title={t('showcase.secondary')} variant="secondary" onPress={() => showToast(t('showcase.secondaryPressed'))} style={{ marginTop: spacing.sm }} />
+        <Button title={t('showcase.outline')} variant="outline" onPress={() => showToast(t('showcase.outlinePressed'))} style={{ marginTop: spacing.sm }} />
+        <Button title={t('showcase.ghost')} variant="ghost" onPress={() => showToast(t('showcase.ghostPressed'))} style={{ marginTop: spacing.sm }} />
+        <Button title={t('showcase.loading')} loading onPress={() => {}} style={{ marginTop: spacing.sm }} />
+        <Button title={t('showcase.disabled')} disabled onPress={() => {}} style={{ marginTop: spacing.sm }} />
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>TextField</Text>
-        <TextField label="Default" placeholder="Type something..." value={textValue} onChangeText={setTextValue} />
-        <TextField label="With Error" value="" onChangeText={() => {}} error="This field is required" />
-        <TextField label="Secure" value="" onChangeText={() => {}} secureTextEntry placeholder="Password" />
-        <TextField label="Multiline" value="" onChangeText={() => {}} multiline placeholder="Long text..." />
+        <Text style={styles.sectionTitle}>{t('showcase.textFieldSection')}</Text>
+        <TextField label={t('showcase.defaultLabel')} placeholder={t('showcase.typeSomething')} value={textValue} onChangeText={setTextValue} />
+        <TextField label={t('showcase.withErrorLabel')} value="" onChangeText={() => {}} error={t('showcase.requiredError')} />
+        <TextField label={t('showcase.secureLabel')} value="" onChangeText={() => {}} secureTextEntry placeholder={t('auth.login.password')} />
+        <TextField label={t('showcase.multilineLabel')} value="" onChangeText={() => {}} multiline placeholder={t('showcase.longText')} />
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>LoadingSpinner</Text>
-        <LoadingSpinner size="small" message="Loading..." />
+        <Text style={styles.sectionTitle}>{t('showcase.loadingSection')}</Text>
+        <LoadingSpinner size="small" message={t('showcase.loadingMessage')} />
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>EmptyState</Text>
+        <Text style={styles.sectionTitle}>{t('showcase.emptyStateSection')}</Text>
         <EmptyState
-          title="No items found"
-          message="Try adjusting your filters or add a new item."
-          action={<Button title="Add Item" onPress={() => showToast('Add item pressed')} />}
+          title={t('showcase.noItemsTitle')}
+          message={t('showcase.noItemsMessage')}
+          action={<Button title={t('showcase.addItem')} onPress={() => showToast(t('showcase.addItemPressed'))} />}
         />
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>Modal</Text>
-        <Button title="Open Modal" onPress={() => setModalVisible(true)} />
-        <Modal visible={modalVisible} onClose={() => setModalVisible(false)} title="Example Modal">
+        <Text style={styles.sectionTitle}>{t('showcase.modalSection')}</Text>
+        <Button title={t('showcase.openModal')} onPress={() => setModalVisible(true)} />
+        <Modal visible={modalVisible} onClose={() => setModalVisible(false)} title={t('showcase.modalTitle')}>
           <Text style={{ color: colors.light.text, marginBottom: spacing.md }}>
-            This is a modal with some example content. Press outside or hit X to close.
+            {t('showcase.modalContent')}
           </Text>
-          <Button title="Close" onPress={() => setModalVisible(false)} />
+          <Button title={t('showcase.close')} onPress={() => setModalVisible(false)} />
         </Modal>
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>Toast</Text>
-        <Button title="Show Success" onPress={() => showToast('Operation successful!', 'success')} style={{ marginBottom: spacing.sm }} />
-        <Button title="Show Error" variant="outline" onPress={() => showToast('Something went wrong.', 'error')} style={{ marginBottom: spacing.sm }} />
-        <Button title="Show Info" variant="ghost" onPress={() => showToast('Here is some info.', 'info')} />
+        <Text style={styles.sectionTitle}>{t('showcase.toastSection')}</Text>
+        <Button title={t('showcase.showSuccess')} onPress={() => showToast(t('showcase.successMessage'), 'success')} style={{ marginBottom: spacing.sm }} />
+        <Button title={t('showcase.showError')} variant="outline" onPress={() => showToast(t('showcase.errorMessage'), 'error')} style={{ marginBottom: spacing.sm }} />
+        <Button title={t('showcase.showInfo')} variant="ghost" onPress={() => showToast(t('showcase.infoMessage'), 'info')} />
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>Icons</Text>
+        <Text style={styles.sectionTitle}>{t('showcase.iconsSection')}</Text>
         <View style={styles.iconRow}>
           <Icon family="MaterialIcons" name="home" size="md" color={colors.light.primary} />
           <Icon family="MaterialCommunityIcons" name="heart" size="md" color={colors.light.error} />

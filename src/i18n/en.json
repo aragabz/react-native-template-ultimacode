@@ -1,0 +1,117 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error fetching data",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "close": "Close",
+    "send": "Send",
+    "save": "Save"
+  },
+  "navigation": {
+    "home": "Home",
+    "demo": "Demo",
+    "showcase": "Showcase",
+    "settings": "Settings"
+  },
+  "home": {
+    "title": "Home Screen",
+    "goToDetails": "Go to Details"
+  },
+  "settings": {
+    "goToDetails": "Go to Details",
+    "logOut": "Log Out",
+    "language": "Language",
+    "appLanguage": "App Language",
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "email": "Email",
+      "password": "Password",
+      "logIn": "Log In",
+      "signUpLink": "Don't have an account? Sign Up",
+      "forgotPassword": "Forgot Password?"
+    },
+    "signUp": {
+      "title": "Create Account",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "signUp": "Sign Up",
+      "loginLink": "Already have an account? Log In"
+    },
+    "forgotPassword": {
+      "title": "Reset Password",
+      "email": "Email",
+      "sendResetLink": "Send Reset Link",
+      "backToLogin": "Back to Login",
+      "sentMessage": "If an account exists for {{email}}, you'll receive a reset link shortly."
+    }
+  },
+  "showcase": {
+    "title": "UI Component Showcase",
+    "buttonSection": "Button",
+    "textFieldSection": "TextField",
+    "loadingSection": "LoadingSpinner",
+    "emptyStateSection": "EmptyState",
+    "modalSection": "Modal",
+    "toastSection": "Toast",
+    "iconsSection": "Icons",
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "outline": "Outline",
+    "ghost": "Ghost",
+    "loading": "Loading",
+    "disabled": "Disabled",
+    "defaultLabel": "Default",
+    "withErrorLabel": "With Error",
+    "secureLabel": "Secure",
+    "multilineLabel": "Multiline",
+    "typeSomething": "Type something...",
+    "requiredError": "This field is required",
+    "longText": "Long text...",
+    "loadingMessage": "Loading...",
+    "noItemsTitle": "No items found",
+    "noItemsMessage": "Try adjusting your filters or add a new item.",
+    "addItem": "Add Item",
+    "openModal": "Open Modal",
+    "modalTitle": "Example Modal",
+    "modalContent": "This is a modal with some example content. Press outside or hit X to close.",
+    "close": "Close",
+    "showSuccess": "Show Success",
+    "showError": "Show Error",
+    "showInfo": "Show Info",
+    "successMessage": "Operation successful!",
+    "errorMessage": "Something went wrong.",
+    "infoMessage": "Here is some info.",
+    "primaryPressed": "Primary pressed",
+    "secondaryPressed": "Secondary pressed",
+    "outlinePressed": "Outline pressed",
+    "ghostPressed": "Ghost pressed",
+    "addItemPressed": "Add item pressed"
+  },
+  "demo": {
+    "title": "Core Architecture Demo",
+    "zustandSection": "Zustand State Management",
+    "counter": "Counter: {{count}}",
+    "themeMode": "Theme Mode: {{mode}}",
+    "toggleMode": "Toggle Mode",
+    "tanstackSection": "TanStack Query (API)",
+    "errorFetching": "Error fetching posts",
+    "retry": "Retry"
+  },
+  "details": {
+    "title": "Details Screen",
+    "id": "ID: {{id}}",
+    "titleLabel": "Title: {{title}}",
+    "goBack": "Go Back"
+  },
+  "toast": {
+    "success": "Success",
+    "error": "Error",
+    "info": "Info"
+  }
+}

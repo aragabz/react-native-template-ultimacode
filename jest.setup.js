@@ -37,6 +37,57 @@ jest.mock('expo-constants', () => {
   return { __esModule: true, default: Constants };
 });
 
+jest.mock('react-i18next', () => {
+  const en = require('./src/i18n/en.json');
+
+  const flatten = (obj, prefix) => {
+    return Object.keys(obj).reduce((acc, key) => {
+      const prefixed = prefix ? `${prefix}.${key}` : key;
+      if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+        Object.assign(acc, flatten(obj[key], prefixed));
+      } else {
+        acc[prefixed] = obj[key];
+      }
+      return acc;
+    }, {});
+  };
+
+  const flatEn = flatten(en, '');
+
+  return {
+    useTranslation: () => ({
+      t: (key, params) => {
+        let value = flatEn[key] || key;
+        if (params) {
+          Object.entries(params).forEach(([k, v]) => {
+            value = value.replace(`{{${k}}}`, String(v));
+          });
+        }
+        return value;
+      },
+      i18n: {
+        language: 'en',
+        changeLanguage: jest.fn(),
+      },
+    }),
+    initReactI18next: { type: '3rdParty', init: jest.fn() },
+  };
+});
+
+jest.mock('@i18n', () => ({
+  changeLanguage: jest.fn(),
+  getCurrentLanguage: () => 'en',
+  onRtlChange: () => jest.fn(),
+  default: jest.fn().mockResolvedValue('en'),
+  __esModule: true,
+}));
+
+jest.mock('expo-localization', () => ({
+  getLocales: () => [{ languageCode: 'en' }],
+  getCalendars: () => [],
+  locale: 'en',
+}));
+
 jest.mock('react-native-safe-area-context', () => {
   const React = require('react');
   const SafeAreaProvider = ({ children }) =>
