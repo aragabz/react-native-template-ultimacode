@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, StyleSheet } from 'react-native';
-import { Button, TextField, Card, LoadingSpinner, EmptyState, Modal, useToastStore } from '@components/ui';
+import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { Button, TextField, Card, LoadingSpinner, EmptyState, Modal, Icon, useToastStore } from '@components/ui';
 import { colors, spacing, typography } from '@theme';
 
 export const ShowcaseScreen = () => {
@@ -61,6 +61,30 @@ export const ShowcaseScreen = () => {
         <Button title="Show Error" variant="outline" onPress={() => showToast('Something went wrong.', 'error')} style={{ marginBottom: spacing.sm }} />
         <Button title="Show Info" variant="ghost" onPress={() => showToast('Here is some info.', 'info')} />
       </Card>
+
+      <Card style={{ marginTop: spacing.md }}>
+        <Text style={styles.sectionTitle}>Icons</Text>
+        <View style={styles.iconRow}>
+          <Icon family="MaterialIcons" name="home" size="md" color={colors.light.primary} />
+          <Icon family="MaterialCommunityIcons" name="heart" size="md" color={colors.light.error} />
+          <Icon family="Ionicons" name="person-circle" size="md" color={colors.light.text} />
+          <Icon family="FontAwesome" name="star" size="md" color={colors.light.text} />
+          <Icon family="Feather" name="search" size="md" color={colors.light.text} />
+          <Icon family="AntDesign" name="setting" size="md" color={colors.light.text} />
+        </View>
+        <View style={{ ...styles.iconRow, marginTop: spacing.sm }}>
+          <Icon name="favorite" size="sm" />
+          <Icon name="favorite" size="md" />
+          <Icon name="favorite" size="lg" />
+          <Icon name="favorite" size="xl" />
+        </View>
+        <View style={{ ...styles.iconRow, marginTop: spacing.sm }}>
+          <Icon family="MaterialIcons" name="check-circle" color={colors.light.success} />
+          <Icon family="MaterialIcons" name="error" color={colors.light.error} />
+          <Icon family="MaterialIcons" name="info" color={colors.light.primary} />
+          <Icon family="MaterialIcons" name="warning" color="#FF9500" />
+        </View>
+      </Card>
     </ScrollView>
   );
 };
@@ -80,5 +104,10 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.semibold,
     color: colors.light.text,
     marginBottom: spacing.sm,
+  },
+  iconRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
 });

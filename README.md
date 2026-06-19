@@ -103,6 +103,87 @@ This project integrates several Expo modules. Below are the native configuration
 | iOS      | No special entitlements. Font files are bundled as resources. |
 | Android  | No special permissions. Font files are placed in `android/app/src/main/assets/fonts/`. |
 
+### react-native-svg
+
+| Platform | Requirement |
+|----------|-------------|
+| iOS      | No special entitlements. Auto-linked. |
+| Android  | No special permissions. Auto-linked. Requires JDK 17+ (see Build Troubleshooting below). |
+
+### @expo/vector-icons & react-native-svg-transformer
+
+| Platform | Requirement |
+|----------|-------------|
+| iOS      | No special entitlements. Icon fonts are bundled in the app binary. |
+| Android  | No special permissions. Icon fonts are bundled in the APK. |
+
+## Icons
+
+### Vector Icons (Icon component)
+
+The `Icon` component wraps `@expo/vector-icons` with theme defaults:
+
+```tsx
+import { Icon } from '@components/ui';
+
+// Material Design (default)
+<Icon name="home" size="md" color={colors.light.primary} />
+
+// Other families
+<Icon family="Ionicons" name="person-circle" />
+<Icon family="MaterialCommunityIcons" name="heart" />
+<Icon family="FontAwesome" name="star" />
+
+// Sizes from theme: xs, sm, md, lg, xl, xxl (or a number)
+```
+
+Supported families: `MaterialIcons`, `MaterialCommunityIcons`, `Ionicons`, `FontAwesome`, `Feather`.
+
+### SVG Icons (SvgIcon component)
+
+For inline SVGs:
+
+```tsx
+import { SvgIcon } from '@components/ui';
+import { Circle, Rect } from 'react-native-svg';
+
+<SvgIcon width={24} height={24} viewBox="0 0 24 24">
+  <Circle cx={12} cy={12} r={10} fill="red" />
+</SvgIcon>
+```
+
+To import `.svg` files as React components, place them in `src/assets/` and import:
+
+```tsx
+import Logo from '@assets/logo.svg';
+// Renders as a React Native SVG component
+```
+
+## Build Troubleshooting
+
+### Android: "jlink executable does not exist"
+
+If the Android build fails with:
+
+```
+jlink executable .../jre/.../bin/jlink does not exist
+```
+
+Gradle is resolving a JRE instead of a full JDK. Fix by ensuring `JAVA_HOME` points to a JDK 17+:
+
+```sh
+# Set before running yarn android:
+export JAVA_HOME=$(/usr/libexec/java_home)
+# Or point to your specific JDK:
+export JAVA_HOME=/Users/me/.sdkman/candidates/java/current
+```
+
+Alternatively, add to `android/gradle.properties`:
+
+```properties
+org.gradle.java.home=/path/to/your/jdk
+```
+
 ### react-native-screens (native-stack)
 
 | Platform | Requirement |

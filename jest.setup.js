@@ -50,6 +50,40 @@ jest.mock('react-native-safe-area-context', () => {
   };
 });
 
+jest.mock('react-native-svg', () => {
+  const React = require('react');
+  const mockComponent = (displayName) => {
+    const Comp = (props) => React.createElement('View', props, props.children);
+    Comp.displayName = displayName;
+    return Comp;
+  };
+  return {
+    default: mockComponent('Svg'),
+    Svg: mockComponent('Svg'),
+    SvgXml: () => null,
+    SvgUri: () => null,
+    Circle: mockComponent('Circle'),
+    Rect: mockComponent('Rect'),
+    Path: mockComponent('Path'),
+    Line: mockComponent('Line'),
+    G: mockComponent('G'),
+    Text: mockComponent('Text'),
+    Polygon: mockComponent('Polygon'),
+    Polyline: mockComponent('Polyline'),
+    Ellipse: mockComponent('Ellipse'),
+    Defs: mockComponent('Defs'),
+    ClipPath: mockComponent('ClipPath'),
+    LinearGradient: mockComponent('LinearGradient'),
+    RadialGradient: mockComponent('RadialGradient'),
+    Stop: mockComponent('Stop'),
+    Image: mockComponent('Image'),
+    Use: mockComponent('Use'),
+    Symbol: mockComponent('Symbol'),
+    TSpan: mockComponent('TSpan'),
+    Mask: mockComponent('Mask'),
+  };
+});
+
 jest.mock('react-native-gesture-handler', () => {
   const View = require('react-native/Libraries/Components/View/View');
   return {

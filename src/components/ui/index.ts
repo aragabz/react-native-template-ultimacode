@@ -5,3 +5,5 @@ export { LoadingSpinner } from './LoadingSpinner';
 export { EmptyState } from './EmptyState';
 export { Modal } from './Modal';
 export { Toast, useToastStore } from './Toast';
+export { Icon } from './Icon';
+export { SvgIcon } from './SvgIcon';
