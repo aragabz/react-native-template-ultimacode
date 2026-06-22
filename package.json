@@ -1,7 +1,27 @@
 {
-  "name": "ReactNativeTemplate",
-  "version": "0.0.1",
-  "private": true,
+  "name": "react-native-template-ultimacode",
+  "version": "1.0.0",
+  "bin": "./bin/cli.js",
+  "description": "React Native + Expo template with Zustand, React Query, React Navigation, i18n and more",
+  "keywords": [
+    "react-native",
+    "template",
+    "expo",
+    "typescript",
+    "zustand",
+    "react-query",
+    "react-navigation",
+    "i18n"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aragabz/react-native-template-ultimacode.git"
+  },
+  "homepage": "https://github.com/aragabz/react-native-template-ultimacode#readme",
+  "bugs": {
+    "url": "https://github.com/aragabz/react-native-template-ultimacode/issues"
+  },
   "scripts": {
     "android": "NODE_ENV=development react-native run-android",
     "ios": "NODE_ENV=development react-native run-ios",
@@ -13,8 +33,7 @@
     "start": "NODE_ENV=development react-native start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "link": "adb reverse tcp:8081 tcp:8081",
-    "prepare": "husky"
+    "link": "adb reverse tcp:8081 tcp:8081"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
