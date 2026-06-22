@@ -1,5 +1,49 @@
 # React Native Template
 
+## Creating a New Project from This Template
+
+### Option 1 — npx (npm published template)
+
+```sh
+npx @react-native-community/cli@latest init MyApp --template react-native-template-ultimacode
+cd MyApp
+```
+
+### Option 2 — GitHub Template (recommended)
+
+Click **"Use this template"** on the [GitHub repository page](https://github.com/anomalyco/ReactNativeTemplate), then clone your new repo:
+
+```sh
+git clone git@github.com:your-org/your-new-app.git
+cd your-new-app
+```
+
+### Option 2 — degit (no Git history)
+
+```sh
+npx degit anomalyco/ReactNativeTemplate my-app
+cd my-app
+```
+
+### Option 3 — Manual clone
+
+```sh
+git clone git@github.com:anomalyco/ReactNativeTemplate.git my-app
+cd my-app
+rm -rf .git
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+### After scaffolding
+
+1. Search for `ReactNativeTemplate` across the project and replace with your app name.
+2. Update the app name in `app.json` and `package.json`.
+3. Update `ios/ReactNativeTemplate.xcodeproj` name (or re-run `npx react-native init`).
+4. Run `yarn install`.
+5. Follow the **Getting Started** steps below.
+
 ## Prerequisites
 
 - Node.js >= 22.11.0
