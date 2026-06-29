@@ -20,4 +20,18 @@ module.exports = {
     '\\.svg$': '<rootDir>/__mocks__/svgMock.js',
     '\\.(ttf|otf|png|jpg|jpeg|gif|woff|woff2)$': '<rootDir>/__mocks__/fileMock.js',
   },
+  coverageThreshold: {
+    global: {
+      branches: 60,
+      functions: 55,
+      lines: 70,
+      statements: 70,
+    },
+  },
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/index.ts',
+    '!src/**/__tests__/**',
+  ],
 };
