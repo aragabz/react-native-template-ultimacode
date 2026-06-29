@@ -12,9 +12,11 @@ export type User = {
 type AuthState = {
   user: User | null;
   token: string | null;
+  refreshToken: string | null;
   isHydrating: boolean;
-  login: (user: User, token: string) => void;
+  login: (user: User, token: string, refreshToken?: string) => void;
   logout: () => void;
+  setTokens: (token: string, refreshToken?: string) => void;
   hydrate: () => void;
 };
 
@@ -52,9 +54,13 @@ export const useAuthStore = create<AuthState>()(
       (set) => ({
         user: null,
         token: null,
+        refreshToken: null,
         isHydrating: true,
-        login: (user, token) => set({ user, token }),
-        logout: () => set({ user: null, token: null }),
+        login: (user, token, refreshToken) =>
+          set({ user, token, refreshToken: refreshToken ?? null }),
+        logout: () => set({ user: null, token: null, refreshToken: null }),
+        setTokens: (token, refreshToken) =>
+          set({ token, ...(refreshToken !== undefined ? { refreshToken } : {}) }),
         hydrate: () => set({ isHydrating: false }),
       }),
       {
@@ -63,6 +69,7 @@ export const useAuthStore = create<AuthState>()(
         partialize: (state) => ({
           user: state.user,
           token: state.token,
+          refreshToken: state.refreshToken,
         }),
         onRehydrateStorage: () => () => {
           useAuthStore.setState({ isHydrating: false });

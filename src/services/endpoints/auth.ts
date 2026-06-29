@@ -19,6 +19,10 @@ export const logout = (): Promise<void> => {
   return apiClient.post('/auth/logout').then((res) => res.data);
 };
 
+export const refreshTokens = (refreshToken: string): Promise<{ token: string; refreshToken: string }> => {
+  return apiClient.post('/auth/refresh', { refreshToken }).then((res) => res.data);
+};
+
 export const getProfile = (): Promise<User> => {
   return apiClient.get('/auth/profile').then((res) => res.data);
 };
