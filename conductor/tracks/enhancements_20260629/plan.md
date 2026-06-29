@@ -4,12 +4,12 @@
 
 - [x] Task: Write Tests: React Error Boundary component with fallback UI [207cf53]
 - [x] Task: Implement Feature: React Error Boundary with crash report hook [207cf53]
-- [ ] Task: Write Tests: Token refresh interceptor (queue, retry, logout on failure)
-- [ ] Task: Implement Feature: Axios token refresh logic with request queuing
-- [ ] Task: Write Tests: QueryClient configuration (staleTime, gcTime, retry)
-- [ ] Task: Implement Feature: Configure QueryClient with production-ready defaults
-- [ ] Task: Write Tests: useNetworkStatus hook and offline banner
-- [ ] Task: Implement Feature: Network status hook using NetInfo + offline UI banner
+- [x] Task: Write Tests: Token refresh interceptor (queue, retry, logout on failure) [d983e94]
+- [x] Task: Implement Feature: Axios token refresh logic with request queuing [d983e94]
+- [x] Task: Write Tests: QueryClient configuration (staleTime, gcTime, retry) [70d59d5]
+- [x] Task: Implement Feature: Configure QueryClient with production-ready defaults [70d59d5]
+- [x] Task: Write Tests: useNetworkStatus hook and offline banner [340affd]
+- [x] Task: Implement Feature: Network status hook using NetInfo + offline UI banner [340affd]
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Reliability & Error Handling' (Protocol in workflow.md)
 
 ## Phase 2: Type Safety & Validation
