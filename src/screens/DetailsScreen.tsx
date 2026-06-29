@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import type { RootStackScreenProps } from '@navigation/types';
 import { spacing, typography } from '@theme';
+import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '@hooks/useAppTheme';
+import type { RootStackScreenProps } from '@navigation/types';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 type Props = RootStackScreenProps<'Details'>;
 

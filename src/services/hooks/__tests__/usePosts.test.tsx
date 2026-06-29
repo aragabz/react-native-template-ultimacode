@@ -1,8 +1,8 @@
-import { renderHook, waitFor } from '@testing-library/react-native';
-import { usePosts } from '../usePosts';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { renderHook, waitFor } from '@testing-library/react-native';
 import { apiClient } from '../../apiClient';
+import { usePosts } from '../usePosts';
 
 jest.mock('../../apiClient', () => ({
   apiClient: {

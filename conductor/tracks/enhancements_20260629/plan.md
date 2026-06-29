@@ -14,11 +14,11 @@
 
 ## Phase 2: Type Safety & Validation
 
-- [ ] Task: Enable TypeScript strict mode and fix all resulting type errors
-- [ ] Task: Write Tests: Zod schemas for API responses (LoginResponse, Post, User)
-- [ ] Task: Implement Feature: Zod validation in service layer for all endpoints
-- [ ] Task: Implement Feature: Enhanced ESLint config (import ordering, hooks rules, unused imports)
-- [ ] Task: Run full lint pass and fix all new violations
+- [x] Task: Enable TypeScript strict mode and fix all resulting type errors [682a5ab]
+- [x] Task: Write Tests: Zod schemas for API responses (LoginResponse, Post, User) [90f1661]
+- [x] Task: Implement Feature: Zod validation in service layer for all endpoints [90f1661]
+- [x] Task: Implement Feature: Enhanced ESLint config (import ordering, hooks rules, unused imports) [f9f514e]
+- [~] Task: Run full lint pass and fix all new violations
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Type Safety & Validation' (Protocol in workflow.md)
 
 ## Phase 3: Testing & CI/CD

@@ -1,9 +1,9 @@
 import React from 'react';
+import { apiClient } from '@api/apiClient';
+import { NavigationContainer } from '@react-navigation/native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, waitFor } from '@testing-library/react-native';
 import { DemoScreen } from '../DemoScreen';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { NavigationContainer } from '@react-navigation/native';
-import { apiClient } from '@api/apiClient';
 
 jest.mock('@api/apiClient', () => ({
   apiClient: {

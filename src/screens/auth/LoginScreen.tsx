@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { spacing, typography } from '@theme';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useAppTheme } from '@hooks/useAppTheme';
+import type { AuthStackParamList } from '@navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuthStore } from '@store/useAuthStore';
 import type { User } from '@store/useAuthStore';
-import type { AuthStackParamList } from '@navigation/types';
-import { spacing, typography } from '@theme';
-import { useAppTheme } from '@hooks/useAppTheme';
 
 export const LoginScreen = () => {
   const { t } = useTranslation();

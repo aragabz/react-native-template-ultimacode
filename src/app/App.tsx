@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import initI18n, { onRtlChange } from '@i18n';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { createQueryClient } from '@services/queryClient';
-import { useAuthStore, selectIsHydrating } from '@store/useAuthStore';
-import { RootNavigator } from '@navigation/RootNavigator';
-import { linking } from '@navigation/linking';
 import { Toast, ErrorBoundary, OfflineBanner } from '@components/ui';
 import { useAppTheme } from '@hooks/useAppTheme';
-import initI18n, { onRtlChange } from '@i18n';
+import { linking } from '@navigation/linking';
+import { RootNavigator } from '@navigation/RootNavigator';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { createQueryClient } from '@services/queryClient';
+import { useAuthStore, selectIsHydrating } from '@store/useAuthStore';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 SplashScreen.preventAutoHideAsync();
 

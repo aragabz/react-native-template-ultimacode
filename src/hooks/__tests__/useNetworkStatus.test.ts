@@ -1,5 +1,5 @@
-import { renderHook, act, waitFor } from '@testing-library/react-native';
 import NetInfo from '@react-native-community/netinfo';
+import { renderHook, act, waitFor } from '@testing-library/react-native';
 import { useNetworkStatus } from '../useNetworkStatus';
 
 // Override global jest.setup mock with test-specific mock

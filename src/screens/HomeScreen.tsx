@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { spacing, typography } from '@theme';
 import { useTranslation } from 'react-i18next';
+import { Button, Card } from '@components/ui';
+import { useAppTheme } from '@hooks/useAppTheme';
+import type { RootStackParamList } from '@navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '@navigation/types';
-import { Button, Card } from '@components/ui';
-import { spacing, typography } from '@theme';
-import { useAppTheme } from '@hooks/useAppTheme';
 
 export const HomeScreen = () => {
   const { t } = useTranslation();

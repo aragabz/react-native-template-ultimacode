@@ -7,18 +7,18 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
+import { spacing, typography } from '@theme';
 import { useTranslation } from 'react-i18next';
+import { usePosts, Post } from '@api/hooks/usePosts';
+import { useAppTheme } from '@hooks/useAppTheme';
 import { useCounterStore } from '@store/useCounterStore';
 import { useThemeStore } from '@store/useThemeStore';
-import { usePosts, Post } from '@api/hooks/usePosts';
-import { spacing, typography } from '@theme';
-import { useAppTheme } from '@hooks/useAppTheme';
 
 export const DemoScreen = () => {
   const { t } = useTranslation();
   const { count, increment, decrement } = useCounterStore();
   const { mode, setMode } = useThemeStore();
-  const { colors: themeColors, isDark } = useAppTheme();
+  const { colors: themeColors } = useAppTheme();
 
   const { data: posts, isLoading, isError, error, refetch } = usePosts();
 

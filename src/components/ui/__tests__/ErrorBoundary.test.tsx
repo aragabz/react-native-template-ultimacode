@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { Text, View } from 'react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { ErrorBoundary } from '../ErrorBoundary';
 
 const ThrowingComponent = ({ shouldThrow = true }: { shouldThrow?: boolean }) => {

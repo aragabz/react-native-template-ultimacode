@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { spacing, typography } from '@theme';
 import { useTranslation } from 'react-i18next';
 import { Button, TextField, Card, LoadingSpinner, EmptyState, Modal, Icon, useToastStore } from '@components/ui';
-import { spacing, typography } from '@theme';
 import { useAppTheme } from '@hooks/useAppTheme';
 
 export const ShowcaseScreen = () => {

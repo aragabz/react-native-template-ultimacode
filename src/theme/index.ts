@@ -1,7 +1,7 @@
 import { colors, Colors } from './colors';
+import { iconSizes, IconSizes } from './iconSizes';
 import { spacing, Spacing } from './spacing';
 import { typography, Typography } from './typography';
-import { iconSizes, IconSizes } from './iconSizes';
 
 export const theme = {
   colors,

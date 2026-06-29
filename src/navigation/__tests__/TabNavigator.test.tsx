@@ -1,9 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { RootNavigator } from '../RootNavigator';
-
 import { useAuthStore } from '@store/useAuthStore';
+import { render, screen, fireEvent } from '@testing-library/react-native';
+import { RootNavigator } from '../RootNavigator';
 
 // Mock the native modules
 jest.mock('react-native-screens', () => {

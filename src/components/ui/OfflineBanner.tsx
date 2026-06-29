@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { spacing, typography } from '@theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNetworkStatus } from '@hooks/useNetworkStatus';
-import { spacing, typography } from '@theme';
 
 export const OfflineBanner = () => {
   const { isConnected } = useNetworkStatus();

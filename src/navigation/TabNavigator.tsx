@@ -1,13 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from '@screens/HomeScreen';
-import { DemoScreen } from '@screens/DemoScreen';
-import { SettingsScreen } from '@screens/SettingsScreen';
-import { ShowcaseScreen } from '@screens/ShowcaseScreen';
 import { Icon } from '@components/ui';
 import { useAppTheme } from '@hooks/useAppTheme';
 import type { TabParamList } from '@navigation/types';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { DemoScreen } from '@screens/DemoScreen';
+import { HomeScreen } from '@screens/HomeScreen';
+import { SettingsScreen } from '@screens/SettingsScreen';
+import { ShowcaseScreen } from '@screens/ShowcaseScreen';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -20,13 +20,13 @@ const TAB_ICONS: Record<keyof TabParamList, { family: React.ComponentProps<typeo
 
 export const TabNavigator = () => {
   const { t } = useTranslation();
-  const { colors: themeColors, isDark } = useAppTheme();
+  const { colors: themeColors } = useAppTheme();
 
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarLabel: t(`navigation.${route.name.toLowerCase()}`),
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ color, size }) => {
           const config = TAB_ICONS[route.name];
           return (
             <Icon

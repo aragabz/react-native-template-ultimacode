@@ -6,3 +6,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [x] **Track: Implement Core Architecture: Navigation and State Management**
   *Link: [./tracks/core_arch_20260616/](./tracks/core_arch_20260616/)*
+
+- [ ] **Track: Template Enhancements — Reliability, DX, and Production Readiness**
+  *Link: [./tracks/enhancements_20260629/](./tracks/enhancements_20260629/)*

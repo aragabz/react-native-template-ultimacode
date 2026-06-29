@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Text, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { spacing, typography } from '@theme';
-import { useAppTheme } from '@hooks/useAppTheme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { create } from 'zustand';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 type ToastType = 'success' | 'error' | 'info';
 
