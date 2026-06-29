@@ -10,15 +10,15 @@
 - [x] Task: Implement Feature: Configure QueryClient with production-ready defaults [70d59d5]
 - [x] Task: Write Tests: useNetworkStatus hook and offline banner [340affd]
 - [x] Task: Implement Feature: Network status hook using NetInfo + offline UI banner [340affd]
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Reliability & Error Handling' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Reliability & Error Handling' (Protocol in workflow.md)
 
-## Phase 2: Type Safety & Validation
+## Phase 2: Type Safety & Validation [checkpoint: a062888]
 
 - [x] Task: Enable TypeScript strict mode and fix all resulting type errors [682a5ab]
 - [x] Task: Write Tests: Zod schemas for API responses (LoginResponse, Post, User) [90f1661]
 - [x] Task: Implement Feature: Zod validation in service layer for all endpoints [90f1661]
 - [x] Task: Implement Feature: Enhanced ESLint config (import ordering, hooks rules, unused imports) [f9f514e]
-- [~] Task: Run full lint pass and fix all new violations
+- [x] Task: Run full lint pass and fix all new violations [b9db9fb]
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Type Safety & Validation' (Protocol in workflow.md)
 
 ## Phase 3: Testing & CI/CD
