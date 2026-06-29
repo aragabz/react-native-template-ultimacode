@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage, devtools } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export type AppLanguage = 'en' | 'ar' | 'fr';
+export type AppLanguage = 'en' | 'ar';
 
 type SettingsState = {
   onboardingSeen: boolean;

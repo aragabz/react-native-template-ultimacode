@@ -16,7 +16,6 @@ export type AuthStackParamList = {
 };
 
 export type RootStackParamList = {
-  Splash: undefined;
   Auth: NavigatorScreenParams<AuthStackParamList>;
   Main: NavigatorScreenParams<TabParamList>;
   Details: { id: string; title?: string };

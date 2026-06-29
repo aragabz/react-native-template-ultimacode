@@ -3,6 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootNavigator } from '../RootNavigator';
 
+import { useAuthStore } from '@store/useAuthStore';
+
 // Mock the native modules
 jest.mock('react-native-screens', () => {
   const React = require('react');
@@ -52,6 +54,10 @@ jest.mock('react-native-safe-area-context', () => {
 });
 
 describe('TabNavigator', () => {
+  beforeEach(() => {
+    useAuthStore.setState({ user: null, token: 'mock-token', isHydrating: false });
+  });
+
   it('renders Home and Settings tabs', async () => {
     await render(
       <NavigationContainer>
@@ -69,7 +75,7 @@ describe('TabNavigator', () => {
     // Switch to Settings tab
     fireEvent.press(settingsTab);
     
-    // Should show Settings Screen
-    expect(await screen.findByText('Settings Screen')).toBeTruthy();
+    // Should show Settings Screen content
+    expect(await screen.findByText('Go to Details')).toBeTruthy();
   });
 });

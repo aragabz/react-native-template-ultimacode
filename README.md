@@ -1,61 +1,85 @@
-# React Native Template
+# React Native Template — UltimaCode
 
-## Creating a New Project from This Template
+A production-ready React Native template with Expo modules, Zustand, TanStack Query, React Navigation, i18n (RTL-ready), and a full UI component library.
 
-### Option 1 — npx (npm published template)
+## Features
+
+- ⚡ **React Native 0.85** with New Architecture enabled
+- 🏗️ **Expo modules** (no Expo Go — bare workflow with cherry-picked modules)
+- 🧭 **React Navigation 7** — native-stack, bottom-tabs, deep linking
+- 🗂️ **Zustand** — lightweight state management with persist middleware
+- 🔄 **TanStack Query v5** — data fetching, caching, background refresh
+- 🌍 **i18next** — multi-language with RTL support (English + Arabic)
+- 🎨 **Themed UI components** — Button, TextField, Card, Modal, Toast, Icon, and more
+- 🔐 **Auth flow** — Login, Sign Up, Forgot Password with secure token storage
+- 🧪 **Jest + React Native Testing Library** — 25 tests covering stores, hooks, screens, and navigation
+- 📏 **ESLint + Prettier + Husky** — enforced code quality on every commit
+- 🛤️ **Path aliases** — clean imports via `@components/`, `@store/`, `@theme/`, etc.
+- 🧰 **CLI scaffolding tool** — `npx react-native-template-ultimacode MyApp`
+
+---
+
+## Creating a New Project
+
+### Option 1 — CLI (recommended)
 
 ```sh
-npx @react-native-community/cli@latest init MyApp --template react-native-template-ultimacode
+npx react-native-template-ultimacode MyApp
 cd MyApp
+yarn install
 ```
 
-### Option 2 — GitHub Template (recommended)
+The CLI handles renaming all files, packages, and identifiers automatically.
 
-Click **"Use this template"** on the [GitHub repository page](https://github.com/anomalyco/ReactNativeTemplate), then clone your new repo:
+### Option 2 — GitHub Template
+
+Click **"Use this template"** on the [GitHub repository](https://github.com/aragabz/react-native-template-ultimacode), then:
 
 ```sh
 git clone git@github.com:your-org/your-new-app.git
 cd your-new-app
 ```
 
-### Option 2 — degit (no Git history)
+### Option 3 — degit (no Git history)
 
 ```sh
-npx degit anomalyco/ReactNativeTemplate my-app
+npx degit aragabz/react-native-template-ultimacode my-app
 cd my-app
 ```
 
-### Option 3 — Manual clone
+### Option 4 — Manual clone
 
 ```sh
-git clone git@github.com:anomalyco/ReactNativeTemplate.git my-app
+git clone git@github.com:aragabz/react-native-template-ultimacode.git my-app
 cd my-app
-rm -rf .git
-git init
-git add .
-git commit -m "Initial commit"
+rm -rf .git && git init
 ```
 
-### After scaffolding
+### After scaffolding (Options 2–4)
 
-1. Search for `ReactNativeTemplate` across the project and replace with your app name.
-2. Update the app name in `app.json` and `package.json`.
-3. Update `ios/ReactNativeTemplate.xcodeproj` name (or re-run `npx react-native init`).
-4. Run `yarn install`.
-5. Follow the **Getting Started** steps below.
+1. Run `./create.sh MyApp ./. com.yourcompany.myapp` — or manually:
+2. Search for `ReactNativeTemplate` across the project and replace with your app name.
+3. Update names in `app.json` and `package.json`.
+4. Rename `ios/ReactNativeTemplate.xcodeproj` and `ios/ReactNativeTemplate/`.
+5. Run `yarn install`.
+
+---
 
 ## Prerequisites
 
-- Node.js >= 22.11.0
-- Yarn
-- CocoaPods (for iOS)
-- Xcode (for iOS)
-- Android Studio (for Android)
+| Tool | Version |
+|------|---------|
+| Node.js | >= 22.11.0 |
+| Yarn | Berry (v4) |
+| CocoaPods | Latest (iOS) |
+| Xcode | 15+ (iOS) |
+| Android Studio | Latest + JDK 17 (Android) |
 
 ## Getting Started
 
 ```sh
 yarn install
+cp .env.example .env   # Configure your environment
 ```
 
 ### iOS
@@ -71,198 +95,258 @@ yarn ios
 yarn android
 ```
 
+---
+
 ## Project Structure
 
 ```
 src/
-├── app/              # App entry point, providers
-├── components/ui/    # Reusable UI primitives
-├── navigation/       # Navigators, types, linking config
-├── screens/          # Screen components
-│   └── auth/         # Auth flow screens
-├── services/         # API client, endpoints, hooks
-├── store/            # Zustand stores
-├── theme/            # Colors, spacing, typography
-├── types/            # Global type declarations
-└── utils/            # Utility functions
+├── app/                # App entry, providers, splash handling
+├── components/
+│   └── ui/             # Reusable UI primitives (Button, TextField, Card, Modal, Toast, Icon, etc.)
+├── constants/          # App-wide constants
+├── hooks/              # Custom React hooks
+├── i18n/               # Translations (en.json, ar.json) and RTL management
+├── navigation/         # RootNavigator, TabNavigator, AuthNavigator, types, deep linking
+├── screens/            # Screen components
+│   └── auth/           # Login, SignUp, ForgotPassword
+├── services/           # API client (Axios), endpoint definitions, React Query hooks
+├── store/              # Zustand stores (auth, theme, settings, counter)
+├── theme/              # Colors (light/dark), spacing, typography, icon sizes
+├── types/              # Global type declarations (SVG, __DEV__)
+└── utils/              # Utility functions
 ```
 
-## Native Module Configuration
+## Architecture Overview
 
-This project integrates several Expo modules. Below are the native configurations required for each.
+```
+┌─────────────────────────────────────────────────────┐
+│  App.tsx (providers: Gesture, SafeArea, QueryClient, Nav)  │
+├─────────────────────────────────────────────────────┤
+│  Navigation Layer (React Navigation)                │
+│  ├── AuthNavigator (Login, SignUp, ForgotPassword)  │
+│  └── TabNavigator (Home, Demo, Showcase*, Settings) │
+├─────────────────────────────────────────────────────┤
+│  State: Zustand           │  Data: TanStack Query   │
+│  (auth, theme, settings)  │  (API hooks + caching)  │
+├─────────────────────────────────────────────────────┤
+│  Services: Axios client + interceptors              │
+│  (auto-attach token, 401 → logout)                  │
+└─────────────────────────────────────────────────────┘
+* Showcase tab visible in __DEV__ mode only
+```
 
-### react-native-screens
+---
 
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | No special entitlements. `pod 'RNScreens'` is auto-linked. |
-| Android  | No special permissions. Uses `androidx.fragment.app.Fragment`. |
+## Path Aliases
 
-### react-native-safe-area-context
+| Alias | Maps To |
+|-------|---------|
+| `@api/*` | `src/services/*` |
+| `@components/*` | `src/components/*` |
+| `@screens/*` | `src/screens/*` |
+| `@store/*` | `src/store/*` |
+| `@services/*` | `src/services/*` |
+| `@hooks/*` | `src/hooks/*` |
+| `@utils/*` | `src/utils/*` |
+| `@navigation/*` | `src/navigation/*` |
+| `@i18n` | `src/i18n` |
+| `@theme` | `src/theme` |
 
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | No special entitlements. Auto-linked. |
-| Android  | No special permissions. Auto-linked. |
+Aliases are configured in `tsconfig.json`, `babel.config.js`, `metro.config.js`, and `jest.config.js`.
 
-### react-native-gesture-handler
+---
 
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | No special entitlements. Auto-linked. |
-| Android  | `MainActivity.java` must extend `ReactActivity` and delegate `onCreate` to `GestureHandlerRootView`. Already configured in this template. |
+## UI Components
 
-### react-native-async-storage / @react-native-async-storage/async-storage
+All components are exported from `@components/ui`:
 
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | No special entitlements. Auto-linked. |
-| Android  | No special permissions. Auto-linked. |
+| Component | Description |
+|-----------|-------------|
+| `Button` | Variants: primary, secondary, outline, ghost. Supports loading/disabled states. |
+| `TextField` | Labeled input with error state, secure entry, multiline. |
+| `Card` | Elevated container with border and shadow. |
+| `Modal` | Overlay modal with title, close button, backdrop dismiss. |
+| `Toast` | Animated notification (success/error/info) via `useToastStore`. |
+| `LoadingSpinner` | Centered ActivityIndicator with optional message. |
+| `EmptyState` | Placeholder with title, message, and optional CTA. |
+| `Icon` | Wraps `@expo/vector-icons` with themed sizes. |
+| `SvgIcon` | Inline SVG rendering via `react-native-svg`. |
 
-### expo-secure-store
+### Icon Families
 
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | **Keychain Sharing** entitlement must be enabled in `ios/<project>/<project>.entitlements`. Xcode auto-manages this when the pod is linked. |
-| Android  | Uses `EncryptedSharedPreferences` (AndroidX Security Crypto). Min SDK 23+. |
-
-### expo-splash-screen
-
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | A `LaunchScreen.storyboard` must exist (created by default RN init). The module hooks into it to show/hide the splash. |
-| Android  | A splash theme is defined in `android/app/src/main/res/values/styles.xml`. The module manages its visibility. |
-
-### expo-status-bar
-
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | `UIViewControllerBasedStatusBarAppearance` must be `YES` (default in this template). |
-| Android  | No special permissions. Manages the translucent status bar via `setSystemUiVisibility`. |
-
-### expo-font
-
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | No special entitlements. Font files are bundled as resources. |
-| Android  | No special permissions. Font files are placed in `android/app/src/main/assets/fonts/`. |
-
-### react-native-svg
-
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | No special entitlements. Auto-linked. |
-| Android  | No special permissions. Auto-linked. Requires JDK 17+ (see Build Troubleshooting below). |
-
-### @expo/vector-icons & react-native-svg-transformer
-
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | No special entitlements. Icon fonts are bundled in the app binary. |
-| Android  | No special permissions. Icon fonts are bundled in the APK. |
-
-## Icons
-
-### Vector Icons (Icon component)
-
-The `Icon` component wraps `@expo/vector-icons` with theme defaults:
+`MaterialIcons` (default), `MaterialCommunityIcons`, `Ionicons`, `FontAwesome`, `Feather`, `AntDesign`, `Entypo`, `EvilIcons`, `Fontisto`, `Foundation`, `Octicons`, `SimpleLineIcons`, `Zocial`.
 
 ```tsx
 import { Icon } from '@components/ui';
 
-// Material Design (default)
-<Icon name="home" size="md" color={colors.light.primary} />
-
-// Other families
-<Icon family="Ionicons" name="person-circle" />
-<Icon family="MaterialCommunityIcons" name="heart" />
-<Icon family="FontAwesome" name="star" />
-
-// Sizes from theme: xs, sm, md, lg, xl, xxl (or a number)
+<Icon name="home" size="md" />
+<Icon family="Ionicons" name="person-circle" size="lg" color="#007AFF" />
 ```
 
-Supported families: `MaterialIcons`, `MaterialCommunityIcons`, `Ionicons`, `FontAwesome`, `Feather`.
+### SVG Files
 
-### SVG Icons (SvgIcon component)
-
-For inline SVGs:
+`.svg` files are transformed into React components via `react-native-svg-transformer`:
 
 ```tsx
-import { SvgIcon } from '@components/ui';
-import { Circle, Rect } from 'react-native-svg';
-
-<SvgIcon width={24} height={24} viewBox="0 0 24 24">
-  <Circle cx={12} cy={12} r={10} fill="red" />
-</SvgIcon>
+import Logo from '../assets/logo.svg';
+<Logo width={100} height={100} />
 ```
 
-To import `.svg` files as React components, place them in `src/assets/` and import:
+---
+
+## State Management (Zustand)
+
+| Store | Purpose | Persisted |
+|-------|---------|-----------|
+| `useAuthStore` | User, token, login/logout, hydration | ✅ (hybrid: AsyncStorage + SecureStore for token) |
+| `useThemeStore` | Light/dark/system mode | ✅ (AsyncStorage) |
+| `useSettingsStore` | Language, onboarding flag | ✅ (AsyncStorage) |
+| `useCounterStore` | Demo counter | ❌ |
+| `useToastStore` | Toast visibility & message | ❌ |
+
+All persisted stores use `devtools` middleware (enabled in `__DEV__` only).
+
+---
+
+## Data Fetching (TanStack Query)
+
+API hooks live in `src/services/hooks/`. The Axios client (`src/services/apiClient.ts`) automatically:
+- Attaches the Bearer token from `useAuthStore`
+- Logs out the user on 401 responses
 
 ```tsx
-import Logo from '@assets/logo.svg';
-// Renders as a React Native SVG component
+import { usePosts } from '@api/hooks/usePosts';
+
+const { data, isLoading, isError, refetch } = usePosts();
 ```
+
+---
+
+## Internationalization (i18n)
+
+- Supported languages: **English** (`en`), **Arabic** (`ar`)
+- Device locale is auto-detected on first launch
+- Language preference is persisted in AsyncStorage
+- RTL layout is applied automatically for Arabic
+- The app tree remounts on RTL change via a key mechanism
+
+```tsx
+import { changeLanguage } from '@i18n';
+changeLanguage('ar'); // switches language and applies RTL
+```
+
+---
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `API_URL` | Base URL for the API client | `https://jsonplaceholder.typicode.com` |
+| `API_KEY` | API key (optional) | — |
+| `ENABLE_ANALYTICS` | Feature flag | `false` |
+
+Copy `.env.example` to `.env` and configure. Values are exposed via `expo-constants` at build time.
+
+> ⚠️ `.env` is git-ignored. Never commit secrets.
+
+---
+
+## Scripts
+
+| Script | Description |
+|--------|-------------|
+| `yarn start` | Start Metro bundler |
+| `yarn ios` | Run on iOS simulator |
+| `yarn android` | Run on Android emulator |
+| `yarn test` | Run Jest test suite |
+| `yarn test:watch` | Run tests in watch mode |
+| `yarn lint` | Lint source files |
+| `yarn lint:fix` | Auto-fix lint issues |
+| `yarn typecheck` | Run TypeScript compiler check |
+| `yarn format` | Format with Prettier |
+| `yarn format:check` | Check formatting |
+
+---
+
+## Testing
+
+Tests use **Jest** + **React Native Testing Library**. Run with:
+
+```sh
+yarn test
+```
+
+Test structure mirrors source:
+```
+src/
+├── components/ui/__tests__/   # UI component tests
+├── navigation/__tests__/      # Navigator integration tests
+├── screens/__tests__/         # Screen render tests
+├── screens/auth/__tests__/    # Auth screen tests
+├── services/hooks/__tests__/  # API hook tests
+└── store/__tests__/           # Store unit tests
+```
+
+Mocks are centralized in `jest.setup.js` (native modules, navigation, i18n, storage).
+
+---
+
+## Native Module Configuration
+
+| Module | iOS | Android |
+|--------|-----|---------|
+| react-native-screens | Auto-linked | Auto-linked |
+| react-native-safe-area-context | Auto-linked | Auto-linked |
+| react-native-gesture-handler | Auto-linked | Already configured in template |
+| @react-native-async-storage/async-storage | Auto-linked | Auto-linked |
+| expo-secure-store | Keychain Sharing entitlement (auto) | EncryptedSharedPreferences (min SDK 23) |
+| expo-splash-screen | LaunchScreen.storyboard | Splash theme in styles.xml |
+| expo-status-bar | `UIViewControllerBasedStatusBarAppearance = YES` | No extra config |
+| expo-font | Font files bundled as resources | Fonts in `assets/fonts/` |
+| react-native-svg | Auto-linked | Auto-linked (JDK 17+) |
+| @expo/vector-icons | Icon fonts bundled in binary | Icon fonts bundled in APK |
+
+---
+
+## Deep Linking
+
+Configured in `src/navigation/linking.ts` with the `rn-template://` prefix:
+
+| Route | Path |
+|-------|------|
+| Login | `rn-template://login` |
+| Sign Up | `rn-template://signup` |
+| Forgot Password | `rn-template://forgot-password` |
+| Home | `rn-template://home` |
+| Demo | `rn-template://demo` |
+| Settings | `rn-template://settings` |
+| Details | `rn-template://details/:id` |
+
+---
 
 ## Build Troubleshooting
 
 ### Android: "jlink executable does not exist"
 
-If the Android build fails with:
-
-```
-jlink executable .../jre/.../bin/jlink does not exist
-```
-
-Gradle is resolving a JRE instead of a full JDK. Fix by ensuring `JAVA_HOME` points to a JDK 17+:
+Gradle is resolving a JRE instead of a full JDK. Fix:
 
 ```sh
-# Set before running yarn android:
 export JAVA_HOME=$(/usr/libexec/java_home)
-# Or point to your specific JDK:
-export JAVA_HOME=/Users/me/.sdkman/candidates/java/current
 ```
 
-Alternatively, add to `android/gradle.properties`:
+Or add to `android/gradle.properties`:
 
 ```properties
-org.gradle.java.home=/path/to/your/jdk
+org.gradle.java.home=/path/to/your/jdk17
 ```
 
-### react-native-screens (native-stack)
-
-| Platform | Requirement |
-|----------|-------------|
-| iOS      | Must have `RNScreens` pod installed. iOS 12+ required. |
-| Android  | No additional setup. |
-
-## Android Permissions (AndroidManifest.xml)
-
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-```
-
-This is required for network requests through `axios`. No additional permissions are declared since the template does not use camera, location, or notifications.
-
-## iOS Info.plist Keys
-
-- `NSAppTransportSecurity` — Allows arbitrary loads for development; restrict in production.
-- `UIViewControllerBasedStatusBarAppearance` — Enables per-view-controller status bar styling (required by `expo-status-bar`).
-- `UILaunchStoryboardName` — References the launch screen used by `expo-splash-screen`.
-
-## Environment Variables
-
-| Variable    | Description                  | Default                          |
-|-------------|------------------------------|----------------------------------|
-| `API_URL`   | Base URL for the API client  | `https://jsonplaceholder.typicode.com` |
-| `API_KEY`   | API key (optional)           | —                                |
-| `ENABLE_ANALYTICS` | Feature flag           | `false`                          |
-
-Values are loaded from `.env` at build time and exposed via `expo-constants` `extra` config.
+---
 
 ## Adding Custom Fonts
 
-1. Place `.ttf` or `.otf` files in `src/theme/fonts/`.
-2. Register them in the `useFonts()` call in `src/app/App.tsx`:
+1. Place `.ttf` / `.otf` files in `src/theme/fonts/`.
+2. Register in `useFonts()` in `src/app/App.tsx`:
 
 ```ts
 const [fontsLoaded] = useFonts({
@@ -271,4 +355,10 @@ const [fontsLoaded] = useFonts({
 });
 ```
 
-3. Reference them by name in your `typography.ts` theme file.
+3. Reference by name in `src/theme/typography.ts`.
+
+---
+
+## License
+
+MIT

@@ -10,17 +10,17 @@ describe('useThemeStore', () => {
   it('should set theme mode', async () => {
     const { result } = await renderHook(() => useThemeStore());
     
-    act(() => {
+    await act(async () => {
       result.current.setMode('dark');
     });
     expect(result.current.mode).toBe('dark');
     
-    act(() => {
+    await act(async () => {
       result.current.setMode('light');
     });
     expect(result.current.mode).toBe('light');
 
-    act(() => {
+    await act(async () => {
       result.current.setMode('system');
     });
     expect(result.current.mode).toBe('system');

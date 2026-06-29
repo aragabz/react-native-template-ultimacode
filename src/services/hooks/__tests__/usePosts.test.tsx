@@ -2,6 +2,18 @@ import { renderHook, waitFor } from '@testing-library/react-native';
 import { usePosts } from '../usePosts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
+import { apiClient } from '../../apiClient';
+
+jest.mock('../../apiClient', () => ({
+  apiClient: {
+    get: jest.fn(),
+    post: jest.fn(),
+    interceptors: {
+      request: { use: jest.fn() },
+      response: { use: jest.fn() },
+    },
+  },
+}));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,14 +30,12 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 describe('usePosts', () => {
   beforeEach(() => {
     queryClient.clear();
+    jest.clearAllMocks();
   });
 
   it('should fetch posts successfully', async () => {
-    const mockPosts = [{ id: 1, title: 'Post 1' }];
-    global.fetch = jest.fn().mockResolvedValue({
-      ok: true,
-      json: jest.fn().mockResolvedValue(mockPosts),
-    });
+    const mockPosts = [{ id: 1, userId: 1, title: 'Post 1', body: 'Body 1' }];
+    (apiClient.get as jest.Mock).mockResolvedValue({ data: mockPosts });
 
     const { result } = await renderHook(() => usePosts(), { wrapper });
 
@@ -34,9 +44,7 @@ describe('usePosts', () => {
   });
 
   it('should handle error when fetching fails', async () => {
-    global.fetch = jest.fn().mockResolvedValue({
-      ok: false,
-    });
+    (apiClient.get as jest.Mock).mockRejectedValue(new Error('Network error'));
 
     const { result } = await renderHook(() => usePosts(), { wrapper });
 

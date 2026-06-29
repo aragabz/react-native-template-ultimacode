@@ -7,3 +7,4 @@ export { Modal } from './Modal';
 export { Toast, useToastStore } from './Toast';
 export { Icon } from './Icon';
 export { SvgIcon } from './SvgIcon';
+export { ErrorBoundary } from './ErrorBoundary';

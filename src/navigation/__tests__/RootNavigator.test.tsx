@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootNavigator } from '../RootNavigator';
 
+import { useAuthStore } from '@store/useAuthStore';
+
 // Mock the native modules needed by React Navigation
 jest.mock('react-native-screens', () => {
   const React = require('react');
@@ -52,6 +54,10 @@ jest.mock('react-native-safe-area-context', () => {
 });
 
 describe('RootNavigator', () => {
+  beforeEach(() => {
+    useAuthStore.setState({ user: null, token: 'mock-token', isHydrating: false });
+  });
+
   it('renders the initial screen (Home)', async () => {
     await render(
       <NavigationContainer>

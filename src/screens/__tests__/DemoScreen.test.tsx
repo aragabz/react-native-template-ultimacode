@@ -3,6 +3,18 @@ import { render, screen, waitFor } from '@testing-library/react-native';
 import { DemoScreen } from '../DemoScreen';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NavigationContainer } from '@react-navigation/native';
+import { apiClient } from '@api/apiClient';
+
+jest.mock('@api/apiClient', () => ({
+  apiClient: {
+    get: jest.fn(),
+    post: jest.fn(),
+    interceptors: {
+      request: { use: jest.fn() },
+      response: { use: jest.fn() },
+    },
+  },
+}));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,14 +33,12 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 describe('DemoScreen', () => {
   beforeEach(() => {
     queryClient.clear();
+    jest.clearAllMocks();
   });
 
   it('renders all architectural components', async () => {
-    // Mock posts API
-    global.fetch = jest.fn().mockResolvedValue({
-      ok: true,
-      json: jest.fn().mockResolvedValue([{ id: 1, title: 'Test Post' }]),
-    });
+    const mockPosts = [{ id: 1, userId: 1, title: 'Test Post', body: 'Body' }];
+    (apiClient.get as jest.Mock).mockResolvedValue({ data: mockPosts });
 
     const { getByText } = await render(<DemoScreen />, { wrapper });
 
@@ -36,7 +46,7 @@ describe('DemoScreen', () => {
     expect(getByText(/Counter:/i)).toBeTruthy();
 
     // Check for Theme (Zustand)
-    expect(getByText(/Theme:/i)).toBeTruthy();
+    expect(getByText(/Theme Mode:/i)).toBeTruthy();
 
     // Check for Posts (TanStack Query)
     await waitFor(() => expect(getByText('Test Post')).toBeTruthy());
