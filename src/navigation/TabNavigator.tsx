@@ -6,7 +6,7 @@ import { DemoScreen } from '@screens/DemoScreen';
 import { SettingsScreen } from '@screens/SettingsScreen';
 import { ShowcaseScreen } from '@screens/ShowcaseScreen';
 import { Icon } from '@components/ui';
-import { colors } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 import type { TabParamList } from '@navigation/types';
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -20,6 +20,7 @@ const TAB_ICONS: Record<keyof TabParamList, { family: React.ComponentProps<typeo
 
 export const TabNavigator = () => {
   const { t } = useTranslation();
+  const { colors: themeColors, isDark } = useAppTheme();
 
   return (
     <Tab.Navigator
@@ -36,8 +37,11 @@ export const TabNavigator = () => {
             />
           );
         },
-        tabBarActiveTintColor: colors.light.primary,
-        tabBarInactiveTintColor: colors.light.textSecondary,
+        tabBarActiveTintColor: themeColors.primary,
+        tabBarInactiveTintColor: themeColors.textSecondary,
+        tabBarStyle: { backgroundColor: themeColors.background, borderTopColor: themeColors.border },
+        headerStyle: { backgroundColor: themeColors.background },
+        headerTintColor: themeColors.text,
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />

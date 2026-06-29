@@ -5,16 +5,18 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@navigation/types';
 import { Button, Card } from '@components/ui';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 export const HomeScreen = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { colors: themeColors } = useAppTheme();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: themeColors.background }]}>
       <Card style={styles.card}>
-        <Text style={styles.title}>{t('home.title')}</Text>
+        <Text style={[styles.title, { color: themeColors.text }]}>{t('home.title')}</Text>
         <Button
           title={t('home.goToDetails')}
           onPress={() => navigation.navigate('Details', { id: '42', title: 'From Home' })}
@@ -29,14 +31,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.light.background,
     padding: spacing.md,
   },
   card: { width: '100%', alignItems: 'center' },
   title: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
-    color: colors.light.text,
     marginBottom: spacing.md,
   },
 });

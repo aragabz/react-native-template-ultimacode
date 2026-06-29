@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { colors, spacing } from '@theme';
+import { spacing } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 type CardProps = {
   children: React.ReactNode;
@@ -8,10 +9,20 @@ type CardProps = {
 };
 
 export const Card = ({ children, style }: CardProps) => {
-  const themeColors = colors.light;
+  const { colors: themeColors, isDark } = useAppTheme();
 
   return (
-    <View style={[styles.card, { backgroundColor: themeColors.background, borderColor: themeColors.border }, style]}>
+    <View
+      style={[
+        styles.card,
+        {
+          backgroundColor: themeColors.background,
+          borderColor: themeColors.border,
+          shadowColor: isDark ? '#fff' : '#000',
+        },
+        style,
+      ]}
+    >
       {children}
     </View>
   );
@@ -23,7 +34,6 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     borderWidth: 1,
     elevation: 2,
-    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 import { create } from 'zustand';
 
 type ToastType = 'success' | 'error' | 'info';
@@ -24,6 +25,7 @@ export const useToastStore = create<ToastState>((set) => ({
 
 export const Toast = () => {
   const { visible, message, type, hide } = useToastStore();
+  const { colors: themeColors } = useAppTheme();
   const insets = useSafeAreaInsets();
   const opacity = useRef(new Animated.Value(0)).current;
   const hideRef = useRef(hide);
@@ -51,10 +53,10 @@ export const Toast = () => {
 
   const bgColor =
     type === 'error'
-      ? colors.light.error
+      ? themeColors.error
       : type === 'success'
-        ? colors.light.success
-        : colors.light.primary;
+        ? themeColors.success
+        : themeColors.primary;
 
   return (
     <Animated.View

@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 type ModalProps = {
   visible: boolean;
@@ -17,7 +18,7 @@ type ModalProps = {
 };
 
 export const Modal = ({ visible, onClose, title, children }: ModalProps) => {
-  const themeColors = colors.light;
+  const { colors: themeColors } = useAppTheme();
 
   return (
     <RNModal

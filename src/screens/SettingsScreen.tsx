@@ -6,7 +6,8 @@ import { useAuthStore, selectIsAuthenticated } from '@store/useAuthStore';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@navigation/types';
 import { Button, Card } from '@components/ui';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 import { changeLanguage, getCurrentLanguage, type SupportedLanguage } from '@i18n';
 
 export const SettingsScreen = () => {
@@ -15,6 +16,7 @@ export const SettingsScreen = () => {
   const isAuthenticated = useAuthStore(selectIsAuthenticated);
   const logout = useAuthStore((s) => s.logout);
   const currentLang = getCurrentLanguage();
+  const { colors: themeColors } = useAppTheme();
 
   const toggleLanguage = () => {
     const nextLang: SupportedLanguage = currentLang === 'en' ? 'ar' : 'en';
@@ -22,14 +24,16 @@ export const SettingsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: themeColors.background }]}>
       <Card style={styles.card}>
         <Button
           title={t('settings.goToDetails')}
           onPress={() => navigation.navigate('Details', { id: '99', title: 'From Settings' })}
         />
-        <View style={styles.languageSection}>
-          <Text style={styles.languageLabel}>{t('settings.appLanguage')}</Text>
+        <View style={[styles.languageSection, { borderTopColor: themeColors.border }]}>
+          <Text style={[styles.languageLabel, { color: themeColors.textSecondary }]}>
+            {t('settings.appLanguage')}
+          </Text>
           <Button
             title={currentLang === 'en' ? t('settings.arabic') : t('settings.english')}
             variant="outline"
@@ -54,7 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.light.background,
     padding: spacing.md,
   },
   card: { width: '100%' },
@@ -62,12 +65,10 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
     paddingTop: spacing.lg,
     borderTopWidth: 1,
-    borderTopColor: colors.light.border,
   },
   languageLabel: {
     fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.semibold,
-    color: colors.light.textSecondary,
     marginBottom: spacing.sm,
     textTransform: 'uppercase',
     letterSpacing: 1,

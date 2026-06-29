@@ -6,23 +6,19 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
-  useColorScheme,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useCounterStore } from '@store/useCounterStore';
 import { useThemeStore } from '@store/useThemeStore';
 import { usePosts, Post } from '@api/hooks/usePosts';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 export const DemoScreen = () => {
   const { t } = useTranslation();
   const { count, increment, decrement } = useCounterStore();
   const { mode, setMode } = useThemeStore();
-  const systemColorScheme = useColorScheme();
-
-  const currentMode = mode === 'system' ? systemColorScheme : mode;
-  const isDarkMode = currentMode === 'dark';
-  const themeColors = isDarkMode ? colors.dark : colors.light;
+  const { colors: themeColors, isDark } = useAppTheme();
 
   const { data: posts, isLoading, isError, error, refetch } = usePosts();
 
@@ -45,7 +41,7 @@ export const DemoScreen = () => {
         {t('demo.title')}
       </Text>
 
-      <View style={[styles.section, { backgroundColor: isDarkMode ? '#1c1c1e' : '#f0f0f0' }]}>
+      <View style={[styles.section, { backgroundColor: themeColors.surface }]}>
         <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
           {t('demo.zustandSection')}
         </Text>
@@ -69,7 +65,7 @@ export const DemoScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={[styles.section, { flex: 1, backgroundColor: isDarkMode ? '#1c1c1e' : '#f0f0f0' }]}>
+      <View style={[styles.section, { flex: 1, backgroundColor: themeColors.surface }]}>
         <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
           {t('demo.tanstackSection')}
         </Text>

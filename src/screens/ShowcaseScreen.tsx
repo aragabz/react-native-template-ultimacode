@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, TextField, Card, LoadingSpinner, EmptyState, Modal, Icon, useToastStore } from '@components/ui';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 export const ShowcaseScreen = () => {
   const { t } = useTranslation();
   const [textValue, setTextValue] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const showToast = useToastStore((s) => s.show);
+  const { colors: themeColors } = useAppTheme();
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.title}>{t('showcase.title')}</Text>
+    <ScrollView
+      style={[styles.container, { backgroundColor: themeColors.surface }]}
+      contentContainerStyle={styles.content}
+    >
+      <Text style={[styles.title, { color: themeColors.text }]}>{t('showcase.title')}</Text>
 
       <Card>
-        <Text style={styles.sectionTitle}>{t('showcase.buttonSection')}</Text>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('showcase.buttonSection')}</Text>
         <Button title={t('showcase.primary')} onPress={() => showToast(t('showcase.primaryPressed'))} />
         <Button title={t('showcase.secondary')} variant="secondary" onPress={() => showToast(t('showcase.secondaryPressed'))} style={{ marginTop: spacing.sm }} />
         <Button title={t('showcase.outline')} variant="outline" onPress={() => showToast(t('showcase.outlinePressed'))} style={{ marginTop: spacing.sm }} />
@@ -25,7 +30,7 @@ export const ShowcaseScreen = () => {
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>{t('showcase.textFieldSection')}</Text>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('showcase.textFieldSection')}</Text>
         <TextField label={t('showcase.defaultLabel')} placeholder={t('showcase.typeSomething')} value={textValue} onChangeText={setTextValue} />
         <TextField label={t('showcase.withErrorLabel')} value="" onChangeText={() => {}} error={t('showcase.requiredError')} />
         <TextField label={t('showcase.secureLabel')} value="" onChangeText={() => {}} secureTextEntry placeholder={t('auth.login.password')} />
@@ -33,12 +38,12 @@ export const ShowcaseScreen = () => {
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>{t('showcase.loadingSection')}</Text>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('showcase.loadingSection')}</Text>
         <LoadingSpinner size="small" message={t('showcase.loadingMessage')} />
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>{t('showcase.emptyStateSection')}</Text>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('showcase.emptyStateSection')}</Text>
         <EmptyState
           title={t('showcase.noItemsTitle')}
           message={t('showcase.noItemsMessage')}
@@ -47,10 +52,10 @@ export const ShowcaseScreen = () => {
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>{t('showcase.modalSection')}</Text>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('showcase.modalSection')}</Text>
         <Button title={t('showcase.openModal')} onPress={() => setModalVisible(true)} />
         <Modal visible={modalVisible} onClose={() => setModalVisible(false)} title={t('showcase.modalTitle')}>
-          <Text style={{ color: colors.light.text, marginBottom: spacing.md }}>
+          <Text style={{ color: themeColors.text, marginBottom: spacing.md }}>
             {t('showcase.modalContent')}
           </Text>
           <Button title={t('showcase.close')} onPress={() => setModalVisible(false)} />
@@ -58,21 +63,21 @@ export const ShowcaseScreen = () => {
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>{t('showcase.toastSection')}</Text>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('showcase.toastSection')}</Text>
         <Button title={t('showcase.showSuccess')} onPress={() => showToast(t('showcase.successMessage'), 'success')} style={{ marginBottom: spacing.sm }} />
         <Button title={t('showcase.showError')} variant="outline" onPress={() => showToast(t('showcase.errorMessage'), 'error')} style={{ marginBottom: spacing.sm }} />
         <Button title={t('showcase.showInfo')} variant="ghost" onPress={() => showToast(t('showcase.infoMessage'), 'info')} />
       </Card>
 
       <Card style={{ marginTop: spacing.md }}>
-        <Text style={styles.sectionTitle}>{t('showcase.iconsSection')}</Text>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('showcase.iconsSection')}</Text>
         <View style={styles.iconRow}>
-          <Icon family="MaterialIcons" name="home" size="md" color={colors.light.primary} />
-          <Icon family="MaterialCommunityIcons" name="heart" size="md" color={colors.light.error} />
-          <Icon family="Ionicons" name="person-circle" size="md" color={colors.light.text} />
-          <Icon family="FontAwesome" name="star" size="md" color={colors.light.text} />
-          <Icon family="Feather" name="search" size="md" color={colors.light.text} />
-          <Icon family="AntDesign" name="setting" size="md" color={colors.light.text} />
+          <Icon family="MaterialIcons" name="home" size="md" color={themeColors.primary} />
+          <Icon family="MaterialCommunityIcons" name="heart" size="md" color={themeColors.error} />
+          <Icon family="Ionicons" name="person-circle" size="md" color={themeColors.text} />
+          <Icon family="FontAwesome" name="star" size="md" color={themeColors.text} />
+          <Icon family="Feather" name="search" size="md" color={themeColors.text} />
+          <Icon family="AntDesign" name="setting" size="md" color={themeColors.text} />
         </View>
         <View style={{ ...styles.iconRow, marginTop: spacing.sm }}>
           <Icon name="favorite" size="sm" />
@@ -81,9 +86,9 @@ export const ShowcaseScreen = () => {
           <Icon name="favorite" size="xl" />
         </View>
         <View style={{ ...styles.iconRow, marginTop: spacing.sm }}>
-          <Icon family="MaterialIcons" name="check-circle" color={colors.light.success} />
-          <Icon family="MaterialIcons" name="error" color={colors.light.error} />
-          <Icon family="MaterialIcons" name="info" color={colors.light.primary} />
+          <Icon family="MaterialIcons" name="check-circle" color={themeColors.success} />
+          <Icon family="MaterialIcons" name="error" color={themeColors.error} />
+          <Icon family="MaterialIcons" name="info" color={themeColors.primary} />
           <Icon family="MaterialIcons" name="warning" color="#FF9500" />
         </View>
       </Card>
@@ -92,19 +97,17 @@ export const ShowcaseScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.light.surface },
+  container: { flex: 1 },
   content: { padding: spacing.md, paddingBottom: spacing.xxl },
   title: {
     fontSize: typography.fontSize.xxl,
     fontWeight: typography.fontWeight.bold,
-    color: colors.light.text,
     marginBottom: spacing.lg,
     textAlign: 'center',
   },
   sectionTitle: {
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.semibold,
-    color: colors.light.text,
     marginBottom: spacing.sm,
   },
   iconRow: {

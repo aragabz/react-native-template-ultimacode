@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 type LoadingSpinnerProps = {
   size?: 'small' | 'large';
@@ -13,7 +14,7 @@ export const LoadingSpinner = ({
   message,
   color,
 }: LoadingSpinnerProps) => {
-  const themeColors = colors.light;
+  const { colors: themeColors } = useAppTheme();
 
   return (
     <View style={styles.container}>

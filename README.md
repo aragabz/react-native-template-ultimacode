@@ -105,7 +105,7 @@ src/
 ├── components/
 │   └── ui/             # Reusable UI primitives (Button, TextField, Card, Modal, Toast, Icon, etc.)
 ├── constants/          # App-wide constants
-├── hooks/              # Custom React hooks
+├── hooks/              # Custom React hooks (useAppTheme, etc.)
 ├── i18n/               # Translations (en.json, ar.json) and RTL management
 ├── navigation/         # RootNavigator, TabNavigator, AuthNavigator, types, deep linking
 ├── screens/            # Screen components
@@ -206,6 +206,75 @@ import Logo from '../assets/logo.svg';
 | `useToastStore` | Toast visibility & message | ❌ |
 
 All persisted stores use `devtools` middleware (enabled in `__DEV__` only).
+
+---
+
+## Theming (Dark / Light Mode)
+
+The template has full dark/light mode support via the `useAppTheme` hook — the single source of truth for all components and screens.
+
+### How It Works
+
+```
+useThemeStore (persisted)     useColorScheme() (system)
+        │                              │
+        └──────── useAppTheme ─────────┘
+                      │
+              { colors, isDark }
+                      │
+        ┌─────────────┼─────────────┐
+   Components       Screens     Navigation
+```
+
+1. **`useThemeStore`** persists the user's choice: `'light'`, `'dark'`, or `'system'`
+2. **`useAppTheme()`** resolves the effective theme by combining the store value with the system color scheme
+3. **Every screen and component** calls `useAppTheme()` — no hardcoded colors anywhere
+
+### Usage
+
+```tsx
+import { useAppTheme } from '@hooks/useAppTheme';
+
+const MyScreen = () => {
+  const { colors, isDark } = useAppTheme();
+
+  return (
+    <View style={{ backgroundColor: colors.background }}>
+      <Text style={{ color: colors.text }}>Hello</Text>
+    </View>
+  );
+};
+```
+
+### Switching Themes
+
+```tsx
+import { useThemeStore } from '@store/useThemeStore';
+
+const { setMode } = useThemeStore();
+setMode('dark');   // force dark
+setMode('light');  // force light
+setMode('system'); // follow device setting
+```
+
+### Color Tokens
+
+| Token | Light | Dark |
+|-------|-------|------|
+| `primary` | `#007AFF` | `#0A84FF` |
+| `background` | `#FFFFFF` | `#000000` |
+| `surface` | `#F2F2F7` | `#1C1C1E` |
+| `text` | `#000000` | `#FFFFFF` |
+| `textSecondary` | `#3C3C43` (60%) | `#EBEBF5` (60%) |
+| `border` | `#C6C6C8` | `#38383A` |
+| `error` | `#FF3B30` | `#FF453A` |
+| `success` | `#34C759` | `#30D158` |
+
+Add new tokens in `src/theme/colors.ts` — they'll be available everywhere via `useAppTheme()`.
+
+### Navigation Theme
+
+`App.tsx` passes a React Navigation theme derived from `useAppTheme()`, so header bars, tab bars, and stack backgrounds all follow the current mode automatically.
 
 ---
 

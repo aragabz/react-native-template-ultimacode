@@ -4,10 +4,9 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
-  useColorScheme,
 } from 'react-native';
-import { colors, spacing, typography } from '@theme';
-import { useThemeStore } from '@store/useThemeStore';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
 
@@ -30,10 +29,7 @@ export const Button = ({
   style,
   testID,
 }: ButtonProps) => {
-  const themeMode = useThemeStore((s) => s.mode);
-  const systemColorScheme = useColorScheme();
-  const resolvedMode = themeMode === 'system' ? systemColorScheme : themeMode;
-  const themeColors = resolvedMode === 'dark' ? colors.dark : colors.light;
+  const { colors: themeColors } = useAppTheme();
 
   const variantStyle = {
     primary: {

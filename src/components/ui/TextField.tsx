@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 type TextFieldProps = {
   label?: string;
@@ -27,16 +28,20 @@ export const TextField = ({
   multiline,
   style,
 }: TextFieldProps) => {
-  const themeColors = colors.light;
+  const { colors: themeColors } = useAppTheme();
 
   return (
     <View style={[styles.wrapper, style]}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <Text style={[styles.label, { color: themeColors.text }]}>{label}</Text>}
       <TextInput
         style={[
           styles.input,
+          {
+            borderColor: error ? themeColors.error : themeColors.border,
+            color: themeColors.text,
+            backgroundColor: themeColors.background,
+          },
           multiline && styles.multiline,
-          error && styles.inputError,
         ]}
         placeholder={placeholder}
         placeholderTextColor={themeColors.textSecondary}
@@ -48,7 +53,7 @@ export const TextField = ({
         multiline={multiline}
         textAlignVertical={multiline ? 'top' : 'center'}
       />
-      {error && <Text style={styles.error}>{error}</Text>}
+      {error && <Text style={[styles.error, { color: themeColors.error }]}>{error}</Text>}
     </View>
   );
 };
@@ -58,24 +63,18 @@ const styles = StyleSheet.create({
   label: {
     fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.medium,
-    color: colors.light.text,
     marginBottom: spacing.xs,
   },
   input: {
     borderWidth: 1,
-    borderColor: colors.light.border,
     borderRadius: 8,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm + 4,
     fontSize: typography.fontSize.md,
-    color: colors.light.text,
-    backgroundColor: colors.light.background,
   },
-  inputError: { borderColor: colors.light.error },
   multiline: { minHeight: 100, paddingTop: spacing.sm + 4 },
   error: {
     fontSize: typography.fontSize.xs,
-    color: colors.light.error,
     marginTop: spacing.xs,
   },
 });

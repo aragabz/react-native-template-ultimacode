@@ -7,7 +7,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuthStore } from '@store/useAuthStore';
 import type { User } from '@store/useAuthStore';
 import type { AuthStackParamList } from '@navigation/types';
-import { colors, spacing, typography } from '@theme';
+import { spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 
 export const LoginScreen = () => {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ export const LoginScreen = () => {
   const insets = useSafeAreaInsets();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { colors: themeColors } = useAppTheme();
 
   const handleLogin = () => {
     const mockUser: User = { id: '1', email, name: 'Test User' };
@@ -23,34 +25,34 @@ export const LoginScreen = () => {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container, { paddingTop: insets.top, backgroundColor: themeColors.background }]}>
       <View style={styles.content}>
-        <Text style={styles.title}>{t('auth.login.title')}</Text>
+        <Text style={[styles.title, { color: themeColors.text }]}>{t('auth.login.title')}</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { borderColor: themeColors.border, color: themeColors.text }]}
           placeholder={t('auth.login.email')}
-          placeholderTextColor={colors.light.textSecondary}
+          placeholderTextColor={themeColors.textSecondary}
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
           keyboardType="email-address"
         />
         <TextInput
-          style={styles.input}
+          style={[styles.input, { borderColor: themeColors.border, color: themeColors.text }]}
           placeholder={t('auth.login.password')}
-          placeholderTextColor={colors.light.textSecondary}
+          placeholderTextColor={themeColors.textSecondary}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <TouchableOpacity style={[styles.button, { backgroundColor: themeColors.primary }]} onPress={handleLogin}>
           <Text style={styles.buttonText}>{t('auth.login.logIn')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={styles.link}>{t('auth.login.signUpLink')}</Text>
+          <Text style={[styles.link, { color: themeColors.primary }]}>{t('auth.login.signUpLink')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={styles.link}>{t('auth.login.forgotPassword')}</Text>
+          <Text style={[styles.link, { color: themeColors.primary }]}>{t('auth.login.forgotPassword')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -58,27 +60,23 @@ export const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.light.background },
+  container: { flex: 1 },
   content: { flex: 1, justifyContent: 'center', paddingHorizontal: spacing.lg },
   title: {
     fontSize: typography.fontSize.title,
     fontWeight: typography.fontWeight.bold,
-    color: colors.light.text,
     marginBottom: spacing.xl,
     textAlign: 'center',
   },
   input: {
     borderWidth: 1,
-    borderColor: colors.light.border,
     borderRadius: 8,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm + 4,
     fontSize: typography.fontSize.md,
-    color: colors.light.text,
     marginBottom: spacing.md,
   },
   button: {
-    backgroundColor: colors.light.primary,
     paddingVertical: spacing.sm + 4,
     borderRadius: 8,
     alignItems: 'center',
@@ -90,7 +88,6 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.semibold,
   },
   link: {
-    color: colors.light.primary,
     fontSize: typography.fontSize.sm,
     textAlign: 'center',
     marginTop: spacing.md,
