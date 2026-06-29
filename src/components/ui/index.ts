@@ -8,3 +8,4 @@ export { Toast, useToastStore } from './Toast';
 export { Icon } from './Icon';
 export { SvgIcon } from './SvgIcon';
 export { ErrorBoundary } from './ErrorBoundary';
+export { OfflineBanner } from './OfflineBanner';

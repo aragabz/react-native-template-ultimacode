@@ -10,7 +10,7 @@ import { createQueryClient } from '@services/queryClient';
 import { useAuthStore, selectIsHydrating } from '@store/useAuthStore';
 import { RootNavigator } from '@navigation/RootNavigator';
 import { linking } from '@navigation/linking';
-import { Toast, ErrorBoundary } from '@components/ui';
+import { Toast, ErrorBoundary, OfflineBanner } from '@components/ui';
 import { useAppTheme } from '@hooks/useAppTheme';
 import initI18n, { onRtlChange } from '@i18n';
 
@@ -64,6 +64,7 @@ function App() {
               <StatusBar style={isDark ? 'light' : 'dark'} />
               <RootNavigator />
               <Toast />
+              <OfflineBanner />
             </NavigationContainer>
           </QueryClientProvider>
         </SafeAreaProvider>

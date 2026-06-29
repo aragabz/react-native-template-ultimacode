@@ -1,3 +1,19 @@
+jest.mock('@hooks/useAppTheme', () => ({
+  useAppTheme: () => ({
+    colors: {
+      primary: '#007AFF',
+      background: '#FFFFFF',
+      surface: '#F2F2F7',
+      text: '#000000',
+      textSecondary: '#3C3C4399',
+      border: '#C6C6C8',
+      error: '#FF3B30',
+      success: '#34C759',
+    },
+    isDark: false,
+  }),
+}));
+
 jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: jest.fn(() => Promise.resolve()),
   getItem: jest.fn(() => Promise.resolve(null)),
@@ -166,3 +182,12 @@ jest.mock('react-native-gesture-handler', () => {
     Directions: {},
   };
 });
+
+jest.mock('@react-native-community/netinfo', () => ({
+  addEventListener: jest.fn(() => jest.fn()),
+  fetch: jest.fn().mockResolvedValue({
+    isConnected: true,
+    isInternetReachable: true,
+    type: 'wifi',
+  }),
+}));
