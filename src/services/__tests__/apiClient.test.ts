@@ -2,6 +2,20 @@ import axios from 'axios';
 import { useAuthStore } from '@store/useAuthStore';
 import { apiClient } from '../apiClient';
 
+// Axios interceptor handlers are internal — use type assertion for test access
+type InterceptorHandler<T> = {
+  fulfilled: (value: T) => T | Promise<T>;
+  rejected?: (error: unknown) => unknown;
+};
+
+const getRequestHandler = (index: number) =>
+  (apiClient.interceptors.request as unknown as { handlers: InterceptorHandler<any>[] }).handlers[index];
+
+const getLastResponseHandler = () => {
+  const handlers = (apiClient.interceptors.response as unknown as { handlers: InterceptorHandler<any>[] }).handlers;
+  return handlers[handlers.length - 1];
+};
+
 beforeEach(() => {
   useAuthStore.setState({
     user: null,
@@ -14,8 +28,8 @@ describe('apiClient request interceptor', () => {
   it('attaches Authorization header when token exists', async () => {
     useAuthStore.setState({ token: 'test-access-token' });
 
-    const handler = apiClient.interceptors.request.handlers[0].fulfilled;
-    const config = await handler({ headers: new axios.AxiosHeaders() });
+    const handler = getRequestHandler(0);
+    const config = await handler.fulfilled({ headers: new axios.AxiosHeaders() });
 
     expect(config.headers.Authorization).toBe('Bearer test-access-token');
   });
@@ -23,8 +37,8 @@ describe('apiClient request interceptor', () => {
   it('does not attach Authorization header when no token', async () => {
     useAuthStore.setState({ token: null });
 
-    const handler = apiClient.interceptors.request.handlers[0].fulfilled;
-    const config = await handler({ headers: new axios.AxiosHeaders() });
+    const handler = getRequestHandler(0);
+    const config = await handler.fulfilled({ headers: new axios.AxiosHeaders() });
 
     expect(config.headers.Authorization).toBeUndefined();
   });
@@ -38,10 +52,9 @@ describe('apiClient response interceptor', () => {
     });
 
     const error500 = { response: { status: 500 }, config: {} };
-    const handlers = apiClient.interceptors.response.handlers;
-    const rejectedHandler = handlers[handlers.length - 1].rejected;
+    const handler = getLastResponseHandler();
 
-    await expect(rejectedHandler(error500)).rejects.toBeDefined();
+    await expect(handler.rejected!(error500)).rejects.toBeDefined();
     expect(useAuthStore.getState().token).toBe('valid-token');
   });
 
@@ -57,23 +70,14 @@ describe('apiClient response interceptor', () => {
       config: { headers: new axios.AxiosHeaders(), _retry: false },
     };
 
-    const handlers = apiClient.interceptors.response.handlers;
-    const rejectedHandler = handlers[handlers.length - 1].rejected;
+    const handler = getLastResponseHandler();
 
     try {
-      await rejectedHandler(error401);
+      await handler.rejected!(error401);
     } catch {
       // refresh will fail in test env (no real server), but it should
       // attempt refresh before logging out
     }
-
-    // With a refreshToken set, the interceptor should attempt refresh
-    // rather than immediately clearing the token. Since the refresh call
-    // will fail (no mock server), it will eventually logout, but the key
-    // behavior is that it TRIED to refresh first.
-    // We verify by checking that the interceptor didn't call logout
-    // synchronously — it went through the async refresh path.
-    // For a proper integration test we'd mock the refresh endpoint.
   });
 
   it('logs out immediately when no refresh token is available', async () => {
@@ -88,11 +92,10 @@ describe('apiClient response interceptor', () => {
       config: { headers: new axios.AxiosHeaders(), _retry: false },
     };
 
-    const handlers = apiClient.interceptors.response.handlers;
-    const rejectedHandler = handlers[handlers.length - 1].rejected;
+    const handler = getLastResponseHandler();
 
     try {
-      await rejectedHandler(error401);
+      await handler.rejected!(error401);
     } catch {
       // expected rejection
     }
@@ -113,11 +116,10 @@ describe('apiClient response interceptor', () => {
       config: { headers: new axios.AxiosHeaders(), _retry: true },
     };
 
-    const handlers = apiClient.interceptors.response.handlers;
-    const rejectedHandler = handlers[handlers.length - 1].rejected;
+    const handler = getLastResponseHandler();
 
     try {
-      await rejectedHandler(error401Retry);
+      await handler.rejected!(error401Retry);
     } catch {
       // expected
     }
