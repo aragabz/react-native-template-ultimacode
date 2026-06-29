@@ -23,16 +23,16 @@
 
 ## Phase 3: Testing & CI/CD
 
-- [ ] Task: Write Tests: useAuthStore (login, logout, hydration, hybrid storage)
-- [ ] Task: Write Tests: useThemeStore and useSettingsStore
-- [ ] Task: Write Tests: useCounterStore
-- [ ] Task: Write Tests: useAppTheme hook
-- [ ] Task: Write Tests: usePosts hook (success, error, loading states)
-- [ ] Task: Write Tests: apiClient interceptors (auth header, 401 handling)
-- [ ] Task: Write Tests: UI components (Button, Card, TextField, Modal, Toast, EmptyState, LoadingSpinner)
-- [ ] Task: Write Tests: Navigation flows (auth gate, tab switching, deep linking)
-- [ ] Task: Implement Feature: GitHub Actions CI workflow (lint, typecheck, test)
-- [ ] Task: Implement Feature: Jest coverage thresholds (global >80%)
+- [x] Task: Write Tests: useAuthStore (login, logout, hydration, hybrid storage) [cadb142]
+- [x] Task: Write Tests: useThemeStore and useSettingsStore [cadb142]
+- [x] Task: Write Tests: useCounterStore [cadb142]
+- [x] Task: Write Tests: useAppTheme hook [cadb142]
+- [x] Task: Write Tests: usePosts hook (success, error, loading states) [cadb142]
+- [x] Task: Write Tests: apiClient interceptors (auth header, 401 handling) [cadb142]
+- [x] Task: Write Tests: UI components (Button, Card, TextField, Modal, Toast, EmptyState, LoadingSpinner) [cadb142]
+- [x] Task: Write Tests: Navigation flows (auth gate, tab switching, deep linking) [cadb142]
+- [x] Task: Implement Feature: GitHub Actions CI workflow (lint, typecheck, test) [7e5d5ac]
+- [x] Task: Implement Feature: Jest coverage thresholds (global >80%) [7e5d5ac]
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Testing & CI/CD' (Protocol in workflow.md)
 
 ## Phase 4: Accessibility
