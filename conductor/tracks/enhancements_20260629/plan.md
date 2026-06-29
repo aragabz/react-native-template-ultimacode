@@ -1,6 +1,6 @@
 # Implementation Plan: Template Enhancements — Reliability, DX, and Production Readiness
 
-## Phase 1: Reliability & Error Handling
+## Phase 1: Reliability & Error Handling [checkpoint: 912aa01]
 
 - [x] Task: Write Tests: React Error Boundary component with fallback UI [207cf53]
 - [x] Task: Implement Feature: React Error Boundary with crash report hook [207cf53]
