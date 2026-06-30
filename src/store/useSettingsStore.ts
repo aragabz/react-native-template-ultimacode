@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage, devtools } from 'zustand/middleware';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { zustandMMKVStorage } from '@services/mmkvStorage';
 
 export type AppLanguage = 'en' | 'ar';
 
@@ -22,7 +22,7 @@ export const useSettingsStore = create<SettingsState>()(
       }),
       {
         name: 'settings-storage',
-        storage: createJSONStorage(() => AsyncStorage),
+        storage: createJSONStorage(() => zustandMMKVStorage),
       }
     ),
     { enabled: __DEV__, name: 'settings-store' }

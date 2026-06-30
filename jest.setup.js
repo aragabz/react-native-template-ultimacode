@@ -14,6 +14,56 @@ jest.mock('@hooks/useAppTheme', () => ({
   }),
 }));
 
+jest.mock('react-native-mmkv', () => {
+  const stores = {};
+  class MMKV {
+    constructor(config) {
+      const id = config?.id || 'default';
+      if (!stores[id]) stores[id] = {};
+      this._store = stores[id];
+    }
+    set(key, value) { this._store[key] = value; }
+    getString(key) { return this._store[key] ?? undefined; }
+    getNumber(key) { return this._store[key] ?? undefined; }
+    getBoolean(key) { return this._store[key] ?? undefined; }
+    delete(key) { delete this._store[key]; }
+    contains(key) { return key in this._store; }
+    clearAll() { Object.keys(this._store).forEach(k => delete this._store[k]); }
+    getAllKeys() { return Object.keys(this._store); }
+  }
+  return { MMKV };
+});
+
+jest.mock('@services/mmkvStorage', () => {
+  const storage = {};
+  return {
+    mmkvStorage: {
+      set: jest.fn((k, v) => { storage[k] = v; }),
+      getString: jest.fn((k) => storage[k] ?? undefined),
+      delete: jest.fn((k) => { delete storage[k]; }),
+      contains: jest.fn((k) => k in storage),
+      clearAll: jest.fn(() => Object.keys(storage).forEach(k => delete storage[k])),
+    },
+    secureMMKVStorage: {
+      set: jest.fn((k, v) => { storage[k] = v; }),
+      getString: jest.fn((k) => storage[k] ?? undefined),
+      delete: jest.fn((k) => { delete storage[k]; }),
+      contains: jest.fn((k) => k in storage),
+      clearAll: jest.fn(),
+    },
+    zustandMMKVStorage: {
+      setItem: jest.fn(),
+      getItem: jest.fn(() => null),
+      removeItem: jest.fn(),
+    },
+    zustandSecureMMKVStorage: {
+      setItem: jest.fn(),
+      getItem: jest.fn(() => null),
+      removeItem: jest.fn(),
+    },
+  };
+});
+
 jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: jest.fn(() => Promise.resolve()),
   getItem: jest.fn(() => Promise.resolve(null)),

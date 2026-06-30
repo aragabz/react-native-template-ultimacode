@@ -1,7 +1,6 @@
-import * as SecureStore from 'expo-secure-store';
 import { create } from 'zustand';
 import { persist, createJSONStorage, devtools } from 'zustand/middleware';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { zustandSecureMMKVStorage } from '@services/mmkvStorage';
 
 export type User = {
   id: string;
@@ -18,34 +17,6 @@ type AuthState = {
   logout: () => void;
   setTokens: (token: string, refreshToken?: string) => void;
   hydrate: () => void;
-};
-
-const hybridStorage = {
-  getItem: async (name: string) => {
-    const [asyncData, token] = await Promise.all([
-      AsyncStorage.getItem(name),
-      SecureStore.getItemAsync('auth-token'),
-    ]);
-    const data = asyncData ? JSON.parse(asyncData) : {};
-    if (token) data.token = token;
-    return JSON.stringify(data);
-  },
-  setItem: async (name: string, value: string) => {
-    const data = JSON.parse(value);
-    const { token, ...rest } = data;
-    await Promise.all([
-      AsyncStorage.setItem(name, JSON.stringify(rest)),
-      token
-        ? SecureStore.setItemAsync('auth-token', token)
-        : SecureStore.deleteItemAsync('auth-token'),
-    ]);
-  },
-  removeItem: async (name: string) => {
-    await Promise.all([
-      AsyncStorage.removeItem(name),
-      SecureStore.deleteItemAsync('auth-token'),
-    ]);
-  },
 };
 
 export const useAuthStore = create<AuthState>()(
@@ -65,7 +36,7 @@ export const useAuthStore = create<AuthState>()(
       }),
       {
         name: 'auth-storage',
-        storage: createJSONStorage(() => hybridStorage),
+        storage: createJSONStorage(() => zustandSecureMMKVStorage),
         partialize: (state) => ({
           user: state.user,
           token: state.token,

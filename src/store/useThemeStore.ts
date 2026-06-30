@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage, devtools } from 'zustand/middleware';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { zustandMMKVStorage } from '@services/mmkvStorage';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
@@ -18,7 +18,7 @@ export const useThemeStore = create<ThemeState>()(
       }),
       {
         name: 'theme-storage',
-        storage: createJSONStorage(() => AsyncStorage),
+        storage: createJSONStorage(() => zustandMMKVStorage),
       }
     ),
     { enabled: __DEV__, name: 'theme-store' }
