@@ -54,17 +54,17 @@
 - [x] Task: Implement Feature: App version check / expo-updates integration → 0a874e9
 - [x] Task: Conductor - User Manual Verification 'Phase 5: Production Essentials' (Protocol in workflow.md)
 
-## Phase 6: Feature Completion
+## Phase 6: Feature Completion [checkpoint: cc880e0]
 
-- [~] Task: Write Tests: Onboarding flow (conditional rendering, mark as seen)
-- [~] Task: Implement Feature: Onboarding screens gated by useSettingsStore.onboardingSeen
-- [ ] Task: Write Tests: Push notification registration and handling
-- [ ] Task: Implement Feature: expo-notifications setup with permission + token registration
-- [ ] Task: Write Tests: Biometric auth gate
-- [ ] Task: Implement Feature: Biometric unlock using expo-local-authentication
-- [ ] Task: Write Tests: Optimized image component
-- [ ] Task: Implement Feature: expo-image integration for cached network images
-- [ ] Task: Conductor - User Manual Verification 'Phase 6: Feature Completion' (Protocol in workflow.md)
+- [x] Task: Write Tests: Onboarding flow (conditional rendering, mark as seen) → d95132a
+- [x] Task: Implement Feature: Onboarding screens gated by useSettingsStore.onboardingSeen → d95132a
+- [x] Task: Write Tests: Push notification registration and handling → d95132a
+- [x] Task: Implement Feature: expo-notifications setup with permission + token registration → d95132a
+- [x] Task: Write Tests: Biometric auth gate → d95132a
+- [x] Task: Implement Feature: Biometric unlock using expo-local-authentication → d95132a
+- [x] Task: Write Tests: Optimized image component → d95132a
+- [x] Task: Implement Feature: expo-image integration for cached network images → d95132a
+- [x] Task: Conductor - User Manual Verification 'Phase 6: Feature Completion' (Protocol in workflow.md)
 
 ## Phase 7: Developer Experience
 
