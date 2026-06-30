@@ -43,16 +43,16 @@
 - [x] Task: Implement Feature: Add a11y to all screens (heading hierarchy, announcements) → dcc7b6f
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Accessibility' (Protocol in workflow.md)
 
-## Phase 5: Production Essentials
+## Phase 5: Production Essentials [checkpoint: 1cbfac1]
 
-- [~] Task: Implement Feature: Add .env.staging and .env.production with app.config.ts integration
-- [ ] Task: Write Tests: Crash reporting service abstraction
-- [ ] Task: Implement Feature: Sentry/crash reporting skeleton with Error Boundary integration
-- [ ] Task: Write Tests: Analytics service abstraction (track, identify, reset)
-- [ ] Task: Implement Feature: Analytics service with no-op default implementation
-- [ ] Task: Write Tests: App update checker hook
-- [ ] Task: Implement Feature: App version check / expo-updates integration
-- [ ] Task: Conductor - User Manual Verification 'Phase 5: Production Essentials' (Protocol in workflow.md)
+- [x] Task: Implement Feature: Add .env.staging and .env.production with app.config.ts integration → 0a874e9
+- [x] Task: Write Tests: Crash reporting service abstraction → 0a874e9
+- [x] Task: Implement Feature: Sentry/crash reporting skeleton with Error Boundary integration → 0a874e9
+- [x] Task: Write Tests: Analytics service abstraction (track, identify, reset) → 0a874e9
+- [x] Task: Implement Feature: Analytics service with no-op default implementation → 0a874e9
+- [x] Task: Write Tests: App update checker hook → 0a874e9
+- [x] Task: Implement Feature: App version check / expo-updates integration → 0a874e9
+- [x] Task: Conductor - User Manual Verification 'Phase 5: Production Essentials' (Protocol in workflow.md)
 
 ## Phase 6: Feature Completion
 
