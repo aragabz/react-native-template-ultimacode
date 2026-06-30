@@ -9,3 +9,4 @@ export { Icon } from './Icon';
 export { SvgIcon } from './SvgIcon';
 export { ErrorBoundary } from './ErrorBoundary';
 export { OfflineBanner } from './OfflineBanner';
+export { OptimizedImage } from './OptimizedImage';

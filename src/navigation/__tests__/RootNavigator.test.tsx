@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAuthStore } from '@store/useAuthStore';
+import { useSettingsStore } from '@store/useSettingsStore';
 import { render, screen } from '@testing-library/react-native';
 import { RootNavigator } from '../RootNavigator';
 
@@ -55,6 +56,7 @@ jest.mock('react-native-safe-area-context', () => {
 describe('RootNavigator', () => {
   beforeEach(() => {
     useAuthStore.setState({ user: null, token: 'mock-token', isHydrating: false });
+    useSettingsStore.setState({ onboardingSeen: true });
   });
 
   it('renders the initial screen (Home)', async () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAuthStore } from '@store/useAuthStore';
+import { useSettingsStore } from '@store/useSettingsStore';
 import { RootNavigator } from '@navigation/RootNavigator';
 
 jest.mock('react-native-screens', () => {
@@ -53,6 +54,7 @@ jest.mock('react-native-safe-area-context', () => {
 describe('Screen Accessibility', () => {
   beforeEach(() => {
     useAuthStore.setState({ user: null, token: 'mock-token', refreshToken: null, isHydrating: false });
+    useSettingsStore.setState({ onboardingSeen: true });
   });
 
   it('Home screen has heading role on title', async () => {

@@ -2,7 +2,7 @@ module.exports = {
   preset: '@react-native/jest-preset',
   setupFiles: ['./jest.setup.js'],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|@react-navigation|@react-native-community|@tanstack|react-native-gesture-handler|react-native-screens|react-native-safe-area-context|expo-status-bar|expo-font|expo-splash-screen|expo-constants|expo-secure-store|expo-localization|@expo/vector-icons|react-native-svg)/)',
+    'node_modules/(?!(react-native|@react-native|@react-navigation|@react-native-community|@tanstack|react-native-gesture-handler|react-native-screens|react-native-safe-area-context|expo|expo-.*|@expo/.*|react-native-svg)/)',
   ],
   moduleNameMapper: {
     '^@api/(.*)$': '<rootDir>/src/services/$1',

@@ -56,8 +56,8 @@
 
 ## Phase 6: Feature Completion
 
-- [ ] Task: Write Tests: Onboarding flow (conditional rendering, mark as seen)
-- [ ] Task: Implement Feature: Onboarding screens gated by useSettingsStore.onboardingSeen
+- [~] Task: Write Tests: Onboarding flow (conditional rendering, mark as seen)
+- [~] Task: Implement Feature: Onboarding screens gated by useSettingsStore.onboardingSeen
 - [ ] Task: Write Tests: Push notification registration and handling
 - [ ] Task: Implement Feature: expo-notifications setup with permission + token registration
 - [ ] Task: Write Tests: Biometric auth gate
