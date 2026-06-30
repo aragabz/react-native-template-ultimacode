@@ -19,9 +19,9 @@
 - [x] Task: Implement Feature: Zod validation in service layer for all endpoints [90f1661]
 - [x] Task: Implement Feature: Enhanced ESLint config (import ordering, hooks rules, unused imports) [f9f514e]
 - [x] Task: Run full lint pass and fix all new violations [b9db9fb]
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Type Safety & Validation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Type Safety & Validation' (Protocol in workflow.md)
 
-## Phase 3: Testing & CI/CD
+## Phase 3: Testing & CI/CD [checkpoint: 36aa143]
 
 - [x] Task: Write Tests: useAuthStore (login, logout, hydration, hybrid storage) [cadb142]
 - [x] Task: Write Tests: useThemeStore and useSettingsStore [cadb142]
