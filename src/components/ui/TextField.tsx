@@ -34,6 +34,12 @@ export const TextField = ({
     <View style={[styles.wrapper, style]}>
       {label && <Text style={[styles.label, { color: themeColors.text }]}>{label}</Text>}
       <TextInput
+        accessible={true}
+        accessibilityLabel={label}
+        accessibilityHint={placeholder}
+        accessibilityState={{
+          invalid: !!error,
+        }}
         style={[
           styles.input,
           {

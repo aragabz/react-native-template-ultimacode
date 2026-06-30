@@ -13,8 +13,8 @@ export const EmptyState = ({ title, message, action }: EmptyStateProps) => {
   const { colors: themeColors } = useAppTheme();
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.title, { color: themeColors.text }]}>{title}</Text>
+    <View style={styles.container} accessible={true} accessibilityRole="summary">
+      <Text accessibilityRole="header" style={[styles.title, { color: themeColors.text }]}>{title}</Text>
       {message && <Text style={[styles.message, { color: themeColors.textSecondary }]}>{message}</Text>}
       {action && <View style={styles.action}>{action}</View>}
     </View>

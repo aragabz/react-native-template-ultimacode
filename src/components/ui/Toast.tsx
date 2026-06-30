@@ -60,6 +60,9 @@ export const Toast = () => {
 
   return (
     <Animated.View
+      accessible={true}
+      accessibilityRole="alert"
+      accessibilityLiveRegion="assertive"
       style={[
         styles.container,
         { backgroundColor: bgColor, bottom: insets.bottom + spacing.lg, opacity },

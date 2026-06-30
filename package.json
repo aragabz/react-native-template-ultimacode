@@ -33,7 +33,8 @@
     "start": "NODE_ENV=development react-native start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "link": "adb reverse tcp:8081 tcp:8081"
+    "link": "adb reverse tcp:8081 tcp:8081",
+    "eslint:quiet": "eslint 'src/**/*.{ts,tsx}' --quiet"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

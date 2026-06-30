@@ -57,6 +57,13 @@ export const Button = ({
   return (
     <TouchableOpacity
       testID={testID}
+      accessible={true}
+      accessibilityRole="button"
+      accessibilityLabel={title}
+      accessibilityState={{
+        disabled: disabled || loading,
+        busy: loading,
+      }}
       style={[
         styles.container,
         variantStyle.container,

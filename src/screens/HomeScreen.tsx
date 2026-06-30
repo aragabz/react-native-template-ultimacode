@@ -16,7 +16,7 @@ export const HomeScreen = () => {
   return (
     <View style={[styles.container, { backgroundColor: themeColors.background }]}>
       <Card style={styles.card}>
-        <Text style={[styles.title, { color: themeColors.text }]}>{t('home.title')}</Text>
+        <Text accessibilityRole="header" style={[styles.title, { color: themeColors.text }]}>{t('home.title')}</Text>
         <Button
           title={t('home.goToDetails')}
           onPress={() => navigation.navigate('Details', { id: '42', title: 'From Home' })}

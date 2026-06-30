@@ -29,13 +29,20 @@ export const Modal = ({ visible, onClose, title, children }: ModalProps) => {
     >
       <Pressable style={styles.overlay} onPress={onClose}>
         <Pressable
+          accessible={true}
+          accessibilityRole="dialog"
+          accessibilityLabel={title}
           style={[styles.content, { backgroundColor: themeColors.background }]}
           onPress={() => {}}
         >
           {title && (
             <View style={styles.header}>
               <Text style={[styles.title, { color: themeColors.text }]}>{title}</Text>
-              <TouchableOpacity onPress={onClose}>
+              <TouchableOpacity
+                onPress={onClose}
+                accessibilityRole="button"
+                accessibilityLabel="Close"
+              >
                 <Text style={[styles.close, { color: themeColors.textSecondary }]}>X</Text>
               </TouchableOpacity>
             </View>

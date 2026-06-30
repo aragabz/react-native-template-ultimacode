@@ -31,7 +31,7 @@ export const SettingsScreen = () => {
           onPress={() => navigation.navigate('Details', { id: '99', title: 'From Settings' })}
         />
         <View style={[styles.languageSection, { borderTopColor: themeColors.border }]}>
-          <Text style={[styles.languageLabel, { color: themeColors.textSecondary }]}>
+          <Text accessibilityRole="header" style={[styles.languageLabel, { color: themeColors.textSecondary }]}>
             {t('settings.appLanguage')}
           </Text>
           <Button
