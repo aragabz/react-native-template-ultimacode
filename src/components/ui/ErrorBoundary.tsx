@@ -1,6 +1,7 @@
 import React, { Component, type ErrorInfo, type ReactNode } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { spacing, typography } from '@theme';
+import { crashReporting } from '@services/crashReporting';
 
 type FallbackProps = {
   error: Error;
@@ -40,6 +41,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    crashReporting.captureException(error, { componentStack: errorInfo.componentStack });
     this.props.onError?.(error, errorInfo);
   }
 

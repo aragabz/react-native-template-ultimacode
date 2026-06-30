@@ -41,11 +41,11 @@
 - [x] Task: Implement Feature: Add a11y props to all UI components → dcc7b6f
 - [x] Task: Write Tests: Screen-level accessibility (headings, focus order) → dcc7b6f
 - [x] Task: Implement Feature: Add a11y to all screens (heading hierarchy, announcements) → dcc7b6f
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Accessibility' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Accessibility' (Protocol in workflow.md)
 
 ## Phase 5: Production Essentials
 
-- [ ] Task: Implement Feature: Add .env.staging and .env.production with app.config.ts integration
+- [~] Task: Implement Feature: Add .env.staging and .env.production with app.config.ts integration
 - [ ] Task: Write Tests: Crash reporting service abstraction
 - [ ] Task: Implement Feature: Sentry/crash reporting skeleton with Error Boundary integration
 - [ ] Task: Write Tests: Analytics service abstraction (track, identify, reset)
