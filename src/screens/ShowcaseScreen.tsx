@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
 import { spacing, typography } from '@theme';
 import { useTranslation } from 'react-i18next';
-import { Button, TextField, Card, LoadingSpinner, EmptyState, Modal, Icon, useToastStore } from '@components/ui';
+import { Button, TextField, Card, LoadingSpinner, EmptyState, Modal, Icon, useToastStore, OptimizedImage, OfflineBanner } from '@components/ui';
 import { useAppTheme } from '@hooks/useAppTheme';
 
 export const ShowcaseScreen = () => {
@@ -92,6 +92,26 @@ export const ShowcaseScreen = () => {
           <Icon family="MaterialIcons" name="warning" color="#FF9500" />
         </View>
       </Card>
+      <Card style={{ marginTop: spacing.md }}>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>Optimized Image</Text>
+        <OptimizedImage
+          source="https://picsum.photos/300/200"
+          style={{ width: '100%', height: 150, borderRadius: 8 }}
+          contentFit="cover"
+          accessibilityLabel="Sample landscape image"
+        />
+        <Text style={[styles.hint, { color: themeColors.textSecondary }]}>
+          Uses expo-image with memory + disk caching and smooth transitions.
+        </Text>
+      </Card>
+
+      <Card style={{ marginTop: spacing.md }}>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>Offline Banner</Text>
+        <Text style={[styles.hint, { color: themeColors.textSecondary }]}>
+          The OfflineBanner component appears at the top of the app when network is unavailable.
+          It uses the useNetworkStatus hook to detect connectivity changes in real time.
+        </Text>
+      </Card>
     </ScrollView>
   );
 };
@@ -114,5 +134,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+  hint: {
+    fontSize: typography.fontSize.sm,
+    marginTop: spacing.sm,
+    lineHeight: 20,
   },
 });

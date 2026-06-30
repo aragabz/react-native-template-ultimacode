@@ -12,6 +12,8 @@ module.exports = {
     '^@services/(.*)$': '<rootDir>/src/services/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@constants$': '<rootDir>/src/constants',
+    '^@constants/(.*)$': '<rootDir>/src/constants/$1',
     '^@navigation/(.*)$': '<rootDir>/src/navigation/$1',
     '^@i18n$': '<rootDir>/src/i18n',
     '^@i18n/(.*)$': '<rootDir>/src/i18n/$1',

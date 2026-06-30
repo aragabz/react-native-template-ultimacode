@@ -68,8 +68,8 @@
 
 ## Phase 7: Developer Experience
 
-- [ ] Task: Implement Feature: Populate src/constants with app-wide constants (storage keys, regex, config)
-- [ ] Task: Implement Feature: Populate src/utils with common helpers (date, debounce, validators)
+- [~] Task: Implement Feature: Populate src/constants with app-wide constants (storage keys, regex, config)
+- [~] Task: Implement Feature: Populate src/utils with common helpers (date, debounce, validators)
 - [ ] Task: Write Tests: Utility functions (all helpers must have tests)
 - [ ] Task: Implement Feature: Extend ShowcaseScreen with full UI component documentation
 - [ ] Task: Implement Feature: Update README with architecture diagram, setup guide, contribution guide

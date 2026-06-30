@@ -10,11 +10,21 @@ A production-ready React Native template with Expo modules, Zustand, TanStack Qu
 - 🗂️ **Zustand** — lightweight state management with persist middleware
 - 🔄 **TanStack Query v5** — data fetching, caching, background refresh
 - 🌍 **i18next** — multi-language with RTL support (English + Arabic)
-- 🎨 **Themed UI components** — Button, TextField, Card, Modal, Toast, Icon, and more
-- 🔐 **Auth flow** — Login, Sign Up, Forgot Password with secure token storage
-- 🧪 **Jest + React Native Testing Library** — 25 tests covering stores, hooks, screens, and navigation
+- 🎨 **Themed UI components** — Button, TextField, Card, Modal, Toast, Icon, OptimizedImage, and more
+- 🔐 **Auth flow** — Login, Sign Up, Forgot Password with secure token storage + refresh
+- 🛡️ **Error Boundary** — graceful crash recovery with crash reporting integration
+- 📡 **Network awareness** — offline banner + useNetworkStatus hook
+- 🔔 **Push notifications** — expo-notifications with permission management
+- 🔑 **Biometric auth** — fingerprint/face unlock via expo-local-authentication
+- 🖼️ **Optimized images** — expo-image with memory+disk caching
+- 👋 **Onboarding flow** — conditional first-launch screens
+- 📊 **Analytics & Crash Reporting** — pluggable service abstractions (Sentry/Segment ready)
+- ✅ **Zod validation** — runtime API response validation
+- 🧪 **Jest + RNTL** — 150+ tests with coverage thresholds (70/70/60/55)
+- 🔄 **CI/CD** — GitHub Actions (lint, typecheck, test)
+- ♿ **Accessibility** — roles, labels, states on all UI components
 - 📏 **ESLint + Prettier + Husky** — enforced code quality on every commit
-- 🛤️ **Path aliases** — clean imports via `@components/`, `@store/`, `@theme/`, etc.
+- 🛤️ **Path aliases** — clean imports via `@components/`, `@store/`, `@constants/`, etc.
 - 🧰 **CLI scaffolding tool** — `npx react-native-template-ultimacode MyApp`
 
 ---
@@ -120,19 +130,30 @@ src/
 ## Architecture Overview
 
 ```
-┌─────────────────────────────────────────────────────┐
-│  App.tsx (providers: Gesture, SafeArea, QueryClient, Nav)  │
-├─────────────────────────────────────────────────────┤
-│  Navigation Layer (React Navigation)                │
-│  ├── AuthNavigator (Login, SignUp, ForgotPassword)  │
-│  └── TabNavigator (Home, Demo, Showcase*, Settings) │
-├─────────────────────────────────────────────────────┤
-│  State: Zustand           │  Data: TanStack Query   │
-│  (auth, theme, settings)  │  (API hooks + caching)  │
-├─────────────────────────────────────────────────────┤
-│  Services: Axios client + interceptors              │
-│  (auto-attach token, 401 → logout)                  │
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────┐
+│  ErrorBoundary + CrashReporting                         │
+├─────────────────────────────────────────────────────────┤
+│  App.tsx (providers: Gesture, SafeArea, QueryClient, Nav)│
+│  ├── OfflineBanner (network status indicator)            │
+│  └── Toast (global notifications)                        │
+├─────────────────────────────────────────────────────────┤
+│  Navigation Layer (React Navigation)                     │
+│  ├── OnboardingScreen (first-launch gate)                │
+│  ├── AuthNavigator (Login, SignUp, ForgotPassword)       │
+│  └── TabNavigator (Home, Demo, Showcase*, Settings)      │
+├─────────────────────────────────────────────────────────┤
+│  State: Zustand           │  Data: TanStack Query        │
+│  (auth, theme, settings)  │  (API hooks + Zod validation)│
+├─────────────────────────────────────────────────────────┤
+│  Services: Axios + token refresh interceptor             │
+│  Analytics │ Crash Reporting │ Push Notifications         │
+├─────────────────────────────────────────────────────────┤
+│  Hooks: useAppTheme, useNetworkStatus, useAppUpdate,     │
+│         usePushNotifications, useBiometrics               │
+├─────────────────────────────────────────────────────────┤
+│  Utils: date, timing, validators, string                 │
+│  Constants: storageKeys, regex, config, endpoints        │
+└─────────────────────────────────────────────────────────┘
 * Showcase tab visible in __DEV__ mode only
 ```
 
@@ -149,6 +170,7 @@ src/
 | `@services/*` | `src/services/*` |
 | `@hooks/*` | `src/hooks/*` |
 | `@utils/*` | `src/utils/*` |
+| `@constants` | `src/constants` |
 | `@navigation/*` | `src/navigation/*` |
 | `@i18n` | `src/i18n` |
 | `@theme` | `src/theme` |
@@ -172,6 +194,9 @@ All components are exported from `@components/ui`:
 | `EmptyState` | Placeholder with title, message, and optional CTA. |
 | `Icon` | Wraps `@expo/vector-icons` with themed sizes. |
 | `SvgIcon` | Inline SVG rendering via `react-native-svg`. |
+| `ErrorBoundary` | Catches React errors with fallback UI + crash reporting. |
+| `OfflineBanner` | Red banner shown when device is offline. |
+| `OptimizedImage` | expo-image wrapper with caching, transitions, contentFit. |
 
 ### Icon Families
 
@@ -425,6 +450,58 @@ const [fontsLoaded] = useFonts({
 ```
 
 3. Reference by name in `src/theme/typography.ts`.
+
+---
+
+## Environment Configuration
+
+The project supports multiple environments via `.env` files:
+
+| File | Purpose |
+|------|---------|
+| `.env` | Local development (gitignored) |
+| `.env.example` | Template for required variables |
+| `.env.staging` | Staging environment (committed with placeholders) |
+| `.env.production` | Production environment (committed with placeholders) |
+
+Switch environments by setting `NODE_ENV` before running:
+
+```sh
+NODE_ENV=staging npx expo start
+```
+
+`app.config.ts` automatically applies per-env bundle identifiers and app names.
+
+---
+
+## Testing
+
+```sh
+yarn test              # Run all tests
+yarn test --coverage   # Run with coverage report
+yarn test --watch      # Watch mode
+```
+
+Coverage thresholds are enforced: 70% statements, 70% lines, 60% branches, 55% functions.
+
+---
+
+## Contributing
+
+1. **Fork** the repository and create a feature branch from `develop`.
+2. **Install** dependencies: `yarn install`
+3. **Write tests first** — follow TDD. All new features must include tests.
+4. **Follow existing patterns** — use path aliases, Zustand for state, hooks for logic.
+5. **Lint before committing** — `yarn lint` (Husky runs this automatically).
+6. **Keep commits atomic** — one logical change per commit with descriptive messages.
+7. **Open a PR** — target `develop`, fill the template, and request review.
+
+### Code Style
+
+- TypeScript strict mode enabled
+- ESLint with import ordering enforced
+- Prettier for formatting
+- No `console.log` in production code (use crash reporting / analytics services)
 
 ---
 
