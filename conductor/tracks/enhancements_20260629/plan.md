@@ -37,10 +37,10 @@
 
 ## Phase 4: Accessibility
 
-- [x] Task: Write Tests: Button, TextField, Modal accessibility (roles, labels, hints)
-- [x] Task: Implement Feature: Add a11y props to all UI components
-- [~] Task: Write Tests: Screen-level accessibility (headings, focus order)
-- [~] Task: Implement Feature: Add a11y to all screens (heading hierarchy, announcements)
+- [x] Task: Write Tests: Button, TextField, Modal accessibility (roles, labels, hints) → dcc7b6f
+- [x] Task: Implement Feature: Add a11y props to all UI components → dcc7b6f
+- [x] Task: Write Tests: Screen-level accessibility (headings, focus order) → dcc7b6f
+- [x] Task: Implement Feature: Add a11y to all screens (heading hierarchy, announcements) → dcc7b6f
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Accessibility' (Protocol in workflow.md)
 
 ## Phase 5: Production Essentials
