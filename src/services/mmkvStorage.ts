@@ -1,11 +1,11 @@
-import { MMKV } from 'react-native-mmkv';
+import { createMMKV } from 'react-native-mmkv';
 import { type StateStorage } from 'zustand/middleware';
 
 /**
  * MMKV instance for general app storage.
  * ~30x faster than AsyncStorage for read/write operations.
  */
-export const mmkvStorage = new MMKV({
+export const mmkvStorage = createMMKV({
   id: 'app-storage',
 });
 
@@ -21,7 +21,7 @@ export const zustandMMKVStorage: StateStorage = {
     return mmkvStorage.getString(name) ?? null;
   },
   removeItem: (name: string) => {
-    mmkvStorage.delete(name);
+    mmkvStorage.remove(name);
   },
 };
 
@@ -29,7 +29,7 @@ export const zustandMMKVStorage: StateStorage = {
  * MMKV instance for sensitive/encrypted data.
  * Uses encryption key for secure storage.
  */
-export const secureMMKVStorage = new MMKV({
+export const secureMMKVStorage = createMMKV({
   id: 'secure-storage',
   encryptionKey: 'app-secure-key',
 });
@@ -45,6 +45,6 @@ export const zustandSecureMMKVStorage: StateStorage = {
     return secureMMKVStorage.getString(name) ?? null;
   },
   removeItem: (name: string) => {
-    secureMMKVStorage.delete(name);
+    secureMMKVStorage.remove(name);
   },
 };

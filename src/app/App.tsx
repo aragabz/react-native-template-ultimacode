@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { View } from 'react-native';
 import initI18n, { onRtlChange } from '@i18n';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Toast, ErrorBoundary, OfflineBanner } from '@components/ui';
+import { Toast, ErrorBoundary, LoadingSpinner, OfflineBanner } from '@components/ui';
 import { useAppTheme } from '@hooks/useAppTheme';
 import { linking } from '@navigation/linking';
 import { RootNavigator } from '@navigation/RootNavigator';
@@ -52,12 +53,16 @@ function App() {
   }, [fontsLoaded, isHydrating, i18nReady, onReady]);
 
   if (!fontsLoaded || isHydrating || !i18nReady) {
-    return null;
+    return (
+      <View style={{ flex: 1, backgroundColor: themeColors.background }}>
+        <LoadingSpinner />
+      </View>
+    );
   }
 
   return (
     <ErrorBoundary>
-      <GestureHandlerRootView key={rtlKey} style={{ flex: 1 }}>
+      <GestureHandlerRootView key={rtlKey} style={{ flex: 1, backgroundColor: themeColors.background }}>
         <SafeAreaProvider>
           <QueryClientProvider client={queryClient}>
             <NavigationContainer linking={linking} theme={navigationTheme}>

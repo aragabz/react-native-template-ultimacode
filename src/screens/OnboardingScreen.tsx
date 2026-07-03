@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { Button } from '@components/ui';
 import { useAppTheme } from '@hooks/useAppTheme';
@@ -28,6 +28,10 @@ const pages = [
 export const OnboardingScreen = () => {
   const { colors } = useAppTheme();
   const setOnboardingSeen = useSettingsStore((s) => s.setOnboardingSeen);
+  useEffect(() => {
+    // Mark onboarding as seen when the component mounts
+    console.log('Onboarding screen mounted, setting onboarding as seen.');
+  }, [setOnboardingSeen]);
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
