@@ -12,7 +12,6 @@ import { linking } from '@navigation/linking';
 import { RootNavigator } from '@navigation/RootNavigator';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createQueryClient } from '@services/queryClient';
-import { useAuthStore, selectIsHydrating } from '@store/useAuthStore';
 import { QueryClientProvider } from '@tanstack/react-query';
 
 SplashScreen.preventAutoHideAsync();
@@ -20,9 +19,9 @@ SplashScreen.preventAutoHideAsync();
 const queryClient = createQueryClient();
 
 function App() {
-  const isHydrating = useAuthStore(selectIsHydrating);
   const [fontsLoaded] = useFonts({});
   const [i18nReady, setI18nReady] = useState(false);
+  const [ready, setReady] = useState(false);
   const [rtlKey, setRtlKey] = useState(0);
   const { colors: themeColors, isDark } = useAppTheme();
 
@@ -31,9 +30,13 @@ function App() {
     : { ...DefaultTheme, colors: { ...DefaultTheme.colors, primary: themeColors.primary, background: themeColors.background, card: themeColors.surface, text: themeColors.text, border: themeColors.border } };
 
   useEffect(() => {
-    initI18n().then(() => {
-      setI18nReady(true);
-    });
+    initI18n()
+      .then(() => {
+        setI18nReady(true);
+      })
+      .catch(() => {
+        setI18nReady(true);
+      });
   }, []);
 
   useEffect(() => {
@@ -47,12 +50,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (fontsLoaded && !isHydrating && i18nReady) {
+    if (fontsLoaded && i18nReady) {
+      setReady(true);
       onReady();
     }
-  }, [fontsLoaded, isHydrating, i18nReady, onReady]);
+  }, [fontsLoaded, i18nReady, onReady]);
 
-  if (!fontsLoaded || isHydrating || !i18nReady) {
+  useEffect(() => {
+    const timer = setTimeout(() => setReady(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!ready) {
     return (
       <View style={{ flex: 1, backgroundColor: themeColors.background }}>
         <LoadingSpinner />

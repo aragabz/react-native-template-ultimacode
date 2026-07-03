@@ -34,27 +34,47 @@ export const onRtlChange = (listener: RtlChangeListener): (() => void) => {
 };
 
 const initI18n = async () => {
-  const storedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
-  const deviceLanguage = Localization.getLocales()?.[0]?.languageCode ?? 'en';
-  const detectedLanguage = storedLanguage ?? deviceLanguage;
-  const lng: SupportedLanguage =
-    detectedLanguage === 'ar' ? 'ar' : 'en';
+  try {
+    const storedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
+    const deviceLanguage = Localization.getLocales()?.[0]?.languageCode ?? 'en';
+    const detectedLanguage = storedLanguage ?? deviceLanguage;
+    const lng: SupportedLanguage =
+      detectedLanguage === 'ar' ? 'ar' : 'en';
 
-  i18n.use(initReactI18next).init({
-    resources,
-    lng,
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
-    compatibilityJSON: 'v4',
-  });
+    await new Promise<void>((resolve, reject) => {
+      i18n.use(initReactI18next).init(
+        {
+          resources,
+          lng,
+          fallbackLng: 'en',
+          interpolation: {
+            escapeValue: false,
+          },
+          compatibilityJSON: 'v4',
+        },
+        (err) => {
+          if (err) reject(err);
+          else resolve();
+        },
+      );
+    });
 
-  applyRtl(lng);
+    applyRtl(lng);
 
-  i18n.on('languageChanged', applyRtl);
+    i18n.on('languageChanged', applyRtl);
 
-  return lng;
+    return lng;
+  } catch (error) {
+    console.warn('[i18n] Initialization failed, falling back to en:', error);
+    i18n.use(initReactI18next).init({
+      resources,
+      lng: 'en',
+      fallbackLng: 'en',
+      interpolation: { escapeValue: false },
+      compatibilityJSON: 'v4',
+    });
+    return 'en';
+  }
 };
 
 export const changeLanguage = async (lng: SupportedLanguage) => {

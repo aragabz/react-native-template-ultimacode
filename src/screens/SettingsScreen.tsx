@@ -8,13 +8,10 @@ import { useAppTheme } from '@hooks/useAppTheme';
 import type { RootStackParamList } from '@navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useAuthStore, selectIsAuthenticated } from '@store/useAuthStore';
 
 export const SettingsScreen = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const isAuthenticated = useAuthStore(selectIsAuthenticated);
-  const logout = useAuthStore((s) => s.logout);
   const currentLang = getCurrentLanguage();
   const { colors: themeColors } = useAppTheme();
 
@@ -40,14 +37,6 @@ export const SettingsScreen = () => {
             onPress={toggleLanguage}
           />
         </View>
-        {isAuthenticated && (
-          <Button
-            title={t('settings.logOut')}
-            variant="outline"
-            onPress={logout}
-            style={{ marginTop: spacing.md }}
-          />
-        )}
       </Card>
     </View>
   );

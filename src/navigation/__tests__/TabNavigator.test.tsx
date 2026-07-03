@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { useAuthStore } from '@store/useAuthStore';
 import { useSettingsStore } from '@store/useSettingsStore';
 import { render, screen, fireEvent } from '@testing-library/react-native';
 import { RootNavigator } from '../RootNavigator';
@@ -55,7 +54,6 @@ jest.mock('react-native-safe-area-context', () => {
 
 describe('TabNavigator', () => {
   beforeEach(() => {
-    useAuthStore.setState({ user: null, token: 'mock-token', isHydrating: false });
     useSettingsStore.setState({ onboardingSeen: true });
   });
 
