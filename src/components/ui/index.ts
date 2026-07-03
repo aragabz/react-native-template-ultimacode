@@ -10,3 +10,4 @@ export { SvgIcon } from './SvgIcon';
 export { ErrorBoundary } from './ErrorBoundary';
 export { OfflineBanner } from './OfflineBanner';
 export { OptimizedImage } from './OptimizedImage';
+export { LegendList } from './LegendList';

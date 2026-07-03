@@ -21,6 +21,7 @@ export const DemoScreen = () => {
   const { colors: themeColors } = useAppTheme();
 
   const { data: posts, isLoading, isError, error, refetch } = usePosts();
+  console.log('[DemoScreen] usePosts state:', { isLoading, isError, error: error?.message, errorObj: error, postsCount: posts?.length });
 
   const toggleTheme = () => {
     const nextMode = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';

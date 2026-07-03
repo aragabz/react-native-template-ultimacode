@@ -1,19 +1,10 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react-native';
-import { apiClient } from '../../apiClient';
+import axios from 'axios';
 import { usePosts } from '../usePosts';
 
-jest.mock('../../apiClient', () => ({
-  apiClient: {
-    get: jest.fn(),
-    post: jest.fn(),
-    interceptors: {
-      request: { use: jest.fn() },
-      response: { use: jest.fn() },
-    },
-  },
-}));
+jest.mock('axios');
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +26,7 @@ describe('usePosts', () => {
 
   it('should fetch posts successfully', async () => {
     const mockPosts = [{ id: 1, userId: 1, title: 'Post 1', body: 'Body 1' }];
-    (apiClient.get as jest.Mock).mockResolvedValue({ data: mockPosts });
+    (axios.get as jest.Mock).mockResolvedValue({ data: mockPosts });
 
     const { result } = await renderHook(() => usePosts(), { wrapper });
 
@@ -44,7 +35,7 @@ describe('usePosts', () => {
   });
 
   it('should handle error when fetching fails', async () => {
-    (apiClient.get as jest.Mock).mockRejectedValue(new Error('Network error'));
+    (axios.get as jest.Mock).mockRejectedValue(new Error('Network error'));
 
     const { result } = await renderHook(() => usePosts(), { wrapper });
 
