@@ -3,6 +3,13 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 
 const ENV = process.env.NODE_ENV || 'development';
 
+// Load environment-specific .env file (e.g. .env.development) overriding .env defaults
+const envFile = `.env.${ENV}`;
+const result = require('dotenv').config({ path: envFile, override: true });
+if (result.error) {
+  console.warn(`Failed to load ${envFile}: ${result.error.message}`);
+}
+
 const envConfig = {
   development: {
     name: 'ReactNativeTemplate (Dev)',
