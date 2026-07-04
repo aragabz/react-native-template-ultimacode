@@ -4,7 +4,7 @@ A production-ready React Native template with Expo modules, Zustand, TanStack Qu
 
 ## Features
 
-- ⚡ **React Native 0.85** with New Architecture enabled
+- ⚡ **React Native 0.86** with New Architecture enabled
 - 🏗️ **Expo modules** (no Expo Go — bare workflow with cherry-picked modules)
 - 🧭 **React Navigation 7** — native-stack, bottom-tabs, deep linking
 - 🗂️ **Zustand** — lightweight state management with persist middleware
@@ -89,7 +89,8 @@ rm -rf .git && git init
 
 ```sh
 yarn install
-cp .env.example .env   # Configure your environment
+# Environment files are already included:
+# .env.development, .env.staging, .env.production
 ```
 
 ### iOS
@@ -145,7 +146,7 @@ src/
 │  State: Zustand           │  Data: TanStack Query        │
 │  (auth, theme, settings)  │  (API hooks + Zod validation)│
 ├─────────────────────────────────────────────────────────┤
-│  Services: Axios + token refresh interceptor             │
+│  Services: Axios client + endpoint modules               │
 │  Analytics │ Crash Reporting │ Push Notifications         │
 ├─────────────────────────────────────────────────────────┤
 │  Hooks: useAppTheme, useNetworkStatus, useAppUpdate,     │
@@ -305,9 +306,14 @@ Add new tokens in `src/theme/colors.ts` — they'll be available everywhere via 
 
 ## Data Fetching (TanStack Query)
 
-API hooks live in `src/services/hooks/`. The Axios client (`src/services/apiClient.ts`) automatically:
-- Attaches the Bearer token from `useAuthStore`
-- Logs out the user on 401 responses
+API hooks live in `src/services/hooks/`. The Axios client (`src/services/apiClient.ts`) is configured with:
+- `baseURL` from `APP_CONFIG.API_BASE_URL`
+- `timeout` from `APP_CONFIG.API_TIMEOUT`
+
+`APP_CONFIG.API_BASE_URL` resolves in this order:
+1. Expo runtime config (`extra.apiUrl` from `app.config.ts`)
+2. `process.env.API_URL`
+3. Default: `https://dummyjson.com`
 
 ```tsx
 import { usePosts } from '@api/hooks/usePosts';
@@ -336,13 +342,14 @@ changeLanguage('ar'); // switches language and applies RTL
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `API_URL` | Base URL for the API client | `https://jsonplaceholder.typicode.com` |
+| `API_URL` | Base URL for the API client | `https://dummyjson.com` |
 | `API_KEY` | API key (optional) | — |
 | `ENABLE_ANALYTICS` | Feature flag | `false` |
+| `SENTRY_DSN` | Crash reporting DSN (optional) | — |
 
-Copy `.env.example` to `.env` and configure. Values are exposed via `expo-constants` at build time.
+Configure values in `.env.development`, `.env.staging`, and `.env.production`. Values are exposed via Expo `extra` and available through `expo-constants` at runtime.
 
-> ⚠️ `.env` is git-ignored. Never commit secrets.
+> ⚠️ Do not commit real secrets in any `.env.*` file.
 
 ---
 
@@ -459,10 +466,9 @@ The project supports multiple environments via `.env` files:
 
 | File | Purpose |
 |------|---------|
-| `.env` | Local development (gitignored) |
-| `.env.example` | Template for required variables |
-| `.env.staging` | Staging environment (committed with placeholders) |
-| `.env.production` | Production environment (committed with placeholders) |
+| `.env.development` | Development environment values |
+| `.env.staging` | Staging environment values |
+| `.env.production` | Production environment values |
 
 Switch environments by setting `NODE_ENV` before running:
 
