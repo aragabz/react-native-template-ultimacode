@@ -3,7 +3,7 @@ import { type StateStorage } from 'zustand/middleware';
 
 /**
  * MMKV instance for general app storage.
- * ~30x faster than AsyncStorage for read/write operations.
+ * Optimized for fast local read/write operations.
  */
 export const mmkvStorage = createMMKV({
   id: 'app-storage',

@@ -1,5 +1,5 @@
 /**
- * AsyncStorage and SecureStore key constants.
+ * App storage key constants.
  * Centralized to avoid typos and enable easy refactoring.
  */
 export const STORAGE_KEYS = {

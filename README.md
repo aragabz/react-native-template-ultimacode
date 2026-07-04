@@ -225,9 +225,9 @@ import Logo from '../assets/logo.svg';
 
 | Store | Purpose | Persisted |
 |-------|---------|-----------|
-| `useAuthStore` | User, token, login/logout, hydration | ✅ (hybrid: AsyncStorage + SecureStore for token) |
-| `useThemeStore` | Light/dark/system mode | ✅ (AsyncStorage) |
-| `useSettingsStore` | Language, onboarding flag | ✅ (AsyncStorage) |
+| `useAuthStore` | User, token, login/logout, hydration | ✅ |
+| `useThemeStore` | Light/dark/system mode | ✅ (MMKV) |
+| `useSettingsStore` | Language, onboarding flag | ✅ (MMKV) |
 | `useCounterStore` | Demo counter | ❌ |
 | `useToastStore` | Toast visibility & message | ❌ |
 
@@ -304,6 +304,31 @@ Add new tokens in `src/theme/colors.ts` — they'll be available everywhere via 
 
 ---
 
+## Environment Variables with react-native-dotenv
+
+This template uses `react-native-dotenv` with `@env` imports.
+
+- Babel plugin: `module:react-native-dotenv` in `babel.config.js`
+- Module name: `@env`
+- Environment selection: `NODE_ENV`
+
+Supported files:
+
+- `.env`
+- `.env.development`
+- `.env.staging`
+- `.env.production`
+
+Import variables in code:
+
+```ts
+import { API_URL, API_KEY } from '@env';
+```
+
+TypeScript declarations for `@env` are defined in `src/types/env.d.ts`.
+
+---
+
 ## Data Fetching (TanStack Query)
 
 API hooks live in `src/services/hooks/`. The Axios client (`src/services/apiClient.ts`) is configured with:
@@ -311,9 +336,8 @@ API hooks live in `src/services/hooks/`. The Axios client (`src/services/apiClie
 - `timeout` from `APP_CONFIG.API_TIMEOUT`
 
 `APP_CONFIG.API_BASE_URL` resolves in this order:
-1. Expo runtime config (`extra.apiUrl` from `app.config.ts`)
-2. `process.env.API_URL`
-3. Default: `https://dummyjson.com`
+1. `API_URL` imported from `@env`
+2. Default: `https://dummyjson.com`
 
 ```tsx
 import { usePosts } from '@api/hooks/usePosts';
@@ -327,7 +351,7 @@ const { data, isLoading, isError, refetch } = usePosts();
 
 - Supported languages: **English** (`en`), **Arabic** (`ar`)
 - Device locale is auto-detected on first launch
-- Language preference is persisted in AsyncStorage
+- Language preference is persisted in MMKV
 - RTL layout is applied automatically for Arabic
 - The app tree remounts on RTL change via a key mechanism
 
@@ -349,6 +373,12 @@ changeLanguage('ar'); // switches language and applies RTL
 
 Configure values in `.env.development`, `.env.staging`, and `.env.production`. Values are exposed via Expo `extra` and available through `expo-constants` at runtime.
 
+In app code, import variables from `@env`:
+
+```ts
+import { API_URL, ENABLE_ANALYTICS } from '@env';
+```
+
 > ⚠️ Do not commit real secrets in any `.env.*` file.
 
 ---
@@ -358,8 +388,17 @@ Configure values in `.env.development`, `.env.staging`, and `.env.production`. V
 | Script | Description |
 |--------|-------------|
 | `yarn start` | Start Metro bundler |
+| `yarn start:dev` | Start Metro with development env |
+| `yarn start:staging` | Start Metro with staging env |
+| `yarn start:prod` | Start Metro with production env |
 | `yarn ios` | Run on iOS simulator |
+| `yarn ios:dev` | Run iOS app with development env |
+| `yarn ios:staging` | Run iOS app with staging env |
+| `yarn ios:prod` | Run iOS app with production env |
 | `yarn android` | Run on Android emulator |
+| `yarn android:dev` | Run Android app with development env |
+| `yarn android:staging` | Run Android app with staging env |
+| `yarn android:prod` | Run Android app with production env |
 | `yarn test` | Run Jest test suite |
 | `yarn test:watch` | Run tests in watch mode |
 | `yarn lint` | Lint source files |
@@ -400,7 +439,6 @@ Mocks are centralized in `jest.setup.js` (native modules, navigation, i18n, stor
 | react-native-screens | Auto-linked | Auto-linked |
 | react-native-safe-area-context | Auto-linked | Auto-linked |
 | react-native-gesture-handler | Auto-linked | Already configured in template |
-| @react-native-async-storage/async-storage | Auto-linked | Auto-linked |
 | expo-secure-store | Keychain Sharing entitlement (auto) | EncryptedSharedPreferences (min SDK 23) |
 | expo-splash-screen | LaunchScreen.storyboard | Splash theme in styles.xml |
 | expo-status-bar | `UIViewControllerBasedStatusBarAppearance = YES` | No extra config |
@@ -474,6 +512,14 @@ Switch environments by setting `NODE_ENV` before running:
 
 ```sh
 NODE_ENV=staging npx expo start
+```
+
+Or use package scripts:
+
+```sh
+yarn start:staging
+yarn ios:staging
+yarn android:staging
 ```
 
 `app.config.ts` automatically applies per-env bundle identifiers and app names.

@@ -2,11 +2,10 @@ import { I18nManager } from 'react-native';
 import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEYS } from '@constants/storageKeys';
+import { mmkvStorage } from '@services/mmkvStorage';
 import ar from './ar.json';
 import en from './en.json';
-
-const LANGUAGE_KEY = '@app/language';
 
 const resources = {
   en: { translation: en },
@@ -35,7 +34,7 @@ export const onRtlChange = (listener: RtlChangeListener): (() => void) => {
 
 const initI18n = async () => {
   try {
-    const storedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
+    const storedLanguage = mmkvStorage.getString(STORAGE_KEYS.LANGUAGE) ?? null;
     const deviceLanguage = Localization.getLocales()?.[0]?.languageCode ?? 'en';
     const detectedLanguage = storedLanguage ?? deviceLanguage;
     const lng: SupportedLanguage =
@@ -78,7 +77,7 @@ const initI18n = async () => {
 };
 
 export const changeLanguage = async (lng: SupportedLanguage) => {
-  await AsyncStorage.setItem(LANGUAGE_KEY, lng);
+  mmkvStorage.set(STORAGE_KEYS.LANGUAGE, lng);
   i18n.changeLanguage(lng);
 };
 

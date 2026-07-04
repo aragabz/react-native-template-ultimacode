@@ -1,14 +1,11 @@
-import Constants from 'expo-constants';
+import { API_URL } from '@env';
 
 const DEFAULT_API_BASE_URL = 'https://dummyjson.com';
 
 const resolveApiBaseUrl = (): string => {
-  const expoConfigApiUrl =
-    (Constants.expoConfig?.extra as { apiUrl?: string } | undefined)?.apiUrl ??
-    (Constants.manifest2 as { extra?: { expoClient?: { extra?: { apiUrl?: string } } } } | undefined)?.extra
-      ?.expoClient?.extra?.apiUrl;
+  const envApiUrl = API_URL?.trim();
 
-  return expoConfigApiUrl ?? process.env.API_URL ?? DEFAULT_API_BASE_URL;
+  return envApiUrl || DEFAULT_API_BASE_URL;
 };
 
 /**
