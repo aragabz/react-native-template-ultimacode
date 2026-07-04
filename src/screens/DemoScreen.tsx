@@ -13,6 +13,8 @@ import { usePosts, Post } from '@api/hooks/usePosts';
 import { useAppTheme } from '@hooks/useAppTheme';
 import { useCounterStore } from '@store/useCounterStore';
 import { useThemeStore } from '@store/useThemeStore';
+import { LegendList, LegendListRef, LegendListRenderItemProps } from "@legendapp/list/react-native"
+
 
 export const DemoScreen = () => {
   const { t } = useTranslation();
@@ -82,8 +84,9 @@ export const DemoScreen = () => {
             </TouchableOpacity>
           </View>
         ) : (
-          <FlatList
-            data={posts?.slice(0, 5)}
+          <LegendList
+            data={posts}
+            recycleItems={true}
             renderItem={renderPost}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={styles.listContent}

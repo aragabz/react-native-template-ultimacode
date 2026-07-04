@@ -44,8 +44,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: currentEnv.package,
   },
   extra: {
+    ...config.extra,
     env: ENV,
-    apiUrl: process.env.API_URL ?? 'https://jsonplaceholder.typicode.com',
+    apiUrl: process.env.API_URL ?? 'https://dummyjson.com',
     apiKey: process.env.API_KEY ?? '',
     enableAnalytics: process.env.ENABLE_ANALYTICS === 'true',
     sentryDsn: process.env.SENTRY_DSN ?? '',

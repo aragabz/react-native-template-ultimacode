@@ -2615,6 +2615,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@legendapp/list@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@legendapp/list@npm:3.3.0"
+  dependencies:
+    use-sync-external-store: "npm:^1.5.0"
+  peerDependencies:
+    react: "*"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 10c0/d793a96fe52cac622e5306b37a67cd64447ce1fcc1d8be9712b2ccbaef05365070e4c21780fc509701bf9484f74bd51f0574e5bec697c677da66071851d8e3de
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^1.1.4":
   version: 1.1.6
   resolution: "@napi-rs/wasm-runtime@npm:1.1.6"
@@ -10870,6 +10886,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.29.7"
     "@babel/runtime": "npm:^7.29.7"
     "@expo/vector-icons": "npm:^15.1.1"
+    "@legendapp/list": "npm:^3.3.0"
     "@react-native-async-storage/async-storage": "npm:2.2.0"
     "@react-native-community/cli": "npm:20.2.0"
     "@react-native-community/cli-platform-android": "npm:20.2.0"

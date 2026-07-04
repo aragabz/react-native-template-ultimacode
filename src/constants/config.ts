@@ -1,9 +1,23 @@
+import Constants from 'expo-constants';
+
+const DEFAULT_API_BASE_URL = 'https://dummyjson.com';
+
+const resolveApiBaseUrl = (): string => {
+  const expoConfigApiUrl =
+    (Constants.expoConfig?.extra as { apiUrl?: string } | undefined)?.apiUrl ??
+    (Constants.manifest2 as { extra?: { expoClient?: { extra?: { apiUrl?: string } } } } | undefined)?.extra
+      ?.expoClient?.extra?.apiUrl;
+
+  return expoConfigApiUrl ?? process.env.API_URL ?? DEFAULT_API_BASE_URL;
+};
+
 /**
  * Application-wide configuration constants.
  */
 export const APP_CONFIG = {
   APP_NAME: 'ReactNativeTemplate',
   VERSION: '1.0.0',
+  API_BASE_URL: resolveApiBaseUrl(),
   API_TIMEOUT: 15000,
   STALE_TIME: 5 * 60 * 1000, // 5 minutes
   GC_TIME: 30 * 60 * 1000, // 30 minutes
@@ -17,10 +31,5 @@ export const APP_CONFIG = {
 } as const;
 
 export const ENDPOINTS = {
-  LOGIN: '/auth/login',
-  REGISTER: '/auth/register',
-  REFRESH_TOKEN: '/auth/refresh',
-  FORGOT_PASSWORD: '/auth/forgot-password',
   POSTS: '/posts',
-  USERS: '/users',
 } as const;

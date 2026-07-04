@@ -1,9 +1,8 @@
 import axios from 'axios';
-
-const API_URL = 'https://jsonplaceholder.typicode.com';
+import { APP_CONFIG } from '@constants/config';
 
 export const apiClient = axios.create({
-  baseURL: API_URL,
-  timeout: 15000,
+  baseURL: APP_CONFIG.API_BASE_URL,
+  timeout: APP_CONFIG.API_TIMEOUT,
   headers: { 'Content-Type': 'application/json' },
 });
