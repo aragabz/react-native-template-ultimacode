@@ -1,15 +1,17 @@
 source 'https://rubygems.org'
 
-# You may use http://rbenv.org/ or https://rvm.io/ to install and use this version
-ruby ">= 2.6.10"
+# Enforces a modern Ruby framework version (Required for newer React Native versions)
+ruby ">= 3.2.0"
 
-# Exclude problematic versions of cocoapods and activesupport that causes build failures.
-gem 'cocoapods', '>= 1.13', '!= 1.15.0', '!= 1.15.1'
+# Pins the iOS toolchain to stable, Xcode 16+ compatible versions
+gem 'cocoapods', '1.16.2'
 gem 'activesupport', '>= 6.1.7.5', '!= 7.1.0'
-gem 'xcodeproj', '< 1.26.0'
+gem 'xcodeproj', '1.27.0'
+
+# Prevents build-breaking concurrent-ruby 1.3.4+ upgrades in iOS builds
 gem 'concurrent-ruby', '< 1.3.4'
 
-# Ruby 3.4.0 has removed some libraries from the standard library.
+# Standard libraries extracted in Ruby 3.4.0+ required for environment stability
 gem 'bigdecimal'
 gem 'logger'
 gem 'benchmark'
