@@ -1,8 +1,0 @@
-{
-  "track_id": "core_arch_20260616",
-  "type": "feature",
-  "status": "new",
-  "created_at": "2026-06-16T12:00:00Z",
-  "updated_at": "2026-06-16T12:00:00Z",
-  "description": "Implement Core Architecture: Navigation and State Management"
-}
