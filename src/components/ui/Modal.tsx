@@ -30,7 +30,7 @@ export const Modal = ({ visible, onClose, title, children }: ModalProps) => {
       <Pressable style={styles.overlay} onPress={onClose}>
         <Pressable
           accessible={true}
-          accessibilityRole="dialog"
+          accessibilityRole="alert"
           accessibilityLabel={title}
           style={[styles.content, { backgroundColor: themeColors.background }]}
           onPress={() => {}}

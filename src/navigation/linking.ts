@@ -9,6 +9,9 @@ export const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           Home: 'home',
           Demo: 'demo',
+          List: 'list',
+          Forms: 'forms',
+          Offline: 'offline',
           Settings: 'settings',
           Showcase: 'showcase',
         },

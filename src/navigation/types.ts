@@ -4,6 +4,9 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 export type TabParamList = {
   Home: undefined;
   Demo: undefined;
+  List: undefined;
+  Forms: undefined;
+  Offline: undefined;
   Settings: undefined;
   Showcase: undefined;
 };

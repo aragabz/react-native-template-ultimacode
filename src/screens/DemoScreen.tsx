@@ -1,19 +1,16 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { spacing, typography } from '@theme';
 import { useTranslation } from 'react-i18next';
 import { usePosts, Post } from '@api/hooks/usePosts';
 import { useAppTheme } from '@hooks/useAppTheme';
 import { useCounterStore } from '@store/useCounterStore';
 import { useThemeStore } from '@store/useThemeStore';
-import { LegendList, LegendListRef, LegendListRenderItemProps } from "@legendapp/list/react-native"
+import { Card } from '@components/ui';
+import { LegendList } from '@legendapp/list/react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import type { TabParamList } from '@navigation/types';
 
 
 export const DemoScreen = () => {
@@ -21,9 +18,9 @@ export const DemoScreen = () => {
   const { count, increment, decrement } = useCounterStore();
   const { mode, setMode } = useThemeStore();
   const { colors: themeColors } = useAppTheme();
+  const navigation = useNavigation<BottomTabNavigationProp<TabParamList>>();
 
   const { data: posts, isLoading, isError, error, refetch } = usePosts();
-  console.log('[DemoScreen] usePosts state:', { isLoading, isError, error: error?.message, errorObj: error, postsCount: posts?.length });
 
   const toggleTheme = () => {
     const nextMode = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
@@ -93,6 +90,24 @@ export const DemoScreen = () => {
           />
         )}
       </View>
+
+      <Card style={[styles.section, { backgroundColor: themeColors.surface }]}>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
+          {t('demo.examplesSection')}
+        </Text>
+        <TouchableOpacity style={[styles.linkButton, { backgroundColor: themeColors.primary }]} onPress={() => navigation.navigate('List')}>
+          <Text style={styles.buttonText}>{t('demo.listDetailExample')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.linkButton, { backgroundColor: themeColors.primary }]} onPress={() => navigation.navigate('Forms')}>
+          <Text style={styles.buttonText}>{t('demo.formsExample')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.linkButton, { backgroundColor: themeColors.primary }]} onPress={() => navigation.navigate('Offline')}>
+          <Text style={styles.buttonText}>{t('demo.offlineExample')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.linkButton, { backgroundColor: themeColors.primary }]} onPress={() => navigation.navigate('Settings')}>
+          <Text style={styles.buttonText}>{t('demo.settingsExample')}</Text>
+        </TouchableOpacity>
+      </Card>
     </View>
   );
 };
@@ -137,6 +152,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  linkButton: {
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: spacing.sm,
   },
   buttonText: {
     color: '#fff',
