@@ -1,6 +1,6 @@
 {
   "name": "react-native-template-ultimacode",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "bin": "./bin/cli.js",
   "description": "React Native + Expo template with Zustand, React Query, React Navigation, i18n and more",
   "keywords": [
