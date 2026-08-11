@@ -266,3 +266,10 @@ jest.mock('expo-local-authentication', () => ({
   AuthenticationType: { FINGERPRINT: 1, FACIAL_RECOGNITION: 2, IRIS: 3 },
   supportedAuthenticationTypesAsync: jest.fn().mockResolvedValue([1, 2]),
 }));
+
+jest.mock('@legendapp/list/react-native', () => {
+  const { FlatList } = require('react-native');
+  return {
+    LegendList: FlatList,
+  };
+});

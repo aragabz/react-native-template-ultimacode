@@ -45,9 +45,6 @@ jest.mock('react-native', () => {
 
 test('renders correctly', async () => {
   useSettingsStore.setState({ onboardingSeen: false });
-  // MMKV rehydration is synchronous, so isHydrating should be false after store init
-  const { useAuthStore } = require('@store/useAuthStore');
-  useAuthStore.setState({ isHydrating: false });
   const { toJSON } = await render(<App />);
   await waitFor(() => {
     expect(toJSON()).not.toBeNull();

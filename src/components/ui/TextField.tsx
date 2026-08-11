@@ -37,6 +37,7 @@ export const TextField = ({
         accessible={true}
         accessibilityLabel={label}
         accessibilityHint={placeholder}
+        accessibilityState={{ invalid: !!error }}
         style={[
           styles.input,
           {
