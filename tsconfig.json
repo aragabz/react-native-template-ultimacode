@@ -2,7 +2,6 @@
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
     "strict": true,
-    "ignoreDeprecations": "6.0",
     "types": ["jest", "node"],
     "paths": {
       "@api/*": ["./src/services/*"],

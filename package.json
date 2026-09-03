@@ -23,6 +23,7 @@
     "url": "https://github.com/aragabz/react-native-template-ultimacode/issues"
   },
   "scripts": {
+    "prepare": "husky install",
     "android:dev": "NODE_ENV=development react-native run-android",
     "android:staging": "NODE_ENV=staging react-native run-android",
     "android:prod": "NODE_ENV=production react-native run-android",
@@ -115,7 +116,7 @@
     "babel-plugin-module-resolver": "^5.0.3",
     "babel-preset-expo": "~57.0.6",
     "dotenv": "^17.4.2",
-    "eslint": "^10.8.1",
+    "eslint": "8",
     "eslint-plugin-import": "^2.32.0",
     "expo-modules-core": "^57.0.1",
     "husky": "^9.1.7",
@@ -129,7 +130,7 @@
     "react-native-svg-transformer": "^1.5.3",
     "react-test-renderer": "19.2.8",
     "test-renderer": "^1.2.0",
-    "typescript": "^7.0.2"
+    "typescript": "^5.7.2"
   },
   "engines": {
     "node": ">= 22.11.0"

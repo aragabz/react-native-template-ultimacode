@@ -32,12 +32,14 @@ export const TextField = ({
 
   return (
     <View style={[styles.wrapper, style]}>
-      {label && <Text style={[styles.label, { color: themeColors.text }]}>{label}</Text>}
+      {label && (
+        <Text style={[styles.label, { color: themeColors.text }]}>{label}</Text>
+      )}
       <TextInput
         accessible={true}
         accessibilityLabel={label}
         accessibilityHint={placeholder}
-        accessibilityState={{ invalid: !!error }}
+        accessibilityState={{ disabled: false, selected: false }}
         style={[
           styles.input,
           {
@@ -57,7 +59,11 @@ export const TextField = ({
         multiline={multiline}
         textAlignVertical={multiline ? 'top' : 'center'}
       />
-      {error && <Text style={[styles.error, { color: themeColors.error }]}>{error}</Text>}
+      {error && (
+        <Text style={[styles.error, { color: themeColors.error }]}>
+          {error}
+        </Text>
+      )}
     </View>
   );
 };
