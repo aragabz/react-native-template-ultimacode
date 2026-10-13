@@ -1,6 +1,7 @@
 import React, { Component, type ErrorInfo, type ReactNode } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { spacing, typography } from '@theme';
+import { radii, spacing, typography } from '@theme';
+import { useAppTheme } from '@hooks/useAppTheme';
 import { crashReporting } from '@services/crashReporting';
 
 type FallbackProps = {
@@ -19,18 +20,38 @@ type ErrorBoundaryState = {
   error: Error | null;
 };
 
-const DefaultFallback = ({ error, resetError }: FallbackProps) => (
-  <View style={styles.container}>
-    <Text style={styles.emoji}>⚠️</Text>
-    <Text style={styles.title}>Something went wrong</Text>
-    <Text style={styles.message}>{error.message}</Text>
-    <TouchableOpacity style={styles.button} onPress={resetError}>
-      <Text style={styles.buttonText}>Try Again</Text>
-    </TouchableOpacity>
-  </View>
-);
+// Deliberately not translated: it must still render if i18n is what failed.
+const DefaultFallback = ({ error, resetError }: FallbackProps) => {
+  const { colors: themeColors } = useAppTheme();
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  return (
+    <View
+      style={[styles.container, { backgroundColor: themeColors.background }]}
+    >
+      <Text style={styles.emoji}>⚠️</Text>
+      <Text style={[styles.title, { color: themeColors.text }]}>
+        Something went wrong
+      </Text>
+      <Text style={[styles.message, { color: themeColors.textSecondary }]}>
+        {error.message}
+      </Text>
+      <TouchableOpacity
+        accessibilityRole="button"
+        style={[styles.button, { backgroundColor: themeColors.primary }]}
+        onPress={resetError}
+      >
+        <Text style={[styles.buttonText, { color: themeColors.onPrimary }]}>
+          Try Again
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -41,7 +62,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    crashReporting.captureException(error, { componentStack: errorInfo.componentStack });
+    crashReporting.captureException(error, {
+      componentStack: errorInfo.componentStack,
+    });
     this.props.onError?.(error, errorInfo);
   }
 
@@ -52,7 +75,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   render() {
     if (this.state.hasError && this.state.error) {
       const FallbackComponent = this.props.fallback ?? DefaultFallback;
-      return <FallbackComponent error={this.state.error} resetError={this.resetError} />;
+      return (
+        <FallbackComponent
+          error={this.state.error}
+          resetError={this.resetError}
+        />
+      );
     }
 
     return this.props.children;
@@ -65,7 +93,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: spacing.lg,
-    backgroundColor: '#FAFAFA',
   },
   emoji: {
     fontSize: 48,
@@ -74,23 +101,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
-    color: '#1a1a1a',
     marginBottom: spacing.sm,
   },
   message: {
     fontSize: typography.fontSize.sm,
-    color: '#666',
     textAlign: 'center',
     marginBottom: spacing.lg,
   },
   button: {
-    backgroundColor: '#007AFF',
     paddingVertical: spacing.sm + 4,
     paddingHorizontal: spacing.lg,
-    borderRadius: 8,
+    borderRadius: radii.md,
   },
   buttonText: {
-    color: '#fff',
     fontSize: typography.fontSize.md,
     fontWeight: typography.fontWeight.semibold,
   },

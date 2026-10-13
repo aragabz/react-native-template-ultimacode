@@ -3,7 +3,11 @@ import { Text, View } from 'react-native';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { ErrorBoundary } from '../ErrorBoundary';
 
-const ThrowingComponent = ({ shouldThrow = true }: { shouldThrow?: boolean }) => {
+const ThrowingComponent = ({
+  shouldThrow = true,
+}: {
+  shouldThrow?: boolean;
+}) => {
   if (shouldThrow) {
     throw new Error('Test error');
   }
@@ -90,7 +94,13 @@ describe('ErrorBoundary', () => {
   });
 
   it('renders custom fallback when provided', async () => {
-    const CustomFallback = ({ error, resetError: _resetError }: { error: Error; resetError: () => void }) => (
+    const CustomFallback = ({
+      error,
+      resetError: _resetError,
+    }: {
+      error: Error;
+      resetError: () => void;
+    }) => (
       <View>
         <Text>Custom: {error.message}</Text>
       </View>

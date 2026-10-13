@@ -1,4 +1,4 @@
-import { API_URL } from '@env';
+import { API_URL, ENABLE_ANALYTICS, NODE_ENV, SENTRY_DSN } from '@env';
 
 const DEFAULT_API_BASE_URL = 'https://dummyjson.com';
 
@@ -15,6 +15,9 @@ export const APP_CONFIG = {
   APP_NAME: 'ReactNativeTemplate',
   VERSION: '1.0.0',
   API_BASE_URL: resolveApiBaseUrl(),
+  ENV: NODE_ENV || 'development',
+  ENABLE_ANALYTICS: ENABLE_ANALYTICS === 'true',
+  SENTRY_DSN: SENTRY_DSN?.trim() ?? '',
   API_TIMEOUT: 15000,
   STALE_TIME: 5 * 60 * 1000, // 5 minutes
   GC_TIME: 30 * 60 * 1000, // 30 minutes

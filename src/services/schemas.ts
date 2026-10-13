@@ -15,6 +15,13 @@ export const loginResponseSchema = z.object({
 
 export type LoginResponse = z.infer<typeof loginResponseSchema>;
 
+export const refreshTokensResponseSchema = z.object({
+  token: z.string().min(1),
+  refreshToken: z.string().min(1),
+});
+
+export type RefreshTokensResponse = z.infer<typeof refreshTokensResponseSchema>;
+
 export const postSchema = z.object({
   userId: z.number(),
   id: z.number(),

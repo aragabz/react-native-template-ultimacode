@@ -2,21 +2,21 @@ import type { RootStackParamList } from '@navigation/types';
 import type { LinkingOptions } from '@react-navigation/native';
 
 export const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: ['rn-template://'],
+  prefixes: ['reactnativetemplate://'],
   config: {
     screens: {
       Main: {
         screens: {
           Home: 'home',
-          Demo: 'demo',
-          List: 'list',
-          Forms: 'forms',
-          Offline: 'offline',
+          Examples: 'examples',
           Settings: 'settings',
           Showcase: 'showcase',
         },
       },
       Details: 'details/:id',
+      List: 'list',
+      Forms: 'forms',
+      Offline: 'offline',
     },
   },
 };

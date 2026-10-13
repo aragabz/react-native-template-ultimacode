@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import { spacing, typography } from '@theme';
+import { elevation, radii, spacing, typography } from '@theme';
 import { useAppTheme } from '@hooks/useAppTheme';
 
 type ModalProps = {
@@ -27,12 +27,22 @@ export const Modal = ({ visible, onClose, title, children }: ModalProps) => {
       animationType="fade"
       onRequestClose={onClose}
     >
-      <Pressable style={styles.overlay} onPress={onClose}>
+      <Pressable
+        style={[styles.overlay, { backgroundColor: themeColors.overlay }]}
+        onPress={onClose}
+      >
         <Pressable
           accessible={true}
-          accessibilityRole="alert"
+          role="dialog"
+          aria-modal
           accessibilityLabel={title}
-          style={[styles.content, { backgroundColor: themeColors.background }]}
+          style={[
+            styles.content,
+            {
+              backgroundColor: themeColors.surface,
+              shadowColor: themeColors.shadow,
+            },
+          ]}
           onPress={() => {}}
         >
           {title && (
@@ -63,14 +73,14 @@ export const Modal = ({ visible, onClose, title, children }: ModalProps) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
     padding: spacing.xl,
   },
   content: {
     width: '100%',
-    borderRadius: 12,
+    borderRadius: radii.lg,
+    ...elevation.md,
     padding: spacing.lg,
     maxHeight: '80%',
   },

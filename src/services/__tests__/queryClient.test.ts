@@ -1,4 +1,4 @@
-import { createQueryClient } from '../queryClient';
+import { bindOnlineManager, createQueryClient } from '../queryClient';
 
 describe('QueryClient configuration', () => {
   it('creates a QueryClient instance', () => {
@@ -31,9 +31,15 @@ describe('QueryClient configuration', () => {
     expect(defaults.queries?.refetchOnWindowFocus).toBe(false);
   });
 
-  it('disables refetchOnReconnect by default (handled by NetInfo)', () => {
+  it('keeps refetchOnReconnect enabled (driven by NetInfo via onlineManager)', () => {
     const client = createQueryClient();
     const defaults = client.getDefaultOptions();
-    expect(defaults.queries?.refetchOnReconnect).toBe(false);
+    expect(defaults.queries?.refetchOnReconnect).toBeUndefined();
+  });
+
+  it('bindOnlineManager subscribes to NetInfo', () => {
+    const NetInfo = require('@react-native-community/netinfo');
+    bindOnlineManager();
+    expect(NetInfo.addEventListener).toHaveBeenCalled();
   });
 });

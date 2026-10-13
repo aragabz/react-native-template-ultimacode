@@ -27,7 +27,11 @@ describe('TextField', () => {
   it('calls onChangeText when typing', async () => {
     const onChangeText = jest.fn();
     const { getByPlaceholderText } = await render(
-      <TextField placeholder="Type here" value="" onChangeText={onChangeText} />,
+      <TextField
+        placeholder="Type here"
+        value=""
+        onChangeText={onChangeText}
+      />,
     );
     fireEvent.changeText(getByPlaceholderText('Type here'), 'new value');
     expect(onChangeText).toHaveBeenCalledWith('new value');
@@ -35,7 +39,11 @@ describe('TextField', () => {
 
   it('displays error message when provided', async () => {
     const { getByText } = await render(
-      <TextField value="" onChangeText={() => {}} error="This field is required" />,
+      <TextField
+        value=""
+        onChangeText={() => {}}
+        error="This field is required"
+      />,
     );
     expect(getByText('This field is required')).toBeTruthy();
   });

@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  I18nManager,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { spacing, typography } from '@theme';
 import { useAppTheme } from '@hooks/useAppTheme';
 import { Icon } from './Icon';
@@ -27,14 +33,25 @@ export const LegendList = ({ items, title }: LegendListProps) => {
   return (
     <View>
       {title && (
-        <Text style={[styles.title, { color: themeColors.text }]}>
+        <Text
+          accessibilityRole="header"
+          style={[styles.title, { color: themeColors.text }]}
+        >
           {title}
         </Text>
       )}
       {items.map((item, index) => (
         <TouchableOpacity
           key={index}
-          style={[styles.item, { borderBottomColor: themeColors.border }]}
+          accessibilityRole={item.onPress ? 'button' : undefined}
+          accessibilityLabel={item.label}
+          style={[
+            styles.item,
+            index < items.length - 1 && {
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              borderBottomColor: themeColors.border,
+            },
+          ]}
           onPress={item.onPress}
           disabled={!item.onPress}
           activeOpacity={0.6}
@@ -45,6 +62,7 @@ export const LegendList = ({ items, title }: LegendListProps) => {
               name={item.icon.name}
               color={item.color}
               size="sm"
+              style={styles.leading}
             />
           ) : (
             <View style={[styles.dot, { backgroundColor: item.color }]} />
@@ -52,6 +70,15 @@ export const LegendList = ({ items, title }: LegendListProps) => {
           <Text style={[styles.label, { color: themeColors.text }]}>
             {item.label}
           </Text>
+          {item.onPress && (
+            <Icon
+              family="MaterialIcons"
+              name="chevron-right"
+              color={themeColors.textTertiary}
+              size="sm"
+              style={I18nManager.isRTL ? styles.flipped : undefined}
+            />
+          )}
         </TouchableOpacity>
       ))}
     </View>
@@ -60,6 +87,7 @@ export const LegendList = ({ items, title }: LegendListProps) => {
 
 const styles = StyleSheet.create({
   title: {
+    textAlign: 'left',
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.semibold,
     marginBottom: spacing.sm,
@@ -68,15 +96,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: spacing.md,
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   dot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
     marginRight: spacing.md,
   },
   label: {
-    fontSize: typography.fontSize.lg,
+    flex: 1,
+    textAlign: 'left',
+    fontSize: typography.fontSize.md,
   },
+  leading: { marginRight: spacing.md },
+  flipped: { transform: [{ scaleX: -1 }] },
 });

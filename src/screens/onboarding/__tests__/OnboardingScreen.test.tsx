@@ -1,11 +1,11 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import { OnboardingScreen } from '@screens/OnboardingScreen';
+import { OnboardingScreen } from '@screens/onboarding/OnboardingScreen';
 import { useSettingsStore } from '@store/useSettingsStore';
+import { render, fireEvent } from '@testing-library/react-native';
 
 describe('OnboardingScreen', () => {
   beforeEach(() => {
-    useSettingsStore.setState({ onboardingSeen: false, language: 'en' });
+    useSettingsStore.setState({ onboardingSeen: false });
   });
 
   it('renders onboarding content with welcome message', async () => {

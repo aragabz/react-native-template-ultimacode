@@ -1,33 +1,23 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { spacing, typography } from '@theme';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@components/ui';
 import { useAppTheme } from '@hooks/useAppTheme';
 import { useSettingsStore } from '@store/useSettingsStore';
-import { spacing, typography } from '@theme';
 
 const { width } = Dimensions.get('window');
 
 const pages = [
-  {
-    emoji: '👋',
-    title: 'Welcome',
-    description: 'Welcome to the app! Let us walk you through the key features.',
-  },
-  {
-    emoji: '🚀',
-    title: 'Fast & Reliable',
-    description: 'Built with performance in mind. Enjoy a smooth experience.',
-  },
-  {
-    emoji: '🔒',
-    title: 'Secure',
-    description: 'Your data is encrypted and stored safely on your device.',
-  },
+  { emoji: '👋', key: 'welcome' },
+  { emoji: '🚀', key: 'fast' },
+  { emoji: '🔒', key: 'secure' },
 ];
 
 export const OnboardingScreen = () => {
+  const { t } = useTranslation();
   const { colors } = useAppTheme();
-  const setOnboardingSeen = useSettingsStore((s) => s.setOnboardingSeen);
+  const setOnboardingSeen = useSettingsStore(s => s.setOnboardingSeen);
   useEffect(() => {
     // Mark onboarding as seen when the component mounts
     console.log('Onboarding screen mounted, setting onboarding as seen.');
@@ -42,22 +32,29 @@ export const OnboardingScreen = () => {
         style={styles.scrollView}
       >
         {pages.map((page, index) => (
-          <View key={index} testID={`onboarding-page-${index}`} style={styles.page}>
+          <View
+            key={index}
+            testID={`onboarding-page-${index}`}
+            style={styles.page}
+          >
             <Text style={styles.emoji}>{page.emoji}</Text>
             <Text
               accessibilityRole="header"
               style={[styles.title, { color: colors.text }]}
             >
-              {page.title}
+              {t(`onboarding.${page.key}Title`)}
             </Text>
             <Text style={[styles.description, { color: colors.textSecondary }]}>
-              {page.description}
+              {t(`onboarding.${page.key}Description`)}
             </Text>
           </View>
         ))}
       </ScrollView>
       <View style={styles.footer}>
-        <Button title="Get Started" onPress={() => setOnboardingSeen(true)} />
+        <Button
+          title={t('onboarding.getStarted')}
+          onPress={() => setOnboardingSeen(true)}
+        />
       </View>
     </View>
   );

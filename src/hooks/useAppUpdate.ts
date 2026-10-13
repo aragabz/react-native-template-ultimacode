@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
 import Constants from 'expo-constants';
 
-export type UpdateStatus = 'idle' | 'checking' | 'available' | 'up-to-date' | 'error';
+export type UpdateStatus =
+  'idle' | 'checking' | 'available' | 'up-to-date' | 'error';
 
 interface AppUpdateState {
   status: UpdateStatus;
@@ -24,7 +25,9 @@ export function useAppUpdate(): AppUpdateState {
   const currentVersion = Constants.expoConfig?.version ?? '0.0.0';
   const [status, setStatus] = useState<UpdateStatus>('idle');
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
-  const [latestVersion, setLatestVersion] = useState<string | undefined>(undefined);
+  const [latestVersion, setLatestVersion] = useState<string | undefined>(
+    undefined,
+  );
 
   const checkForUpdate = useCallback(async () => {
     setStatus('checking');

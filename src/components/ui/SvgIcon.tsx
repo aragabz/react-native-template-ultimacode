@@ -6,9 +6,5 @@ type SvgIconProps = SvgProps & {
 };
 
 export const SvgIcon = ({ children, ...props }: SvgIconProps) => {
-  return (
-    <Svg {...props}>
-      {children}
-    </Svg>
-  );
+  return <Svg {...props}>{children}</Svg>;
 };

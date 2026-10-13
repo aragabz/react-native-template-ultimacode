@@ -34,6 +34,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: currentEnv.name,
   slug: 'reactnativetemplate',
+  scheme: 'reactnativetemplate',
   version: '1.0.0',
   ios: {
     ...config.ios,

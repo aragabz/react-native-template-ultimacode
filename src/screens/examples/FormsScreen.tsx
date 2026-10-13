@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { spacing, typography } from '@theme';
 import { useTranslation } from 'react-i18next';
-import { Button, Card, TextField, useToastStore } from '@components/ui';
+import { Button, Card, TextField, useToastStore, Screen } from '@components/ui';
 import { useAppTheme } from '@hooks/useAppTheme';
 import { isValidEmail, isNonEmpty } from '@utils/validators';
-import { spacing, typography } from '@theme';
 
 type FormState = {
   name: string;
@@ -23,14 +23,17 @@ const initialFormState: FormState = {
 export const FormsScreen = () => {
   const { t } = useTranslation();
   const { colors: themeColors } = useAppTheme();
-  const showToast = useToastStore((s) => s.show);
+  const showToast = useToastStore(s => s.show);
   const [form, setForm] = useState<FormState>(initialFormState);
   const [errors, setErrors] = useState<FormErrors>({});
   const [lastSubmitted, setLastSubmitted] = useState<FormState | null>(null);
 
-  const updateField = <K extends keyof FormState>(key: K, value: FormState[K]) => {
-    setForm((current) => ({ ...current, [key]: value }));
-    setErrors((current) => ({ ...current, [key]: undefined }));
+  const updateField = <K extends keyof FormState>(
+    key: K,
+    value: FormState[K],
+  ) => {
+    setForm(current => ({ ...current, [key]: value }));
+    setErrors(current => ({ ...current, [key]: undefined }));
   };
 
   const validate = (): FormErrors => {
@@ -71,23 +74,23 @@ export const FormsScreen = () => {
   };
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: themeColors.background }]} contentContainerStyle={styles.content}>
-      <Text style={[styles.title, { color: themeColors.text }]}>{t('forms.title')}</Text>
-
-      <Card style={[styles.card, { backgroundColor: themeColors.surface }]}>
-        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('forms.sectionTitle')}</Text>
+    <Screen>
+      <Card style={styles.card}>
+        <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
+          {t('forms.sectionTitle')}
+        </Text>
         <TextField
           label={t('forms.nameLabel')}
           placeholder={t('forms.namePlaceholder')}
           value={form.name}
-          onChangeText={(value) => updateField('name', value)}
+          onChangeText={value => updateField('name', value)}
           error={errors.name}
         />
         <TextField
           label={t('forms.emailLabel')}
           placeholder={t('forms.emailPlaceholder')}
           value={form.email}
-          onChangeText={(value) => updateField('email', value)}
+          onChangeText={value => updateField('email', value)}
           error={errors.email}
           keyboardType="email-address"
           autoCapitalize="none"
@@ -96,55 +99,63 @@ export const FormsScreen = () => {
           label={t('forms.messageLabel')}
           placeholder={t('forms.messagePlaceholder')}
           value={form.message}
-          onChangeText={(value) => updateField('message', value)}
+          onChangeText={value => updateField('message', value)}
           error={errors.message}
           multiline
         />
 
         <View style={styles.actions}>
           <Button title={t('forms.submit')} onPress={handleSubmit} />
-          <Button title={t('forms.reset')} variant="outline" onPress={handleReset} />
+          <Button
+            title={t('forms.reset')}
+            variant="outline"
+            onPress={handleReset}
+          />
         </View>
       </Card>
 
       {lastSubmitted && (
-        <Card style={[styles.card, { backgroundColor: themeColors.surface }]}>
-          <Text style={[styles.sectionTitle, { color: themeColors.text }]}>{t('forms.lastSubmitted')}</Text>
-          <Text style={[styles.summaryText, { color: themeColors.textSecondary }]}>{t('forms.summaryName', { name: lastSubmitted.name })}</Text>
-          <Text style={[styles.summaryText, { color: themeColors.textSecondary }]}>{t('forms.summaryEmail', { email: lastSubmitted.email })}</Text>
-          <Text style={[styles.summaryText, { color: themeColors.textSecondary }]}>{t('forms.summaryMessage', { message: lastSubmitted.message })}</Text>
+        <Card style={styles.card}>
+          <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
+            {t('forms.lastSubmitted')}
+          </Text>
+          <Text
+            style={[styles.summaryText, { color: themeColors.textSecondary }]}
+          >
+            {t('forms.summaryName', { name: lastSubmitted.name })}
+          </Text>
+          <Text
+            style={[styles.summaryText, { color: themeColors.textSecondary }]}
+          >
+            {t('forms.summaryEmail', { email: lastSubmitted.email })}
+          </Text>
+          <Text
+            style={[styles.summaryText, { color: themeColors.textSecondary }]}
+          >
+            {t('forms.summaryMessage', { message: lastSubmitted.message })}
+          </Text>
         </Card>
       )}
-    </ScrollView>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    padding: spacing.md,
-    paddingBottom: spacing.xxl,
-  },
-  title: {
-    fontSize: typography.fontSize.xxl,
-    fontWeight: typography.fontWeight.bold,
-    marginBottom: spacing.md,
-  },
   card: {
     marginTop: spacing.md,
   },
   sectionTitle: {
+    textAlign: 'left',
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.semibold,
     marginBottom: spacing.md,
   },
   actions: {
-    gap: spacing.sm,
+    gap: spacing.sm + 4,
     marginTop: spacing.sm,
   },
   summaryText: {
+    textAlign: 'left',
     fontSize: typography.fontSize.md,
     marginBottom: spacing.xs,
   },

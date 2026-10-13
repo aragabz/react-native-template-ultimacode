@@ -83,3 +83,5 @@ yarn-error.log
 .expo
 dist/
 web-build/
+# Generated JS bundle (built by Gradle/Metro, never committed)
+android/app/src/main/assets/index.android.bundle

@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import { spacing, typography } from '@theme';
+import { radii, spacing, typography } from '@theme';
 import { useAppTheme } from '@hooks/useAppTheme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -34,16 +34,16 @@ export const Button = ({
   const variantStyle = {
     primary: {
       container: { backgroundColor: themeColors.primary },
-      text: { color: '#fff' },
+      text: { color: themeColors.onPrimary },
     },
     secondary: {
-      container: { backgroundColor: themeColors.surface },
+      container: { backgroundColor: themeColors.surfaceSecondary },
       text: { color: themeColors.text },
     },
     outline: {
       container: {
         backgroundColor: 'transparent',
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderColor: themeColors.primary,
       },
       text: { color: themeColors.primary },
@@ -75,7 +75,10 @@ export const Button = ({
       activeOpacity={0.7}
     >
       {loading ? (
-        <ActivityIndicator color={variantStyle.text.color as string} size="small" />
+        <ActivityIndicator
+          color={variantStyle.text.color as string}
+          size="small"
+        />
       ) : (
         <Text style={[styles.text, variantStyle.text]}>{title}</Text>
       )}
@@ -87,12 +90,12 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: spacing.sm + 4,
     paddingHorizontal: spacing.lg,
-    borderRadius: 8,
+    borderRadius: radii.md,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 48,
   },
-  disabled: { opacity: 0.5 },
+  disabled: { opacity: 0.4 },
   text: {
     fontSize: typography.fontSize.md,
     fontWeight: typography.fontWeight.semibold,

@@ -1,8 +1,8 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { RootNavigator } from '@navigation/RootNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSettingsStore } from '@store/useSettingsStore';
-import { RootNavigator } from '@navigation/RootNavigator';
+import { render } from '@testing-library/react-native';
 
 jest.mock('react-native-screens', () => {
   const React = require('react');
@@ -11,12 +11,16 @@ jest.mock('react-native-screens', () => {
     Screen: ({ children }: { children: React.ReactNode }) => children,
     ScreenContainer: ({ children }: { children: React.ReactNode }) => children,
     NativeScreen: ({ children }: { children: React.ReactNode }) => children,
-    NativeScreenContainer: ({ children }: { children: React.ReactNode }) => children,
+    NativeScreenContainer: ({ children }: { children: React.ReactNode }) =>
+      children,
     ScreenStack: ({ children }: { children: React.ReactNode }) => children,
     ScreenStackItem: ({ children }: { children: React.ReactNode }) => children,
-    FullWindowOverlay: ({ children }: { children: React.ReactNode }) => children,
-    ScreenStackHeaderConfig: ({ children }: { children: React.ReactNode }) => children,
-    ScreenStackHeaderSubview: ({ children }: { children: React.ReactNode }) => children,
+    FullWindowOverlay: ({ children }: { children: React.ReactNode }) =>
+      children,
+    ScreenStackHeaderConfig: ({ children }: { children: React.ReactNode }) =>
+      children,
+    ScreenStackHeaderSubview: ({ children }: { children: React.ReactNode }) =>
+      children,
     SearchBar: ({ children }: { children: React.ReactNode }) => children,
     shouldUseActivityState: true,
     compatibilityFlags: {

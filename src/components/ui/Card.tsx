@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { spacing } from '@theme';
+import { View, StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
+import { elevation, radii, spacing } from '@theme';
 import { useAppTheme } from '@hooks/useAppTheme';
 
 type CardProps = {
   children: React.ReactNode;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const Card = ({ children, style }: CardProps) => {
@@ -15,11 +15,14 @@ export const Card = ({ children, style }: CardProps) => {
     <View
       style={[
         styles.card,
-        {
-          backgroundColor: themeColors.background,
-          borderColor: themeColors.border,
-          shadowColor: isDark ? '#fff' : '#000',
-        },
+        { backgroundColor: themeColors.surface },
+        // Shadows vanish on black, so dark mode separates cards with a hairline instead.
+        isDark
+          ? {
+              borderWidth: StyleSheet.hairlineWidth,
+              borderColor: themeColors.border,
+            }
+          : { ...elevation.sm, shadowColor: themeColors.shadow },
         style,
       ]}
     >
@@ -30,12 +33,7 @@ export const Card = ({ children, style }: CardProps) => {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 10,
+    borderRadius: radii.lg,
     padding: spacing.md,
-    borderWidth: 1,
-    elevation: 2,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
 });

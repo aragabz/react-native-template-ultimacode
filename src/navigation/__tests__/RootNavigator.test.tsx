@@ -12,12 +12,16 @@ jest.mock('react-native-screens', () => {
     Screen: ({ children }: { children: React.ReactNode }) => children,
     ScreenContainer: ({ children }: { children: React.ReactNode }) => children,
     NativeScreen: ({ children }: { children: React.ReactNode }) => children,
-    NativeScreenContainer: ({ children }: { children: React.ReactNode }) => children,
+    NativeScreenContainer: ({ children }: { children: React.ReactNode }) =>
+      children,
     ScreenStack: ({ children }: { children: React.ReactNode }) => children,
     ScreenStackItem: ({ children }: { children: React.ReactNode }) => children,
-    FullWindowOverlay: ({ children }: { children: React.ReactNode }) => children,
-    ScreenStackHeaderConfig: ({ children }: { children: React.ReactNode }) => children,
-    ScreenStackHeaderSubview: ({ children }: { children: React.ReactNode }) => children,
+    FullWindowOverlay: ({ children }: { children: React.ReactNode }) =>
+      children,
+    ScreenStackHeaderConfig: ({ children }: { children: React.ReactNode }) =>
+      children,
+    ScreenStackHeaderSubview: ({ children }: { children: React.ReactNode }) =>
+      children,
     SearchBar: ({ children }: { children: React.ReactNode }) => children,
     shouldUseActivityState: true,
     compatibilityFlags: {
@@ -61,9 +65,9 @@ describe('RootNavigator', () => {
     await render(
       <NavigationContainer>
         <RootNavigator />
-      </NavigationContainer>
+      </NavigationContainer>,
     );
 
-    expect(await screen.findByText('Home Screen')).toBeTruthy();
+    expect(await screen.findByText('Status Legend')).toBeTruthy();
   });
 });

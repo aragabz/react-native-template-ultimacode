@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import NetInfo, { type NetInfoStateType } from '@react-native-community/netinfo';
+import NetInfo, {
+  type NetInfoStateType,
+} from '@react-native-community/netinfo';
 
 export type NetworkStatus = {
   isConnected: boolean;
@@ -13,7 +15,7 @@ export const useNetworkStatus = (): NetworkStatus => {
   });
 
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
+    const unsubscribe = NetInfo.addEventListener(state => {
       setStatus({
         isConnected: state.isConnected ?? true,
         type: state.type,

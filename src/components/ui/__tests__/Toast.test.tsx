@@ -13,7 +13,11 @@ describe('Toast', () => {
   });
 
   it('shows message when visible', async () => {
-    useToastStore.setState({ visible: true, message: 'Success!', type: 'success' });
+    useToastStore.setState({
+      visible: true,
+      message: 'Success!',
+      type: 'success',
+    });
 
     const { getByText } = await render(<Toast />);
     expect(getByText('Success!')).toBeTruthy();

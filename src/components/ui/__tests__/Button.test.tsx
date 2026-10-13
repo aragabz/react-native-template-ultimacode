@@ -10,7 +10,9 @@ describe('Button', () => {
 
   it('calls onPress when pressed', async () => {
     const onPress = jest.fn();
-    const { getByText } = await render(<Button title="Press me" onPress={onPress} />);
+    const { getByText } = await render(
+      <Button title="Press me" onPress={onPress} />,
+    );
     fireEvent.press(getByText('Press me'));
     expect(onPress).toHaveBeenCalledTimes(1);
   });

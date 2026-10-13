@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
-import { DemoScreen } from '../DemoScreen';
+import { ExamplesScreen } from '../ExamplesScreen';
 
 const mockNavigate = jest.fn();
 
@@ -21,13 +21,13 @@ jest.mock('@api/hooks/usePosts', () => ({
   }),
 }));
 
-describe('DemoScreen', () => {
+describe('ExamplesScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders all architectural components', async () => {
-    const { getByText } = await render(<DemoScreen />);
+    const { getByText } = await render(<ExamplesScreen />);
 
     expect(getByText(/Counter:/i)).toBeTruthy();
 

@@ -29,7 +29,7 @@ src/
   hooks/          Shared hooks
   i18n/           Translations and language setup
   navigation/     Navigators, linking, and route types
-  screens/        Example app screens
+  screens/        Screens grouped by feature (home, settings, onboarding, details, examples)
   services/       API client, query client, storage, analytics, crash reporting
   store/          Zustand stores
   theme/          Colors, spacing, typography, icon sizes
@@ -41,26 +41,27 @@ src/
 
 - On first launch, the app shows an **Onboarding** screen.
 - After onboarding is dismissed, the app opens the **Main** tab navigator.
-- Tabs include **Home**, **Demo**, **Settings**, and **Showcase**.
-- A **Details** screen is available from the stack navigator.
+- Tabs include **Home**, **Examples**, **Settings**, and **Showcase**.
+- **Examples** is a hub that pushes the List, Forms and Offline example screens; **Details** is pushed from Home, Settings and List.
 - **Showcase** is shown only in development builds.
 
 ## Core features
 
 ### Navigation
 
-- Root stack: `Onboarding`, `Main`, `Details`
-- Bottom tabs: `Home`, `Demo`, `Settings`, `Showcase`
+- Root stack: `Onboarding`, `Main`, `Details`, `List`, `Forms`, `Offline`
+- Bottom tabs: `Home`, `Examples`, `Settings`, `Showcase`
 - Deep links:
-  - `rn-template://home`
-  - `rn-template://demo`
-  - `rn-template://settings`
-  - `rn-template://showcase`
-  - `rn-template://details/:id`
+  - `reactnativetemplate://home`
+  - `reactnativetemplate://examples`
+  - `reactnativetemplate://list`, `forms`, `offline`
+  - `reactnativetemplate://settings`
+  - `reactnativetemplate://showcase`
+  - `reactnativetemplate://details/:id`
 
 ### State management
 
-- `useSettingsStore` persists onboarding and language
+- `useSettingsStore` persists onboarding (language is persisted by `src/i18n`)
 - `useThemeStore` persists light/dark/system mode
 - `useCounterStore` is a simple example store
 - MMKV backs persisted Zustand state

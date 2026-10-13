@@ -17,7 +17,9 @@ describe('Analytics Service', () => {
   });
 
   it('track does not throw with properties', () => {
-    expect(() => analytics.track('purchase', { amount: 9.99, currency: 'USD' })).not.toThrow();
+    expect(() =>
+      analytics.track('purchase', { amount: 9.99, currency: 'USD' }),
+    ).not.toThrow();
   });
 
   it('screen does not throw when called with screen name', () => {
@@ -34,5 +36,36 @@ describe('Analytics Service', () => {
 
   it('initAnalytics sets up configuration without throwing', () => {
     expect(() => initAnalytics({ enabled: true })).not.toThrow();
+  });
+
+  describe('enabled flag', () => {
+    let log: jest.SpyInstance;
+
+    beforeEach(() => {
+      log = jest.spyOn(console, 'log').mockImplementation(() => {});
+    });
+
+    afterEach(() => log.mockRestore());
+
+    it('forwards nothing while disabled', () => {
+      initAnalytics({ enabled: false });
+      log.mockClear();
+      analytics.track('event');
+      analytics.screen('Home');
+      analytics.identify('user-1');
+      analytics.reset();
+      expect(log).not.toHaveBeenCalled();
+    });
+
+    it('forwards every call once enabled', () => {
+      initAnalytics({ enabled: true });
+      log.mockClear();
+      analytics.track('event', { a: 1 });
+      analytics.screen('Home');
+      analytics.identify('user-1');
+      analytics.reset();
+      expect(log).toHaveBeenCalledTimes(4);
+      expect(log).toHaveBeenCalledWith('[Analytics] Track:', 'event', { a: 1 });
+    });
   });
 });

@@ -12,17 +12,17 @@ type ThemeState = {
 export const useThemeStore = create<ThemeState>()(
   devtools(
     persist(
-      (set) => ({
+      set => ({
         mode: 'system',
-        setMode: (mode) => set({ mode }),
+        setMode: mode => set({ mode }),
       }),
       {
         name: 'theme-storage',
         storage: createJSONStorage(() => zustandMMKVStorage),
-      }
+      },
     ),
-    { enabled: __DEV__, name: 'theme-store' }
-  )
+    { enabled: __DEV__, name: 'theme-store' },
+  ),
 );
 
 export const selectMode = (state: ThemeState) => state.mode;

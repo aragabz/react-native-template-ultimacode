@@ -1,9 +1,9 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { Button } from '../Button';
-import { TextField } from '../TextField';
 import { Modal } from '../Modal';
-import { Text } from 'react-native';
+import { TextField } from '../TextField';
 
 describe('Accessibility - Button', () => {
   it('has button role', async () => {
@@ -46,7 +46,7 @@ describe('Accessibility - TextField', () => {
   });
 
   it('announces error to screen readers', async () => {
-    const { getByLabelText } = await render(
+    const { getByLabelText, getByRole } = await render(
       <TextField
         label="Password"
         value=""
@@ -54,8 +54,12 @@ describe('Accessibility - TextField', () => {
         error="Password is required"
       />,
     );
-    const input = getByLabelText('Password');
-    expect(input.props.accessibilityState?.invalid).toBe(true);
+    // React Native has no "invalid" state, so the error is exposed as the
+    // input's hint and announced via a live alert region.
+    expect(getByLabelText('Password').props.accessibilityHint).toBe(
+      'Password is required',
+    );
+    expect(getByRole('alert')).toHaveTextContent('Password is required');
   });
 
   it('has hint text when provided as placeholder', async () => {

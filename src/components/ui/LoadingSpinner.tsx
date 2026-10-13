@@ -17,9 +17,18 @@ export const LoadingSpinner = ({
   const { colors: themeColors } = useAppTheme();
 
   return (
-    <View style={styles.container} accessible={true} accessibilityRole="progressbar" accessibilityLabel={message ?? 'Loading'}>
+    <View
+      style={styles.container}
+      accessible={true}
+      accessibilityRole="progressbar"
+      accessibilityLabel={message ?? 'Loading'}
+    >
       <ActivityIndicator size={size} color={color ?? themeColors.primary} />
-      {message && <Text style={[styles.message, { color: themeColors.textSecondary }]}>{message}</Text>}
+      {message && (
+        <Text style={[styles.message, { color: themeColors.textSecondary }]}>
+          {message}
+        </Text>
+      )}
     </View>
   );
 };

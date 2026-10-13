@@ -1,3 +1,5 @@
+import { getRandomBytes } from 'expo-crypto';
+import * as SecureStore from 'expo-secure-store';
 import { createMMKV } from 'react-native-mmkv';
 import { type StateStorage } from 'zustand/middleware';
 
@@ -25,14 +27,53 @@ export const zustandMMKVStorage: StateStorage = {
   },
 };
 
+const SECURE_STORAGE_ID = 'secure-storage';
+const ENCRYPTION_KEY_NAME = 'secure-storage-encryption-key';
+// Key shipped by earlier template versions; only used to migrate their data.
+const LEGACY_ENCRYPTION_KEY = 'app-secure-key';
+const KEY_ALPHABET =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+const KEY_LENGTH = 32; // AES-256 needs a 32-byte key
+
+/** 32 chars from a 64-char alphabet: 192 bits from a CSPRNG (256 % 64 === 0, so byte % 64 is unbiased). */
+const generateEncryptionKey = (): string =>
+  Array.from(getRandomBytes(KEY_LENGTH), byte => KEY_ALPHABET[byte % 64]).join(
+    '',
+  );
+
 /**
- * MMKV instance for sensitive/encrypted data.
- * Uses encryption key for secure storage.
+ * Opens the encrypted MMKV instance with a per-install random key kept in the
+ * Keychain / Android Keystore. On first launch it generates the key and
+ * re-encrypts any data written under the legacy hard-coded key.
  */
-export const secureMMKVStorage = createMMKV({
-  id: 'secure-storage',
-  encryptionKey: 'app-secure-key',
-});
+const createSecureMMKVStorage = () => {
+  const storedKey = SecureStore.getItem(ENCRYPTION_KEY_NAME);
+  if (storedKey) {
+    return createMMKV({
+      id: SECURE_STORAGE_ID,
+      encryptionKey: storedKey,
+      encryptionType: 'AES-256',
+    });
+  }
+
+  const storage = createMMKV({
+    id: SECURE_STORAGE_ID,
+    encryptionKey: LEGACY_ENCRYPTION_KEY,
+  });
+  const key = generateEncryptionKey();
+  // Persist the key before re-encrypting: if saving fails, the data stays readable
+  // under the legacy key and the migration simply retries on the next launch.
+  SecureStore.setItem(ENCRYPTION_KEY_NAME, key, {
+    keychainAccessible: SecureStore.AFTER_FIRST_UNLOCK,
+  });
+  storage.encrypt(key, 'AES-256');
+  return storage;
+};
+
+/**
+ * MMKV instance for sensitive/encrypted data (tokens, secrets).
+ */
+export const secureMMKVStorage = createSecureMMKVStorage();
 
 /**
  * Zustand-compatible StateStorage adapter for encrypted MMKV.

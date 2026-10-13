@@ -9,12 +9,12 @@ describe('useCounterStore', () => {
 
   it('should increment and decrement count', async () => {
     const { result } = await renderHook(() => useCounterStore());
-    
+
     await act(async () => {
       result.current.increment();
     });
     expect(result.current.count).toBe(1);
-    
+
     await act(async () => {
       result.current.decrement();
     });
@@ -23,12 +23,12 @@ describe('useCounterStore', () => {
 
   it('should reset count', async () => {
     const { result } = await renderHook(() => useCounterStore());
-    
+
     await act(async () => {
       result.current.increment();
     });
     expect(result.current.count).toBe(1);
-    
+
     await act(async () => {
       result.current.reset();
     });

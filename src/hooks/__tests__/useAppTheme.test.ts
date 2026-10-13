@@ -1,5 +1,6 @@
-import { renderHook } from '@testing-library/react-native';
 import { useThemeStore } from '@store/useThemeStore';
+import { renderHook } from '@testing-library/react-native';
+import { colors } from '@theme/colors';
 import { useAppTheme } from '../useAppTheme';
 
 // useAppTheme uses useColorScheme from react-native.
@@ -25,7 +26,7 @@ describe('useAppTheme', () => {
     const { result } = await renderHook(() => useAppTheme());
 
     expect(result.current.isDark).toBe(false);
-    expect(result.current.colors.background).toBe('#FFFFFF');
+    expect(result.current.colors.background).toBe(colors.light.background);
   });
 
   it('returns dark colors when system is dark and mode is system', async () => {
@@ -33,7 +34,7 @@ describe('useAppTheme', () => {
     const { result } = await renderHook(() => useAppTheme());
 
     expect(result.current.isDark).toBe(true);
-    expect(result.current.colors.background).toBe('#000000');
+    expect(result.current.colors.background).toBe(colors.dark.background);
   });
 
   it('forces light mode regardless of system', async () => {
@@ -43,7 +44,7 @@ describe('useAppTheme', () => {
     const { result } = await renderHook(() => useAppTheme());
 
     expect(result.current.isDark).toBe(false);
-    expect(result.current.colors.primary).toBe('#007AFF');
+    expect(result.current.colors.primary).toBe(colors.light.primary);
   });
 
   it('forces dark mode regardless of system', async () => {
@@ -53,7 +54,7 @@ describe('useAppTheme', () => {
     const { result } = await renderHook(() => useAppTheme());
 
     expect(result.current.isDark).toBe(true);
-    expect(result.current.colors.primary).toBe('#0A84FF');
+    expect(result.current.colors.primary).toBe(colors.dark.primary);
   });
 
   it('returns full color palette', async () => {

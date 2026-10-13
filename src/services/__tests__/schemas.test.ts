@@ -1,4 +1,9 @@
-import { userSchema, loginResponseSchema, postSchema, postsSchema } from '../schemas';
+import {
+  userSchema,
+  loginResponseSchema,
+  postSchema,
+  postsSchema,
+} from '../schemas';
 
 describe('API response Zod schemas', () => {
   describe('userSchema', () => {

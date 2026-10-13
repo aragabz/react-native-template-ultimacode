@@ -22,16 +22,19 @@ export function useBiometrics(): BiometricsState {
     setIsAvailable(hasHardware && isEnrolled);
   }, []);
 
-  const authenticate = useCallback(async (promptMessage = 'Authenticate to continue') => {
-    const result = await LocalAuthentication.authenticateAsync({
-      promptMessage,
-      disableDeviceFallback: false,
-      cancelLabel: 'Cancel',
-    });
+  const authenticate = useCallback(
+    async (promptMessage = 'Authenticate to continue') => {
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage,
+        disableDeviceFallback: false,
+        cancelLabel: 'Cancel',
+      });
 
-    setIsAuthenticated(result.success);
-    return result.success;
-  }, []);
+      setIsAuthenticated(result.success);
+      return result.success;
+    },
+    [],
+  );
 
   return {
     isAvailable,

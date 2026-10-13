@@ -1,7 +1,9 @@
-module.exports = {
+module.exports = (api) => ({
   presets: ['babel-preset-expo'],
   plugins: [
-    [
+    // Jest maps `@env` to __mocks__/env.js instead: the inlining is unreliable
+    // once coverage instrumentation has rewritten the code.
+    !api.env('test') && [
       'module:react-native-dotenv',
       {
         moduleName: '@env',
@@ -28,5 +30,5 @@ module.exports = {
         },
       },
     ],
-  ],
-};
+  ].filter(Boolean),
+});

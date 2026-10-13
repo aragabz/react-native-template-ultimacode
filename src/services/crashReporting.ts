@@ -51,7 +51,6 @@ export const crashReporting = {
     if (!config.enabled) return;
     // Replace with: Sentry.captureException(error, { extra: context });
     if (__DEV__) {
-      // eslint-disable-next-line no-console
       console.error('[CrashReporting] Exception:', error.message, context);
     }
   },
@@ -79,7 +78,7 @@ export const crashReporting = {
     // Replace with: Sentry.setUser(null);
   },
 
-  addBreadcrumb(breadcrumb: Breadcrumb): void {
+  addBreadcrumb(_breadcrumb: Breadcrumb): void {
     if (!config.enabled) return;
     // Replace with: Sentry.addBreadcrumb(breadcrumb);
   },

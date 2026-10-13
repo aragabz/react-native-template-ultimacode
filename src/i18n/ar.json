@@ -10,16 +10,17 @@
   },
   "navigation": {
     "home": "الرئيسية",
-    "demo": "تجريبي",
-    "list": "قائمة",
-    "forms": "نماذج",
-    "offline": "دون اتصال",
+    "examples": "أمثلة",
     "showcase": "عرض",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "details": "التفاصيل"
   },
   "home": {
-    "title": "الشاشة الرئيسية",
-    "goToDetails": "انتقل إلى التفاصيل"
+    "goToDetails": "انتقل إلى التفاصيل",
+    "statusLegend": "دليل الحالات",
+    "active": "نشط",
+    "pending": "قيد الانتظار",
+    "error": "خطأ"
   },
   "settings": {
     "goToDetails": "انتقل إلى التفاصيل",
@@ -27,7 +28,6 @@
     "language": "اللغة",
     "preferences": "التفضيلات",
     "theme": "السمة",
-    "currentTheme": "الوضع الحالي: {{mode}}",
     "system": "النظام",
     "light": "فاتح",
     "dark": "داكن",
@@ -36,7 +36,8 @@
     "environment": "البيئة: {{env}}",
     "appLanguage": "لغة التطبيق",
     "english": "الإنجليزية",
-    "arabic": "العربية"
+    "arabic": "العربية",
+    "fromSettings": "من الإعدادات"
   },
   "auth": {
     "login": {
@@ -64,7 +65,6 @@
     }
   },
   "showcase": {
-    "title": "عرض المكونات",
     "buttonSection": "زر",
     "textFieldSection": "حقل نصي",
     "loadingSection": "مؤشر التحميل",
@@ -103,10 +103,14 @@
     "secondaryPressed": "تم الضغط على الثانوي",
     "outlinePressed": "تم الضغط على المخطط",
     "ghostPressed": "تم الضغط على الشفاف",
-    "addItemPressed": "تم الضغط على إضافة عنصر"
+    "addItemPressed": "تم الضغط على إضافة عنصر",
+    "optimizedImageSection": "صورة محسّنة",
+    "optimizedImageHint": "يستخدم expo-image مع تخزين مؤقت في الذاكرة والقرص وانتقالات سلسة.",
+    "sampleImageLabel": "صورة طبيعية نموذجية",
+    "offlineBannerSection": "شريط عدم الاتصال",
+    "offlineBannerHint": "يظهر مكوّن OfflineBanner أعلى التطبيق عند انقطاع الشبكة. يستخدم الخطاف useNetworkStatus لاكتشاف تغيّرات الاتصال لحظياً."
   },
   "demo": {
-    "title": "عرض البنية الأساسية",
     "zustandSection": "إدارة الحالة (Zustand)",
     "counter": "العداد: {{count}}",
     "themeMode": "وضع السمة: {{mode}}",
@@ -121,7 +125,6 @@
     "retry": "إعادة المحاولة"
   },
   "list": {
-    "title": "مثال على قائمة وتفاصيل",
     "searchLabel": "بحث في المقالات",
     "searchPlaceholder": "اكتب للتصفية حسب العنوان أو المحتوى...",
     "loading": "جاري تحميل المقالات...",
@@ -134,7 +137,6 @@
     "openDetails": "فتح التفاصيل"
   },
   "forms": {
-    "title": "مثال على نموذج",
     "sectionTitle": "نموذج تواصل",
     "nameLabel": "الاسم",
     "namePlaceholder": "جنى أحمد",
@@ -157,7 +159,6 @@
     "summaryMessage": "الرسالة: {{message}}"
   },
   "offline": {
-    "title": "حالات عدم الاتصال",
     "status": "حالة الشبكة",
     "online": "متصل",
     "offline": "غير متصل",
@@ -171,10 +172,10 @@
     "cachedMessage": "اعرض هنا قائمة مخبأة أو مسودة محلية أو آخر استجابة ناجحة.",
     "refresh": "تحديث المعاينة",
     "bannerNoteTitle": "الشريط العام",
-    "bannerNote": "يظهر شريط عدم الاتصال تلقائياً عند فقد الاتصال."
+    "bannerNote": "يظهر شريط عدم الاتصال تلقائياً عند فقد الاتصال.",
+    "noConnection": "لا يوجد اتصال بالإنترنت"
   },
   "details": {
-    "title": "شاشة التفاصيل",
     "id": "المعرف: {{id}}",
     "titleLabel": "العنوان: {{title}}",
     "goBack": "العودة"
@@ -183,5 +184,14 @@
     "success": "نجاح",
     "error": "خطأ",
     "info": "معلومات"
+  },
+  "onboarding": {
+    "welcomeTitle": "مرحباً",
+    "welcomeDescription": "مرحباً بك في التطبيق! دعنا نعرّفك على أهم الميزات.",
+    "fastTitle": "سريع وموثوق",
+    "fastDescription": "مصمم مع مراعاة الأداء. استمتع بتجربة سلسة.",
+    "secureTitle": "آمن",
+    "secureDescription": "بياناتك مشفرة ومخزنة بأمان على جهازك.",
+    "getStarted": "ابدأ الآن"
   }
 }

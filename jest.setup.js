@@ -1,15 +1,6 @@
 jest.mock('@hooks/useAppTheme', () => ({
   useAppTheme: () => ({
-    colors: {
-      primary: '#007AFF',
-      background: '#FFFFFF',
-      surface: '#F2F2F7',
-      text: '#000000',
-      textSecondary: '#3C3C4399',
-      border: '#C6C6C8',
-      error: '#FF3B30',
-      success: '#34C759',
-    },
+    colors: jest.requireActual('./src/theme/colors').colors.light,
     isDark: false,
   }),
 }));
@@ -22,33 +13,59 @@ jest.mock('react-native-mmkv', () => {
       if (!stores[id]) stores[id] = {};
       this._store = stores[id];
     }
-    set(key, value) { this._store[key] = value; }
-    getString(key) { return this._store[key] ?? undefined; }
-    getNumber(key) { return this._store[key] ?? undefined; }
-    getBoolean(key) { return this._store[key] ?? undefined; }
-    delete(key) { delete this._store[key]; }
-    contains(key) { return key in this._store; }
-    clearAll() { Object.keys(this._store).forEach(k => delete this._store[k]); }
-    getAllKeys() { return Object.keys(this._store); }
+    set(key, value) {
+      this._store[key] = value;
+    }
+    getString(key) {
+      return this._store[key] ?? undefined;
+    }
+    getNumber(key) {
+      return this._store[key] ?? undefined;
+    }
+    getBoolean(key) {
+      return this._store[key] ?? undefined;
+    }
+    remove(key) {
+      delete this._store[key];
+    }
+    contains(key) {
+      return key in this._store;
+    }
+    clearAll() {
+      Object.keys(this._store).forEach(k => delete this._store[k]);
+    }
+    getAllKeys() {
+      return Object.keys(this._store);
+    }
   }
-  return { MMKV };
+  return { MMKV, createMMKV: config => new MMKV(config) };
 });
 
 jest.mock('@services/mmkvStorage', () => {
   const storage = {};
   return {
     mmkvStorage: {
-      set: jest.fn((k, v) => { storage[k] = v; }),
-      getString: jest.fn((k) => storage[k] ?? undefined),
-      delete: jest.fn((k) => { delete storage[k]; }),
-      contains: jest.fn((k) => k in storage),
-      clearAll: jest.fn(() => Object.keys(storage).forEach(k => delete storage[k])),
+      set: jest.fn((k, v) => {
+        storage[k] = v;
+      }),
+      getString: jest.fn(k => storage[k] ?? undefined),
+      remove: jest.fn(k => {
+        delete storage[k];
+      }),
+      contains: jest.fn(k => k in storage),
+      clearAll: jest.fn(() =>
+        Object.keys(storage).forEach(k => delete storage[k]),
+      ),
     },
     secureMMKVStorage: {
-      set: jest.fn((k, v) => { storage[k] = v; }),
-      getString: jest.fn((k) => storage[k] ?? undefined),
-      delete: jest.fn((k) => { delete storage[k]; }),
-      contains: jest.fn((k) => k in storage),
+      set: jest.fn((k, v) => {
+        storage[k] = v;
+      }),
+      getString: jest.fn(k => storage[k] ?? undefined),
+      remove: jest.fn(k => {
+        delete storage[k];
+      }),
+      contains: jest.fn(k => k in storage),
       clearAll: jest.fn(),
     },
     zustandMMKVStorage: {
@@ -135,7 +152,6 @@ jest.mock('react-i18next', () => {
 jest.mock('@i18n', () => ({
   changeLanguage: jest.fn(),
   getCurrentLanguage: () => 'en',
-  onRtlChange: () => jest.fn(),
   default: jest.fn().mockResolvedValue('en'),
   __esModule: true,
 }));
@@ -167,8 +183,8 @@ jest.mock('react-native-safe-area-context', () => {
 
 jest.mock('react-native-svg', () => {
   const React = require('react');
-  const mockComponent = (displayName) => {
-    const Comp = (props) => React.createElement('View', props, props.children);
+  const mockComponent = displayName => {
+    const Comp = props => React.createElement('View', props, props.children);
     Comp.displayName = displayName;
     return Comp;
   };
@@ -220,7 +236,7 @@ jest.mock('react-native-gesture-handler', () => {
     RectButton: View,
     BorderlessButton: View,
     PureNativeButton: View,
-    gestureHandlerRootHOC: (Component) => Component,
+    gestureHandlerRootHOC: Component => Component,
     Directions: {},
   };
 });
@@ -247,10 +263,14 @@ jest.mock('expo-image', () => {
 jest.mock('expo-notifications', () => ({
   getPermissionsAsync: jest.fn().mockResolvedValue({ status: 'undetermined' }),
   requestPermissionsAsync: jest.fn().mockResolvedValue({ status: 'granted' }),
-  getExpoPushTokenAsync: jest.fn().mockResolvedValue({ data: 'ExponentPushToken[mock]' }),
+  getExpoPushTokenAsync: jest
+    .fn()
+    .mockResolvedValue({ data: 'ExponentPushToken[mock]' }),
   setNotificationHandler: jest.fn(),
   addNotificationReceivedListener: jest.fn(() => ({ remove: jest.fn() })),
-  addNotificationResponseReceivedListener: jest.fn(() => ({ remove: jest.fn() })),
+  addNotificationResponseReceivedListener: jest.fn(() => ({
+    remove: jest.fn(),
+  })),
   AndroidImportance: { MAX: 5 },
   setNotificationChannelAsync: jest.fn(),
 }));

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Text, StyleSheet } from 'react-native';
-import { spacing, typography } from '@theme';
+import { elevation, radii, spacing, typography } from '@theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { create } from 'zustand';
 import { useAppTheme } from '@hooks/useAppTheme';
@@ -15,7 +15,7 @@ type ToastState = {
   hide: () => void;
 };
 
-export const useToastStore = create<ToastState>((set) => ({
+export const useToastStore = create<ToastState>(set => ({
   visible: false,
   message: '',
   type: 'info',
@@ -65,10 +65,17 @@ export const Toast = () => {
       accessibilityLiveRegion="assertive"
       style={[
         styles.container,
-        { backgroundColor: bgColor, bottom: insets.bottom + spacing.lg, opacity },
+        {
+          backgroundColor: bgColor,
+          shadowColor: themeColors.shadow,
+          bottom: insets.bottom + spacing.lg,
+          opacity,
+        },
       ]}
     >
-      <Text style={styles.text}>{message}</Text>
+      <Text style={[styles.text, { color: themeColors.onStatus }]}>
+        {message}
+      </Text>
     </Animated.View>
   );
 };
@@ -80,16 +87,11 @@ const styles = StyleSheet.create({
     right: spacing.lg,
     paddingVertical: spacing.sm + 4,
     paddingHorizontal: spacing.md,
-    borderRadius: 8,
+    borderRadius: radii.md,
     zIndex: 9999,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    ...elevation.md,
   },
   text: {
-    color: '#fff',
     fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.medium,
     textAlign: 'center',

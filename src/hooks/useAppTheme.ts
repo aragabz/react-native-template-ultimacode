@@ -8,7 +8,7 @@ export type AppTheme = {
 };
 
 export const useAppTheme = (): AppTheme => {
-  const mode = useThemeStore((s) => s.mode);
+  const mode = useThemeStore(s => s.mode);
   const systemColorScheme = useColorScheme();
   const resolvedMode = mode === 'system' ? systemColorScheme : mode;
   const isDark = resolvedMode === 'dark';

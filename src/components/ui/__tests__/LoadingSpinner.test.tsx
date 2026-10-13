@@ -9,7 +9,9 @@ describe('LoadingSpinner', () => {
   });
 
   it('renders message when provided', async () => {
-    const { getByText } = await render(<LoadingSpinner message="Loading data..." />);
+    const { getByText } = await render(
+      <LoadingSpinner message="Loading data..." />,
+    );
     expect(getByText('Loading data...')).toBeTruthy();
   });
 

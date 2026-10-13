@@ -1,5 +1,5 @@
-import { renderHook, act } from '@testing-library/react-native';
 import { useBiometrics } from '@hooks/useBiometrics';
+import { renderHook, act } from '@testing-library/react-native';
 
 jest.mock('expo-local-authentication', () => ({
   hasHardwareAsync: jest.fn().mockResolvedValue(true),

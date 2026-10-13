@@ -6,14 +6,18 @@ import { Card } from '../Card';
 describe('Card', () => {
   it('renders children', async () => {
     const { getByText } = await render(
-      <Card><Text>Card Content</Text></Card>,
+      <Card>
+        <Text>Card Content</Text>
+      </Card>,
     );
     expect(getByText('Card Content')).toBeTruthy();
   });
 
   it('applies custom style', async () => {
     const { getByText } = await render(
-      <Card style={{ marginTop: 20 }}><Text>Styled</Text></Card>,
+      <Card style={{ marginTop: 20 }}>
+        <Text>Styled</Text>
+      </Card>,
     );
     expect(getByText('Styled')).toBeTruthy();
   });

@@ -1,4 +1,5 @@
 import { I18nManager } from 'react-native';
+import { reloadAppAsync } from 'expo';
 import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
@@ -14,22 +15,15 @@ const resources = {
 
 export type SupportedLanguage = keyof typeof resources;
 
-export type RtlChangeListener = (isRTL: boolean) => void;
+const isRtlLanguage = (lng: string) => lng.startsWith('ar');
 
-const rtlListeners: Set<RtlChangeListener> = new Set();
-
+/**
+ * Sets the native layout direction. It only takes effect after the JS bundle
+ * reloads, so a runtime change of direction must be followed by a reload.
+ */
 const applyRtl = (lng: string) => {
-  const isRTL = lng.startsWith('ar');
   I18nManager.allowRTL(true);
-  I18nManager.forceRTL(isRTL);
-  rtlListeners.forEach((fn) => fn(isRTL));
-};
-
-export const onRtlChange = (listener: RtlChangeListener): (() => void) => {
-  rtlListeners.add(listener);
-  return () => {
-    rtlListeners.delete(listener);
-  };
+  I18nManager.forceRTL(isRtlLanguage(lng));
 };
 
 const initI18n = async () => {
@@ -37,8 +31,7 @@ const initI18n = async () => {
     const storedLanguage = mmkvStorage.getString(STORAGE_KEYS.LANGUAGE) ?? null;
     const deviceLanguage = Localization.getLocales()?.[0]?.languageCode ?? 'en';
     const detectedLanguage = storedLanguage ?? deviceLanguage;
-    const lng: SupportedLanguage =
-      detectedLanguage === 'ar' ? 'ar' : 'en';
+    const lng: SupportedLanguage = detectedLanguage === 'ar' ? 'ar' : 'en';
 
     await new Promise<void>((resolve, reject) => {
       i18n.use(initReactI18next).init(
@@ -51,7 +44,7 @@ const initI18n = async () => {
           },
           compatibilityJSON: 'v4',
         },
-        (err) => {
+        err => {
           if (err) reject(err);
           else resolve();
         },
@@ -59,8 +52,6 @@ const initI18n = async () => {
     });
 
     applyRtl(lng);
-
-    i18n.on('languageChanged', applyRtl);
 
     return lng;
   } catch (error) {
@@ -78,7 +69,11 @@ const initI18n = async () => {
 
 export const changeLanguage = async (lng: SupportedLanguage) => {
   mmkvStorage.set(STORAGE_KEYS.LANGUAGE, lng);
-  i18n.changeLanguage(lng);
+  await i18n.changeLanguage(lng);
+  applyRtl(lng);
+  if (I18nManager.isRTL !== isRtlLanguage(lng)) {
+    await reloadAppAsync('Layout direction changed');
+  }
 };
 
 export const getCurrentLanguage = (): SupportedLanguage => {

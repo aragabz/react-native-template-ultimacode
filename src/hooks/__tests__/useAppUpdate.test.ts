@@ -1,5 +1,5 @@
-import { renderHook, act } from '@testing-library/react-native';
 import { useAppUpdate, type UpdateStatus } from '@hooks/useAppUpdate';
+import { renderHook, act } from '@testing-library/react-native';
 
 jest.mock('expo-constants', () => ({
   expoConfig: { version: '1.0.0' },
@@ -30,11 +30,19 @@ describe('useAppUpdate', () => {
     });
 
     // After check completes, status should not be 'checking'
-    expect(['idle', 'available', 'up-to-date']).toContain(result.current.status);
+    expect(['idle', 'available', 'up-to-date']).toContain(
+      result.current.status,
+    );
   });
 
   it('status type includes expected values', () => {
-    const validStatuses: UpdateStatus[] = ['idle', 'checking', 'available', 'up-to-date', 'error'];
+    const validStatuses: UpdateStatus[] = [
+      'idle',
+      'checking',
+      'available',
+      'up-to-date',
+      'error',
+    ];
     expect(validStatuses).toHaveLength(5);
   });
 });

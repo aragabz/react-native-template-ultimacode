@@ -12,12 +12,16 @@ jest.mock('react-native-screens', () => {
     Screen: ({ children }: { children: React.ReactNode }) => children,
     ScreenContainer: ({ children }: { children: React.ReactNode }) => children,
     NativeScreen: ({ children }: { children: React.ReactNode }) => children,
-    NativeScreenContainer: ({ children }: { children: React.ReactNode }) => children,
+    NativeScreenContainer: ({ children }: { children: React.ReactNode }) =>
+      children,
     ScreenStack: ({ children }: { children: React.ReactNode }) => children,
     ScreenStackItem: ({ children }: { children: React.ReactNode }) => children,
-    FullWindowOverlay: ({ children }: { children: React.ReactNode }) => children,
-    ScreenStackHeaderConfig: ({ children }: { children: React.ReactNode }) => children,
-    ScreenStackHeaderSubview: ({ children }: { children: React.ReactNode }) => children,
+    FullWindowOverlay: ({ children }: { children: React.ReactNode }) =>
+      children,
+    ScreenStackHeaderConfig: ({ children }: { children: React.ReactNode }) =>
+      children,
+    ScreenStackHeaderSubview: ({ children }: { children: React.ReactNode }) =>
+      children,
     SearchBar: ({ children }: { children: React.ReactNode }) => children,
     shouldUseActivityState: true,
     compatibilityFlags: {
@@ -52,6 +56,11 @@ jest.mock('react-native-safe-area-context', () => {
   };
 });
 
+// Examples fetches posts; this test only covers navigation, so stub the query.
+jest.mock('@api/hooks/usePosts', () => ({
+  usePosts: () => ({ data: [], isLoading: false, isError: false }),
+}));
+
 describe('TabNavigator', () => {
   beforeEach(() => {
     useSettingsStore.setState({ onboardingSeen: true });
@@ -61,20 +70,33 @@ describe('TabNavigator', () => {
     await render(
       <NavigationContainer>
         <RootNavigator />
-      </NavigationContainer>
+      </NavigationContainer>,
     );
 
     // Initial screen should be Home (via TabNavigator)
-    expect(await screen.findByText('Home Screen')).toBeTruthy();
-    
+    expect(await screen.findByText('Status Legend')).toBeTruthy();
+
     // Check if Settings tab is available
     const settingsTab = screen.getByText('Settings');
     expect(settingsTab).toBeTruthy();
-    
+
     // Switch to Settings tab
     fireEvent.press(settingsTab);
-    
+
     // Should show Settings Screen content
     expect(await screen.findByText('Go to Details')).toBeTruthy();
+  });
+
+  it('pushes example screens from the Examples hub', async () => {
+    await render(
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>,
+    );
+
+    fireEvent.press(await screen.findByText('Examples'));
+    fireEvent.press(await screen.findByText('Forms'));
+
+    expect(await screen.findByText('Contact Form')).toBeTruthy();
   });
 });

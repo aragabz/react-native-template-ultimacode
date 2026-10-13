@@ -10,16 +10,17 @@
   },
   "navigation": {
     "home": "Home",
-    "demo": "Demo",
-    "list": "List",
-    "forms": "Forms",
-    "offline": "Offline",
+    "examples": "Examples",
     "showcase": "Showcase",
-    "settings": "Settings"
+    "settings": "Settings",
+    "details": "Details"
   },
   "home": {
-    "title": "Home Screen",
-    "goToDetails": "Go to Details"
+    "goToDetails": "Go to Details",
+    "statusLegend": "Status Legend",
+    "active": "Active",
+    "pending": "Pending",
+    "error": "Error"
   },
   "settings": {
     "goToDetails": "Go to Details",
@@ -27,7 +28,6 @@
     "language": "Language",
     "preferences": "Preferences",
     "theme": "Theme",
-    "currentTheme": "Current mode: {{mode}}",
     "system": "System",
     "light": "Light",
     "dark": "Dark",
@@ -36,7 +36,8 @@
     "environment": "Environment: {{env}}",
     "appLanguage": "App Language",
     "english": "English",
-    "arabic": "Arabic"
+    "arabic": "Arabic",
+    "fromSettings": "From Settings"
   },
   "auth": {
     "login": {
@@ -64,7 +65,6 @@
     }
   },
   "showcase": {
-    "title": "UI Component Showcase",
     "buttonSection": "Button",
     "textFieldSection": "TextField",
     "loadingSection": "LoadingSpinner",
@@ -103,10 +103,14 @@
     "secondaryPressed": "Secondary pressed",
     "outlinePressed": "Outline pressed",
     "ghostPressed": "Ghost pressed",
-    "addItemPressed": "Add item pressed"
+    "addItemPressed": "Add item pressed",
+    "optimizedImageSection": "Optimized Image",
+    "optimizedImageHint": "Uses expo-image with memory + disk caching and smooth transitions.",
+    "sampleImageLabel": "Sample landscape image",
+    "offlineBannerSection": "Offline Banner",
+    "offlineBannerHint": "The OfflineBanner component appears at the top of the app when network is unavailable. It uses the useNetworkStatus hook to detect connectivity changes in real time."
   },
   "demo": {
-    "title": "Core Architecture Demo",
     "zustandSection": "Zustand State Management",
     "counter": "Counter: {{count}}",
     "themeMode": "Theme Mode: {{mode}}",
@@ -121,7 +125,6 @@
     "retry": "Retry"
   },
   "list": {
-    "title": "List & Detail Example",
     "searchLabel": "Search posts",
     "searchPlaceholder": "Type to filter by title or body...",
     "loading": "Loading posts...",
@@ -134,7 +137,6 @@
     "openDetails": "Open details"
   },
   "forms": {
-    "title": "Form Example",
     "sectionTitle": "Contact Form",
     "nameLabel": "Name",
     "namePlaceholder": "Jane Doe",
@@ -157,7 +159,6 @@
     "summaryMessage": "Message: {{message}}"
   },
   "offline": {
-    "title": "Offline States",
     "status": "Network status",
     "online": "Online",
     "offline": "Offline",
@@ -171,10 +172,10 @@
     "cachedMessage": "Show a cached list, local draft, or last successful response here.",
     "refresh": "Refresh preview",
     "bannerNoteTitle": "Global banner",
-    "bannerNote": "The offline banner is shown automatically when connectivity is lost."
+    "bannerNote": "The offline banner is shown automatically when connectivity is lost.",
+    "noConnection": "No Internet Connection"
   },
   "details": {
-    "title": "Details Screen",
     "id": "ID: {{id}}",
     "titleLabel": "Title: {{title}}",
     "goBack": "Go Back"
@@ -183,5 +184,14 @@
     "success": "Success",
     "error": "Error",
     "info": "Info"
+  },
+  "onboarding": {
+    "welcomeTitle": "Welcome",
+    "welcomeDescription": "Welcome to the app! Let us walk you through the key features.",
+    "fastTitle": "Fast & Reliable",
+    "fastDescription": "Built with performance in mind. Enjoy a smooth experience.",
+    "secureTitle": "Secure",
+    "secureDescription": "Your data is encrypted and stored safely on your device.",
+    "getStarted": "Get Started"
   }
 }

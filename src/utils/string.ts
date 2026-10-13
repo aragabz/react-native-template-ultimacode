@@ -5,7 +5,11 @@
 /**
  * Truncates a string to maxLength and appends suffix.
  */
-export function truncate(str: string, maxLength: number, suffix = '...'): string {
+export function truncate(
+  str: string,
+  maxLength: number,
+  suffix = '...',
+): string {
   if (str.length <= maxLength) return str;
   return str.slice(0, maxLength - suffix.length) + suffix;
 }
@@ -24,7 +28,7 @@ export function capitalize(str: string): string {
 export function titleCase(str: string): string {
   return str
     .split(' ')
-    .map((word) => capitalize(word))
+    .map(word => capitalize(word))
     .join(' ');
 }
 
@@ -32,7 +36,8 @@ export function titleCase(str: string): string {
  * Generates a random ID string.
  */
 export function generateId(length = 12): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const chars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));

@@ -1,21 +1,26 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
 import { OptimizedImage } from '@components/ui/OptimizedImage';
+import { render } from '@testing-library/react-native';
 
 jest.mock('expo-image', () => {
   const React = require('react');
   const { View } = require('react-native');
   return {
-    Image: React.forwardRef((props: Record<string, unknown>, ref: React.Ref<typeof View>) => (
-      <View ref={ref} testID={props.testID as string} {...props} />
-    )),
+    Image: React.forwardRef(
+      (props: Record<string, unknown>, ref: React.Ref<typeof View>) => (
+        <View ref={ref} testID={props.testID as string} {...props} />
+      ),
+    ),
   };
 });
 
 describe('OptimizedImage', () => {
   it('renders without crashing', async () => {
     const { getByTestId } = await render(
-      <OptimizedImage source="https://example.com/image.jpg" testID="test-image" />,
+      <OptimizedImage
+        source="https://example.com/image.jpg"
+        testID="test-image"
+      />,
     );
     expect(getByTestId('test-image')).toBeTruthy();
   });
@@ -57,7 +62,10 @@ describe('OptimizedImage', () => {
 
   it('sets transition by default', async () => {
     const { getByTestId } = await render(
-      <OptimizedImage source="https://example.com/image.jpg" testID="transition-image" />,
+      <OptimizedImage
+        source="https://example.com/image.jpg"
+        testID="transition-image"
+      />,
     );
     expect(getByTestId('transition-image').props.transition).toBeDefined();
   });

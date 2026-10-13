@@ -49,26 +49,13 @@ type IconProps = {
   style?: object;
 };
 
-const IconComponent = ({
-  family,
-  name,
-  size,
-  color,
-  style,
-}: IconProps) => {
+const IconComponent = ({ family, name, size, color, style }: IconProps) => {
   const resolvedFamily = family ?? 'MaterialIcons';
   const Component = families[resolvedFamily];
 
   const iconSize = typeof size === 'number' ? size : iconSizes[size ?? 'md'];
 
-  return (
-    <Component
-      name={name}
-      size={iconSize}
-      color={color}
-      style={style}
-    />
-  );
+  return <Component name={name} size={iconSize} color={color} style={style} />;
 };
 
 export const Icon = React.memo(IconComponent);

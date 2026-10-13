@@ -1,43 +1,43 @@
-import { REGEX } from '@constants';
+import { z } from 'zod';
 
-/**
- * Validates an email address.
- */
+const emailSchema = z.string().trim().email();
+const passwordMinSchema = z.string().min(8);
+const strongPasswordSchema = z
+  .string()
+  .min(8)
+  .regex(/[a-z]/, 'Must contain a lowercase letter')
+  .regex(/[A-Z]/, 'Must contain an uppercase letter')
+  .regex(/\d/, 'Must contain a digit')
+  .regex(/[!@#$%^&*]/, 'Must contain a special character');
+const urlSchema = z
+  .string()
+  .trim()
+  .pipe(z.url({ protocol: /^https?$/ }));
+const phoneSchema = z
+  .string()
+  .regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number');
+const nonEmptySchema = z.string().trim().min(1);
+
 export function isValidEmail(email: string): boolean {
-  return REGEX.EMAIL.test(email.trim());
+  return emailSchema.safeParse(email).success;
 }
 
-/**
- * Validates password meets minimum length (8 chars).
- */
 export function isValidPassword(password: string): boolean {
-  return REGEX.PASSWORD_MIN_8.test(password);
+  return passwordMinSchema.safeParse(password).success;
 }
 
-/**
- * Validates a strong password (uppercase, lowercase, digit, special char, 8+).
- */
 export function isStrongPassword(password: string): boolean {
-  return REGEX.PASSWORD_STRONG.test(password);
+  return strongPasswordSchema.safeParse(password).success;
 }
 
-/**
- * Validates a URL (http/https).
- */
 export function isValidUrl(url: string): boolean {
-  return REGEX.URL.test(url.trim());
+  return urlSchema.safeParse(url).success;
 }
 
-/**
- * Validates an international phone number.
- */
 export function isValidPhone(phone: string): boolean {
-  return REGEX.PHONE_INTERNATIONAL.test(phone.replace(/[\s()-]/g, ''));
+  return phoneSchema.safeParse(phone.replace(/[\s()-]/g, '')).success;
 }
 
-/**
- * Checks if a string is non-empty after trimming.
- */
 export function isNonEmpty(value: string | null | undefined): boolean {
-  return (value?.trim().length ?? 0) > 0;
+  return nonEmptySchema.safeParse(value ?? '').success;
 }

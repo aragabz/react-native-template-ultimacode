@@ -5,8 +5,10 @@ module.exports = {
     'node_modules/(?!(react-native|@react-native|@react-navigation|@react-native-community|@tanstack|react-native-gesture-handler|react-native-screens|react-native-safe-area-context|expo|expo-.*|@expo/.*|react-native-svg)/)',
   ],
   moduleNameMapper: {
+    '^@env$': '<rootDir>/__mocks__/env.js',
     '^@api/(.*)$': '<rootDir>/src/services/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@screens$': '<rootDir>/src/screens',
     '^@screens/(.*)$': '<rootDir>/src/screens/$1',
     '^@store/(.*)$': '<rootDir>/src/store/$1',
     '^@services/(.*)$': '<rootDir>/src/services/$1',

@@ -1,7 +1,7 @@
+import { ENDPOINTS } from '@constants/config';
 import { apiClient } from '../apiClient';
 import { postSchema, postsSchema } from '../schemas';
 import type { Post } from '../schemas';
-import { ENDPOINTS } from '@constants/config';
 
 export type { Post };
 
